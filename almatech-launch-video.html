@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlmaTech – Launch Video</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ── STAGE: 9:16 at 390×844 ── */
+#stage {
+  width: 390px;
+  height: 844px;
+  position: relative;
+  overflow: hidden;
+  background: #F5EFE4;
+}
+
+/* ════════════════════════════════
+   CANVAS – particles
+════════════════════════════════ */
+#particles { position: absolute; inset: 0; z-index: 0; }
+
+/* ════════════════════════════════
+   SCENES
+════════════════════════════════ */
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  padding: 40px 36px;
+}
+.scene.active { opacity: 1; pointer-events: auto; }
+
+/* ── BG LAYERS ── */
+.bg-oat {
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 10%, rgba(29,86,207,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(213,173,54,0.08) 0%, transparent 60%),
+    linear-gradient(160deg, #F5EFE4 0%, #EEF3FF 100%);
+}
+.bg-blue {
+  background: linear-gradient(160deg, #0A0F1E 0%, #0D1630 50%, #111E3A 100%);
+}
+.bg-gold {
+  background: linear-gradient(160deg, #1a1200 0%, #2a1e00 50%, #0A0F1E 100%);
+}
+
+/* ── GLOW RING ── */
+.glow-ring {
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(29,86,207,0.25);
+  box-shadow:
+    0 0 40px rgba(29,86,207,0.15),
+    0 0 80px rgba(29,86,207,0.08),
+    inset 0 0 40px rgba(29,86,207,0.05);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 36px;
+  position: relative;
+}
+.glow-ring::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(29,86,207,0.12);
+}
+.glow-ring::after {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(29,86,207,0.07);
+}
+
+/* ── LOGO ── */
+.logo-mark {
+  width: 90px; height: 90px;
+  background: linear-gradient(135deg, #1D56CF 0%, #2563EB 100%);
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 12px 40px rgba(29,86,207,0.45), 0 0 60px rgba(29,86,207,0.2);
+}
+.logo-mark svg { width: 52px; height: 52px; }
+
+.logo-text {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #111827;
+  margin-bottom: 10px;
+}
+.logo-text span { color: #1D56CF; }
+
+.tagline-small {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6B7280;
+}
+
+/* ── SCENE 1 ANIMATIONS ── */
+#s1 .glow-ring  { animation: none; }
+#s1.active .glow-ring  { animation: ringPulse 3s ease-in-out infinite; }
+#s1.active .logo-mark  { animation: logoIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.3s both; }
+#s1.active .logo-text  { animation: fadeUp 0.6s ease 0.9s both; }
+#s1.active .tagline-small { animation: fadeUp 0.6s ease 1.1s both; }
+
+@keyframes ringPulse {
+  0%,100% { box-shadow: 0 0 40px rgba(29,86,207,0.15), 0 0 80px rgba(29,86,207,0.08), inset 0 0 40px rgba(29,86,207,0.05); }
+  50% { box-shadow: 0 0 60px rgba(29,86,207,0.28), 0 0 120px rgba(29,86,207,0.14), inset 0 0 60px rgba(29,86,207,0.08); }
+}
+@keyframes logoIn {
+  0% { opacity:0; transform: scale(0.5) rotate(-10deg); }
+  100% { opacity:1; transform: scale(1) rotate(0deg); }
+}
+@keyframes fadeUp {
+  0% { opacity:0; transform: translateY(16px); }
+  100% { opacity:1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  0% { opacity:0; transform: translateY(-16px); }
+  100% { opacity:1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  0% { opacity:0; transform: scale(0.85); }
+  100% { opacity:1; transform: scale(1); }
+}
+@keyframes slideLeft {
+  0% { opacity:0; transform: translateX(30px); }
+  100% { opacity:1; transform: translateX(0); }
+}
+@keyframes slideRight {
+  0% { opacity:0; transform: translateX(-30px); }
+  100% { opacity:1; transform: translateX(0); }
+}
+@keyframes drawLine {
+  0% { width:0; }
+  100% { width:100%; }
+}
+
+/* ════════════════════════════════
+   SCENE 2 – Big Tagline
+════════════════════════════════ */
+#s2 { text-align: center; }
+.s2-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #1D56CF; margin-bottom: 20px;
+  padding: 6px 18px; border: 1px solid rgba(29,86,207,0.25); border-radius: 100px;
+  background: rgba(29,86,207,0.06);
+}
+.s2-line { width: 40px; height: 2px; background: #1D56CF; margin: 0 auto 28px; border-radius: 2px; }
+.s2-word {
+  display: block;
+  font-size: 48px; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em;
+  color: #111827;
+}
+.s2-word.blue { color: #1D56CF; }
+.s2-word.gold { color: #D5AD36; }
+.s2-sub {
+  margin-top: 24px;
+  font-size: 13px; font-weight: 500; color: #6B7280; line-height: 1.8;
+  max-width: 280px;
+}
+
+#s2.active .s2-label  { animation: fadeDown 0.5s ease 0.2s both; }
+#s2.active .s2-line   { animation: drawLine 0.4s ease 0.5s both; }
+#s2.active .s2-w1     { animation: fadeUp 0.5s ease 0.6s both; }
+#s2.active .s2-w2     { animation: fadeUp 0.5s ease 0.75s both; }
+#s2.active .s2-w3     { animation: fadeUp 0.5s ease 0.9s both; }
+#s2.active .s2-w4     { animation: fadeUp 0.5s ease 1.05s both; }
+#s2.active .s2-sub    { animation: fadeUp 0.5s ease 1.3s both; }
+
+/* ════════════════════════════════
+   SCENE 3 – Features (dark bg)
+════════════════════════════════ */
+#s3 { align-items: flex-start; padding: 60px 32px; }
+.s3-heading {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 32px;
+}
+.feat-card {
+  width: 100%; padding: 20px 22px; border-radius: 18px; margin-bottom: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; gap: 18px;
+  backdrop-filter: blur(20px);
+}
+.feat-icon {
+  width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.feat-icon.blue { background: rgba(29,86,207,0.3); border: 1px solid rgba(29,86,207,0.4); }
+.feat-icon.gold { background: rgba(213,173,54,0.25); border: 1px solid rgba(213,173,54,0.35); }
+.feat-icon.green { background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.3); }
+.feat-icon svg { width: 22px; height: 22px; }
+.feat-name { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.feat-name sup { font-size: 9px; font-weight: 700; color: #1D56CF; vertical-align: super; }
+.feat-name .gold-text { color: #D5AD36; }
+.feat-desc { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+#s3.active .s3-heading { animation: fadeDown 0.4s ease 0.2s both; }
+#s3.active .fc1 { animation: slideLeft 0.5s ease 0.4s both; }
+#s3.active .fc2 { animation: slideLeft 0.5s ease 0.55s both; }
+#s3.active .fc3 { animation: slideLeft 0.5s ease 0.7s both; }
+
+/* ════════════════════════════════
+   SCENE 4 – Stats
+════════════════════════════════ */
+#s4 { text-align: center; }
+.s4-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 32px;
+}
+.stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; margin-bottom: 28px;
+}
+.stat-card {
+  padding: 22px 16px; border-radius: 20px; text-align: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.stat-n {
+  font-size: 34px; font-weight: 900; line-height: 1; margin-bottom: 6px;
+  letter-spacing: -0.03em;
+}
+.stat-n.blue { color: #4A8FFF; }
+.stat-n.gold { color: #D5AD36; }
+.stat-n.white { color: #fff; }
+.stat-n.green { color: #4ADE80; }
+.stat-l { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; line-height: 1.5; }
+.s4-sub { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 500; line-height: 1.8; max-width: 260px; margin: 0 auto; }
+
+#s4.active .s4-label { animation: fadeDown 0.4s ease 0.2s both; }
+#s4.active .sc1 { animation: scaleIn 0.5s ease 0.4s both; }
+#s4.active .sc2 { animation: scaleIn 0.5s ease 0.5s both; }
+#s4.active .sc3 { animation: scaleIn 0.5s ease 0.6s both; }
+#s4.active .sc4 { animation: scaleIn 0.5s ease 0.7s both; }
+#s4.active .s4-sub { animation: fadeUp 0.5s ease 0.95s both; }
+
+/* ════════════════════════════════
+   SCENE 5 – How It Works
+════════════════════════════════ */
+#s5 { align-items: flex-start; padding: 60px 32px; }
+.s5-title { font-size: 28px; font-weight: 900; color: #111827; letter-spacing: -0.025em; margin-bottom: 8px; line-height: 1.15; }
+.s5-title em { font-style: normal; color: #1D56CF; }
+.s5-sub-txt { font-size: 12px; color: #6B7280; margin-bottom: 32px; line-height: 1.7; }
+.step-row { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+.step-dot {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: #1D56CF; color: #fff;
+  font-size: 14px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(29,86,207,0.35);
+}
+.step-content {}
+.step-name { font-size: 14px; font-weight: 800; color: #111827; margin-bottom: 3px; }
+.step-desc { font-size: 11.5px; color: #6B7280; line-height: 1.6; }
+.step-connector { width: 2px; height: 16px; background: linear-gradient(to bottom, rgba(29,86,207,0.4), rgba(29,86,207,0.1)); margin-left: 19px; margin-bottom: 4px; border-radius: 2px; }
+
+#s5.active .s5-title  { animation: fadeDown 0.4s ease 0.2s both; }
+#s5.active .s5-sub-txt { animation: fadeUp 0.4s ease 0.35s both; }
+#s5.active .st1 { animation: slideRight 0.45s ease 0.5s both; }
+#s5.active .st2 { animation: slideRight 0.45s ease 0.65s both; }
+#s5.active .st3 { animation: slideRight 0.45s ease 0.8s both; }
+#s5.active .st4 { animation: slideRight 0.45s ease 0.95s both; }
+
+/* ════════════════════════════════
+   SCENE 6 – CTA
+════════════════════════════════ */
+#s6 { text-align: center; }
+.cta-ring {
+  width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 28px;
+  background: linear-gradient(135deg, rgba(29,86,207,0.2), rgba(213,173,54,0.15));
+  border: 1.5px solid rgba(29,86,207,0.3);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(29,86,207,0.2);
+}
+.cta-logo-small {
+  width: 64px; height: 64px; background: linear-gradient(135deg, #1D56CF, #2563EB);
+  border-radius: 18px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 28px rgba(29,86,207,0.45);
+}
+.cta-logo-small svg { width: 38px; height: 38px; }
+
+.cta-brand { font-size: 36px; font-weight: 900; color: #fff; letter-spacing: -0.025em; margin-bottom: 8px; }
+.cta-brand span { color: #4A8FFF; }
+.cta-tagline { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
+
+.cta-btn {
+  display: inline-block; padding: 16px 36px; border-radius: 14px;
+  background: #1D56CF; color: #fff;
+  font-size: 14px; font-weight: 800; letter-spacing: 0.02em;
+  box-shadow: 0 10px 32px rgba(29,86,207,0.5);
+  margin-bottom: 14px;
+}
+.cta-url { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 600; letter-spacing: 0.08em; }
+
+#s6.active .cta-ring     { animation: logoIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; }
+#s6.active .cta-brand    { animation: fadeUp 0.5s ease 0.7s both; }
+#s6.active .cta-tagline  { animation: fadeUp 0.5s ease 0.85s both; }
+#s6.active .cta-btn      { animation: scaleIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.0s both; }
+#s6.active .cta-url      { animation: fadeUp 0.4s ease 1.2s both; }
+
+/* ── SCENE TRANSITIONS ── */
+.scene { transition: opacity 0.7s ease; }
+.scene.out { opacity: 0; }
+
+/* ── PROGRESS BAR ── */
+#progress {
+  position: absolute; bottom: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, #1D56CF, #D5AD36);
+  z-index: 100; border-radius: 0 2px 0 0;
+  transition: width 0.1s linear;
+}
+
+/* ── SCENE DOTS ── */
+#dots {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 7px; z-index: 100;
+}
+.dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.3); transition: all 0.3s ease;
+}
+.dot.on { width: 20px; border-radius: 3px; background: #1D56CF; }
+
+/* fullscreen hint */
+#hint {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(100,100,100,0.5); z-index: 200; padding: 5px 10px;
+  background: rgba(0,0,0,0.04); border-radius: 6px;
+}
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <canvas id="particles"></canvas>
+
+  <!-- ── SCENE 1: Logo Reveal ── -->
+  <div class="scene bg-oat" id="s1">
+    <div class="glow-ring">
+      <div class="logo-mark">
+        <!-- AlmaTech "A" mark -->
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26 8L8 42H16.5L26 22L35.5 42H44L26 8Z" fill="white" fill-opacity="0.95"/>
+          <path d="M19 34H33" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="26" cy="8" r="3" fill="#D5AD36"/>
+        </svg>
+      </div>
+    </div>
+    <div class="logo-text">Alma<span>Tech</span></div>
+    <div class="tagline-small">Financial Education Platform</div>
+  </div>
+
+  <!-- ── SCENE 2: Tagline ── -->
+  <div class="scene bg-oat" id="s2">
+    <div class="s2-label">India's Future Founders</div>
+    <div class="s2-line"></div>
+    <span class="s2-word s2-w1">Building</span>
+    <span class="s2-word blue s2-w2">India's</span>
+    <span class="s2-word s2-w3">Financial</span>
+    <span class="s2-word gold s2-w4">Founders.</span>
+    <p class="s2-sub">Live financial education for Class 9 &amp; 10 students — taught by IIT &amp; IIM graduates.</p>
+  </div>
+
+  <!-- ── SCENE 3: Features ── -->
+  <div class="scene bg-blue" id="s3">
+    <div class="s3-heading">What students build</div>
+
+    <div class="feat-card fc1">
+      <div class="feat-icon gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#D5AD36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6L5.7 21.4 8 14 2 9.4h7.6z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="feat-name">Alma<span class="gold-text">Score</span><sup>™</sup></div>
+        <div class="feat-desc">0–1,000 pts · 8 levels · Newcomer to Legend</div>
+      </div>
+    </div>
+
+    <div class="feat-card fc2">
+      <div class="feat-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4A8FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <div>
+        <div class="feat-name">Alma<span style="color:#4A8FFF">Resume</span><sup>™</sup></div>
+        <div class="feat-desc">India's first school-level verified financial credential</div>
+      </div>
+    </div>
+
+    <div class="feat-card fc3">
+      <div class="feat-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0z"/>
+          <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="feat-name" style="color:#fff">Founder's Passport</div>
+        <div class="feat-desc">18 hands-on missions · real ventures · real skills</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 4: Stats ── -->
+  <div class="scene bg-blue" id="s4">
+    <div class="s4-label">The opportunity</div>
+    <div class="stats-grid">
+      <div class="stat-card sc1">
+        <div class="stat-n blue">250M</div>
+        <div class="stat-l">School Students<br>in India</div>
+      </div>
+      <div class="stat-card sc2">
+        <div class="stat-n gold">IIT &amp; IIM</div>
+        <div class="stat-l">Expert<br>Educators</div>
+      </div>
+      <div class="stat-card sc3">
+        <div class="stat-n white">2 Yrs</div>
+        <div class="stat-l">Class 9 &amp; 10<br>Program</div>
+      </div>
+      <div class="stat-card sc4">
+        <div class="stat-n green">18</div>
+        <div class="stat-l">Founder Missions<br>Completed</div>
+      </div>
+    </div>
+    <p class="s4-sub">Zero financial curriculum in Indian schools. AlmaTech is changing that.</p>
+  </div>
+
+  <!-- ── SCENE 5: How It Works ── -->
+  <div class="scene bg-oat" id="s5">
+    <div class="s5-title">From School to<br><em>Career-Ready</em></div>
+    <p class="s5-sub-txt">A 2-year journey that builds real financial skills before students ever leave school.</p>
+
+    <div class="step-row st1">
+      <div class="step-dot">1</div>
+      <div class="step-content">
+        <div class="step-name">School Partners with AlmaTech</div>
+        <div class="step-desc">Instant access to the app, live schedule &amp; Founder's Passport from day one.</div>
+      </div>
+    </div>
+    <div class="step-connector"></div>
+
+    <div class="step-row st2">
+      <div class="step-dot">2</div>
+      <div class="step-content">
+        <div class="step-name">Live Classes Twice a Week</div>
+        <div class="step-desc">IIT &amp; IIM graduates, entrepreneurs, MBAs &amp; CAs. Real Q&amp;A — zero recordings.</div>
+      </div>
+    </div>
+    <div class="step-connector"></div>
+
+    <div class="step-row st3">
+      <div class="step-dot">3</div>
+      <div class="step-content">
+        <div class="step-name">Students Earn AlmaScore™</div>
+        <div class="step-desc">Every class, quiz &amp; mission climbs the 8-level leaderboard.</div>
+      </div>
+    </div>
+    <div class="step-connector"></div>
+
+    <div class="step-row st4">
+      <div class="step-dot" style="background:#D5AD36; box-shadow:0 6px 20px rgba(213,173,54,0.4);">4</div>
+      <div class="step-content">
+        <div class="step-name">AlmaResume™ Auto-Generated</div>
+        <div class="step-desc">India's first verified school-level credential. MNC placements open.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 6: CTA ── -->
+  <div class="scene bg-blue" id="s6">
+    <div class="cta-ring">
+      <div class="cta-logo-small">
+        <svg viewBox="0 0 52 52" fill="none">
+          <path d="M26 8L8 42H16.5L26 22L35.5 42H44L26 8Z" fill="white" fill-opacity="0.95"/>
+          <path d="M19 34H33" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="26" cy="8" r="3" fill="#D5AD36"/>
+        </svg>
+      </div>
+    </div>
+    <div class="cta-brand">Alma<span>Tech</span></div>
+    <div class="cta-tagline">Building India's Financial Founders</div>
+    <div class="cta-btn">Enroll Your School →</div>
+    <div class="cta-url">almatech.co.in</div>
+  </div>
+
+  <!-- Progress & dots -->
+  <div id="progress" style="width:0%"></div>
+  <div id="dots">
+    <div class="dot on" id="d0"></div>
+    <div class="dot" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d4"></div>
+    <div class="dot" id="d5"></div>
+  </div>
+  <div id="hint">screen record me</div>
+</div>
+
+<script>
+/* ── PARTICLE SYSTEM ── */
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = 390; canvas.height = 844;
+
+const particles = [];
+function makeParticle(dark) {
+  return {
+    x: Math.random() * 390,
+    y: 844 + Math.random() * 100,
+    r: Math.random() * 2 + 0.5,
+    speed: Math.random() * 0.6 + 0.2,
+    opacity: Math.random() * 0.4 + 0.05,
+    color: dark
+      ? (Math.random() > 0.6 ? '#D5AD36' : '#4A8FFF')
+      : (Math.random() > 0.7 ? '#D5AD36' : '#1D56CF'),
+    drift: (Math.random() - 0.5) * 0.3
+  };
+}
+
+let darkMode = false;
+for (let i = 0; i < 55; i++) particles.push(makeParticle(false));
+
+function animateParticles() {
+  ctx.clearRect(0, 0, 390, 844);
+  for (const p of particles) {
+    p.y -= p.speed;
+    p.x += p.drift;
+    p.opacity += (Math.random() - 0.5) * 0.005;
+    p.opacity = Math.max(0.02, Math.min(0.5, p.opacity));
+    if (p.y < -10) {
+      p.y = 854; p.x = Math.random() * 390;
+      Object.assign(p, makeParticle(darkMode));
+    }
+    ctx.save();
+    ctx.globalAlpha = p.opacity;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* ── SCENE CONTROLLER ── */
+const scenes   = ['s1','s2','s3','s4','s5','s6'];
+const durations = [4500, 5000, 5500, 5000, 6000, 5000]; // ms per scene
+const darkScenes = new Set(['s3','s4','s6']);
+let current = 0;
+let elapsed = 0;
+let lastTime = null;
+
+function showScene(i) {
+  scenes.forEach((id, idx) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active', 'out');
+    if (idx === i) el.classList.add('active');
+  });
+  // dots
+  scenes.forEach((_, idx) => {
+    document.getElementById('d' + idx).className = 'dot' + (idx === i ? ' on' : '');
+  });
+  darkMode = darkScenes.has(scenes[i]);
+}
+
+function tick(ts) {
+  if (!lastTime) lastTime = ts;
+  const dt = ts - lastTime;
+  lastTime = ts;
+  elapsed += dt;
+
+  const total = durations[current];
+  const pct = Math.min(elapsed / total, 1);
+
+  // cumulative progress
+  let cumPrev = 0;
+  for (let i = 0; i < current; i++) cumPrev += durations[i];
+  const totalAll = durations.reduce((a,b) => a+b, 0);
+  const globalPct = ((cumPrev + elapsed) / totalAll) * 100;
+  document.getElementById('progress').style.width = globalPct + '%';
+
+  if (elapsed >= total) {
+    elapsed = 0;
+    if (current < scenes.length - 1) {
+      current++;
+      showScene(current);
+    } else {
+      // loop back
+      current = 0;
+      elapsed = 0;
+      showScene(0);
+      document.getElementById('progress').style.width = '0%';
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+showScene(0);
+requestAnimationFrame(tick);
+
+/* click to advance */
+document.getElementById('stage').addEventListener('click', () => {
+  elapsed = 0;
+  current = (current + 1) % scenes.length;
+  showScene(current);
+  if (current === 0) document.getElementById('progress').style.width = '0%';
+});
+</script>
+</body>
+</html>
