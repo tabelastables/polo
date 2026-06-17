@@ -3,515 +3,660 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AlmaTech – Launch Video</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>AlmaTech – Launch</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Montserrat',sans-serif}
 
-body {
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  font-family: 'Montserrat', sans-serif;
+#stage{
+  width:390px;height:844px;
+  position:relative;overflow:hidden;
+  background:#06091A;
 }
 
-/* ── STAGE: 9:16 at 390×844 ── */
-#stage {
-  width: 390px;
-  height: 844px;
-  position: relative;
-  overflow: hidden;
-  background: #F5EFE4;
+/* ── GRAIN OVERLAY ── */
+#stage::after{
+  content:'';position:absolute;inset:0;z-index:500;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.35;mix-blend-mode:overlay;
 }
 
-/* ════════════════════════════════
-   CANVAS – particles
-════════════════════════════════ */
-#particles { position: absolute; inset: 0; z-index: 0; }
+/* ── CANVAS ── */
+#canvas{position:absolute;inset:0;z-index:1}
 
-/* ════════════════════════════════
-   SCENES
-════════════════════════════════ */
-.scene {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 10;
-  padding: 40px 36px;
+/* ── SCENES ── */
+.scene{
+  position:absolute;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 32px;
+  opacity:0;transform:scale(1.04);
+  transition:opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  pointer-events:none;
 }
-.scene.active { opacity: 1; pointer-events: auto; }
+.scene.active{opacity:1;transform:scale(1);pointer-events:auto}
+.scene.exit{opacity:0;transform:scale(0.97)}
 
-/* ── BG LAYERS ── */
-.bg-oat {
+/* ═══════════════════════════════
+   SCENE 1 — LOGO REVEAL
+═══════════════════════════════ */
+#s1{justify-content:center}
+
+.s1-bg{
+  position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 50% at 80% 10%, rgba(29,86,207,0.10) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(213,173,54,0.08) 0%, transparent 60%),
-    linear-gradient(160deg, #F5EFE4 0%, #EEF3FF 100%);
-}
-.bg-blue {
-  background: linear-gradient(160deg, #0A0F1E 0%, #0D1630 50%, #111E3A 100%);
-}
-.bg-gold {
-  background: linear-gradient(160deg, #1a1200 0%, #2a1e00 50%, #0A0F1E 100%);
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(29,86,207,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(213,173,54,0.08) 0%, transparent 55%),
+    linear-gradient(180deg, #06091A 0%, #0A0F2E 50%, #06091A 100%);
 }
 
-/* ── GLOW RING ── */
-.glow-ring {
-  width: 220px; height: 220px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(29,86,207,0.25);
+.logo-outer{
+  width:200px;height:200px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;margin-bottom:40px;
+}
+.logo-outer::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(29,86,207,0) 0%, rgba(29,86,207,0.6) 25%, rgba(213,173,54,0.8) 50%, rgba(29,86,207,0.6) 75%, rgba(29,86,207,0) 100%);
+  animation:spinRing 4s linear infinite;
+}
+.logo-outer::after{
+  content:'';position:absolute;inset:3px;border-radius:50%;
+  background:#06091A;
+}
+@keyframes spinRing{to{transform:rotate(360deg)}}
+
+.logo-inner{
+  width:170px;height:170px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  background:radial-gradient(circle at 40% 35%, rgba(29,86,207,0.25) 0%, transparent 60%);
+}
+.logo-box{
+  width:88px;height:88px;border-radius:22px;
+  background:linear-gradient(135deg, #1D56CF 0%, #1644AA 100%);
+  display:flex;align-items:center;justify-content:center;
   box-shadow:
-    0 0 40px rgba(29,86,207,0.15),
-    0 0 80px rgba(29,86,207,0.08),
-    inset 0 0 40px rgba(29,86,207,0.05);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 36px;
-  position: relative;
+    0 0 0 1px rgba(255,255,255,0.12),
+    0 20px 60px rgba(29,86,207,0.6),
+    0 0 80px rgba(29,86,207,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  position:relative;overflow:hidden;
 }
-.glow-ring::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 1px solid rgba(29,86,207,0.12);
+.logo-box::after{
+  content:'';position:absolute;top:-50%;left:-60%;
+  width:60%;height:200%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+  animation:sheen 3s ease-in-out 1s infinite;
 }
-.glow-ring::after {
-  content: '';
-  position: absolute;
-  inset: -18px;
-  border-radius: 50%;
-  border: 0.5px solid rgba(29,86,207,0.07);
+@keyframes sheen{0%,100%{left:-60%}50%{left:120%}}
+
+.s1-name{
+  font-size:46px;font-weight:900;letter-spacing:-0.04em;
+  color:#fff;margin-bottom:10px;text-align:center;
+  text-shadow:0 0 60px rgba(29,86,207,0.4);
+}
+.s1-name span{
+  background:linear-gradient(135deg,#1D56CF,#4A90E2);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.s1-sub{
+  font-size:10px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+}
+.s1-line{
+  width:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(213,173,54,0.8),transparent);
+  margin:16px auto 16px;
+  animation:none;
+}
+#s1.active .s1-line{animation:expandLine 1s ease 1.5s both}
+@keyframes expandLine{to{width:120px}}
+
+#s1.active .logo-outer{animation:zoomIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.1s both}
+#s1.active .s1-name   {animation:fadeUp 0.6s ease 0.8s both}
+#s1.active .s1-sub    {animation:fadeUp 0.6s ease 1.1s both}
+
+/* ═══════════════════════════════
+   SCENE 2 — BIG TAGLINE
+═══════════════════════════════ */
+#s2{text-align:center}
+.s2-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 60%, rgba(213,173,54,0.09) 0%, transparent 65%),
+    linear-gradient(180deg, #06091A 0%, #0D1020 100%);
+}
+.s2-eyebrow{
+  font-size:9px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;
+  color:rgba(213,173,54,0.7);margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.s2-eyebrow::before,.s2-eyebrow::after{content:'';flex:1;height:1px;background:rgba(213,173,54,0.2)}
+.s2-headline{width:100%;margin-bottom:28px}
+.s2-word{
+  display:block;
+  font-size:56px;font-weight:900;line-height:0.95;letter-spacing:-0.04em;
+  color:#fff;
+}
+.s2-word.accent{
+  background:linear-gradient(135deg,#D5AD36 0%,#F0CB58 40%,#D5AD36 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s2-word.blue-grad{
+  background:linear-gradient(135deg,#4A90E2 0%,#1D56CF 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s2-desc{
+  font-size:13px;font-weight:500;color:rgba(255,255,255,0.4);line-height:1.8;
+  max-width:270px;margin:0 auto;
 }
 
-/* ── LOGO ── */
-.logo-mark {
-  width: 90px; height: 90px;
-  background: linear-gradient(135deg, #1D56CF 0%, #2563EB 100%);
-  border-radius: 24px;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 12px 40px rgba(29,86,207,0.45), 0 0 60px rgba(29,86,207,0.2);
-}
-.logo-mark svg { width: 52px; height: 52px; }
-
-.logo-text {
-  font-size: 42px;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  color: #111827;
-  margin-bottom: 10px;
-}
-.logo-text span { color: #1D56CF; }
-
-.tagline-small {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #6B7280;
+#s2.active .s2-eyebrow{animation:fadeDown 0.5s ease 0.2s both}
+#s2.active .s2-w1{animation:charIn 0.6s cubic-bezier(0.22,1,0.36,1) 0.35s both}
+#s2.active .s2-w2{animation:charIn 0.6s cubic-bezier(0.22,1,0.36,1) 0.5s both}
+#s2.active .s2-w3{animation:charIn 0.6s cubic-bezier(0.22,1,0.36,1) 0.65s both}
+#s2.active .s2-w4{animation:charIn 0.6s cubic-bezier(0.22,1,0.36,1) 0.8s both}
+#s2.active .s2-desc{animation:fadeUp 0.5s ease 1.1s both}
+@keyframes charIn{
+  0%{opacity:0;transform:translateY(30px) skewY(3deg)}
+  100%{opacity:1;transform:translateY(0) skewY(0)}
 }
 
-/* ── SCENE 1 ANIMATIONS ── */
-#s1 .glow-ring  { animation: none; }
-#s1.active .glow-ring  { animation: ringPulse 3s ease-in-out infinite; }
-#s1.active .logo-mark  { animation: logoIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.3s both; }
-#s1.active .logo-text  { animation: fadeUp 0.6s ease 0.9s both; }
-#s1.active .tagline-small { animation: fadeUp 0.6s ease 1.1s both; }
+/* ═══════════════════════════════
+   SCENE 3 — FEATURES LUXURY
+═══════════════════════════════ */
+#s3{align-items:stretch;padding:52px 28px;justify-content:flex-start}
+.s3-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#08111E 0%,#0A1628 50%,#06091A 100%);
+}
+.s3-top{margin-bottom:28px}
+.s3-label{
+  font-size:9px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;
+  color:rgba(213,173,54,0.6);margin-bottom:8px;
+}
+.s3-heading{
+  font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1.1;
+}
+.s3-heading em{font-style:normal;color:#4A90E2}
 
-@keyframes ringPulse {
-  0%,100% { box-shadow: 0 0 40px rgba(29,86,207,0.15), 0 0 80px rgba(29,86,207,0.08), inset 0 0 40px rgba(29,86,207,0.05); }
-  50% { box-shadow: 0 0 60px rgba(29,86,207,0.28), 0 0 120px rgba(29,86,207,0.14), inset 0 0 60px rgba(29,86,207,0.08); }
+.feat{
+  padding:18px 20px;border-radius:20px;margin-bottom:12px;
+  display:flex;align-items:center;gap:16px;
+  position:relative;overflow:hidden;
 }
-@keyframes logoIn {
-  0% { opacity:0; transform: scale(0.5) rotate(-10deg); }
-  100% { opacity:1; transform: scale(1) rotate(0deg); }
+.feat::before{
+  content:'';position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
 }
-@keyframes fadeUp {
-  0% { opacity:0; transform: translateY(16px); }
-  100% { opacity:1; transform: translateY(0); }
+.feat-border{
+  position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.03));
+  mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite:exclude;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  padding:1px;
 }
-@keyframes fadeDown {
-  0% { opacity:0; transform: translateY(-16px); }
-  100% { opacity:1; transform: translateY(0); }
+.feat.gold-feat{ background:rgba(213,173,54,0.07) }
+.feat.blue-feat{ background:rgba(29,86,207,0.08) }
+.feat.green-feat{ background:rgba(34,197,94,0.06) }
+
+.feat-icon-wrap{
+  width:52px;height:52px;border-radius:16px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;position:relative;
 }
-@keyframes scaleIn {
-  0% { opacity:0; transform: scale(0.85); }
-  100% { opacity:1; transform: scale(1); }
+.feat-icon-wrap.gold{background:rgba(213,173,54,0.15);box-shadow:0 0 20px rgba(213,173,54,0.15)}
+.feat-icon-wrap.blue{background:rgba(29,86,207,0.2);box-shadow:0 0 20px rgba(29,86,207,0.2)}
+.feat-icon-wrap.green{background:rgba(34,197,94,0.12);box-shadow:0 0 20px rgba(34,197,94,0.1)}
+.feat-icon-wrap svg{width:24px;height:24px}
+
+.feat-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px;letter-spacing:-0.01em}
+.feat-title sup{font-size:8px;color:rgba(255,255,255,0.5);vertical-align:super}
+.feat-sub{font-size:10.5px;color:rgba(255,255,255,0.38);line-height:1.5;font-weight:500}
+
+.feat-number{
+  margin-left:auto;font-size:26px;font-weight:900;letter-spacing:-0.03em;flex-shrink:0;
 }
-@keyframes slideLeft {
-  0% { opacity:0; transform: translateX(30px); }
-  100% { opacity:1; transform: translateX(0); }
+.feat-number.gold-n{
+  background:linear-gradient(135deg,#D5AD36,#F0CB58);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-@keyframes slideRight {
-  0% { opacity:0; transform: translateX(-30px); }
-  100% { opacity:1; transform: translateX(0); }
-}
-@keyframes drawLine {
-  0% { width:0; }
-  100% { width:100%; }
+.feat-number.blue-n{color:rgba(74,144,226,0.9)}
+.feat-number.green-n{color:rgba(74,222,128,0.9)}
+
+#s3.active .s3-top{animation:fadeDown 0.5s ease 0.2s both}
+#s3.active .f1{animation:slideInRight 0.55s cubic-bezier(0.22,1,0.36,1) 0.4s both}
+#s3.active .f2{animation:slideInRight 0.55s cubic-bezier(0.22,1,0.36,1) 0.55s both}
+#s3.active .f3{animation:slideInRight 0.55s cubic-bezier(0.22,1,0.36,1) 0.7s both}
+@keyframes slideInRight{
+  0%{opacity:0;transform:translateX(40px)}
+  100%{opacity:1;transform:translateX(0)}
 }
 
-/* ════════════════════════════════
-   SCENE 2 – Big Tagline
-════════════════════════════════ */
-#s2 { text-align: center; }
-.s2-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: #1D56CF; margin-bottom: 20px;
-  padding: 6px 18px; border: 1px solid rgba(29,86,207,0.25); border-radius: 100px;
-  background: rgba(29,86,207,0.06);
+/* ═══════════════════════════════
+   SCENE 4 — STATS COUNTER
+═══════════════════════════════ */
+#s4{text-align:center}
+.s4-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(29,86,207,0.18) 0%, transparent 65%),
+    linear-gradient(180deg, #06091A 0%, #080D20 100%);
 }
-.s2-line { width: 40px; height: 2px; background: #1D56CF; margin: 0 auto 28px; border-radius: 2px; }
-.s2-word {
-  display: block;
-  font-size: 48px; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em;
-  color: #111827;
+.s4-eyebrow{
+  font-size:9px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);margin-bottom:32px;
 }
-.s2-word.blue { color: #1D56CF; }
-.s2-word.gold { color: #D5AD36; }
-.s2-sub {
-  margin-top: 24px;
-  font-size: 13px; font-weight: 500; color: #6B7280; line-height: 1.8;
-  max-width: 280px;
+.stats-wrap{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.stat{
+  padding:26px 16px;border-radius:22px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.stat::before{
+  content:'';position:absolute;inset:0;border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.08);
+}
+.stat.s-blue::before{border-color:rgba(29,86,207,0.25);background:linear-gradient(135deg,rgba(29,86,207,0.12),rgba(29,86,207,0.03))}
+.stat.s-gold::before{border-color:rgba(213,173,54,0.25);background:linear-gradient(135deg,rgba(213,173,54,0.1),rgba(213,173,54,0.02))}
+.stat.s-green::before{border-color:rgba(34,197,94,0.2);background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(34,197,94,0.01))}
+.stat.s-white::before{border-color:rgba(255,255,255,0.12)}
+
+.stat-glow{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:80px;height:2px;border-radius:0 0 4px 4px;
+}
+.s-blue .stat-glow{background:rgba(29,86,207,0.8);box-shadow:0 0 20px rgba(29,86,207,0.6)}
+.s-gold .stat-glow{background:rgba(213,173,54,0.8);box-shadow:0 0 20px rgba(213,173,54,0.6)}
+.s-green .stat-glow{background:rgba(34,197,94,0.7);box-shadow:0 0 20px rgba(34,197,94,0.5)}
+.s-white .stat-glow{background:rgba(255,255,255,0.4);box-shadow:0 0 15px rgba(255,255,255,0.2)}
+
+.stat-val{
+  font-size:36px;font-weight:900;line-height:1;margin-bottom:8px;letter-spacing:-0.04em;
+  position:relative;z-index:1;
+}
+.s-blue .stat-val{
+  background:linear-gradient(135deg,#4A8FFF,#1D56CF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s-gold .stat-val{
+  background:linear-gradient(135deg,#F0CB58,#D5AD36);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s-green .stat-val{color:#4ADE80}
+.s-white .stat-val{color:#fff}
+.stat-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.08em;text-transform:uppercase;line-height:1.6;position:relative;z-index:1}
+
+.s4-quote{
+  font-size:13px;font-style:italic;color:rgba(255,255,255,0.3);
+  line-height:1.8;max-width:270px;margin:0 auto;font-weight:400;
 }
 
-#s2.active .s2-label  { animation: fadeDown 0.5s ease 0.2s both; }
-#s2.active .s2-line   { animation: drawLine 0.4s ease 0.5s both; }
-#s2.active .s2-w1     { animation: fadeUp 0.5s ease 0.6s both; }
-#s2.active .s2-w2     { animation: fadeUp 0.5s ease 0.75s both; }
-#s2.active .s2-w3     { animation: fadeUp 0.5s ease 0.9s both; }
-#s2.active .s2-w4     { animation: fadeUp 0.5s ease 1.05s both; }
-#s2.active .s2-sub    { animation: fadeUp 0.5s ease 1.3s both; }
-
-/* ════════════════════════════════
-   SCENE 3 – Features (dark bg)
-════════════════════════════════ */
-#s3 { align-items: flex-start; padding: 60px 32px; }
-.s3-heading {
-  font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(255,255,255,0.45); margin-bottom: 32px;
+#s4.active .s4-eyebrow{animation:fadeDown 0.4s ease 0.2s both}
+#s4.active .st1{animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.35s both}
+#s4.active .st2{animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.45s both}
+#s4.active .st3{animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.55s both}
+#s4.active .st4{animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.65s both}
+#s4.active .s4-quote{animation:fadeUp 0.5s ease 0.9s both}
+@keyframes popIn{
+  0%{opacity:0;transform:scale(0.7)}
+  100%{opacity:1;transform:scale(1)}
 }
-.feat-card {
-  width: 100%; padding: 20px 22px; border-radius: 18px; margin-bottom: 14px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  display: flex; align-items: center; gap: 18px;
-  backdrop-filter: blur(20px);
-}
-.feat-icon {
-  width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-}
-.feat-icon.blue { background: rgba(29,86,207,0.3); border: 1px solid rgba(29,86,207,0.4); }
-.feat-icon.gold { background: rgba(213,173,54,0.25); border: 1px solid rgba(213,173,54,0.35); }
-.feat-icon.green { background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.3); }
-.feat-icon svg { width: 22px; height: 22px; }
-.feat-name { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 3px; }
-.feat-name sup { font-size: 9px; font-weight: 700; color: #1D56CF; vertical-align: super; }
-.feat-name .gold-text { color: #D5AD36; }
-.feat-desc { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
-#s3.active .s3-heading { animation: fadeDown 0.4s ease 0.2s both; }
-#s3.active .fc1 { animation: slideLeft 0.5s ease 0.4s both; }
-#s3.active .fc2 { animation: slideLeft 0.5s ease 0.55s both; }
-#s3.active .fc3 { animation: slideLeft 0.5s ease 0.7s both; }
-
-/* ════════════════════════════════
-   SCENE 4 – Stats
-════════════════════════════════ */
-#s4 { text-align: center; }
-.s4-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); margin-bottom: 32px;
+/* ═══════════════════════════════
+   SCENE 5 — JOURNEY TIMELINE
+═══════════════════════════════ */
+#s5{align-items:flex-start;padding:52px 28px;justify-content:flex-start}
+.s5-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 100% 50%, rgba(213,173,54,0.06) 0%, transparent 55%),
+    linear-gradient(160deg,#06091A 0%,#0A0F2E 100%);
 }
-.stats-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; margin-bottom: 28px;
+.s5-title{
+  font-size:30px;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1.1;
+  margin-bottom:6px;
 }
-.stat-card {
-  padding: 22px 16px; border-radius: 20px; text-align: center;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
+.s5-title em{font-style:normal;background:linear-gradient(135deg,#D5AD36,#F0CB58);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.s5-sub{font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:36px;line-height:1.7}
+
+.timeline{width:100%;position:relative}
+.timeline::before{
+  content:'';position:absolute;left:22px;top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom, rgba(29,86,207,0.6), rgba(213,173,54,0.3), transparent);
 }
-.stat-n {
-  font-size: 34px; font-weight: 900; line-height: 1; margin-bottom: 6px;
-  letter-spacing: -0.03em;
+.tstep{display:flex;gap:18px;margin-bottom:22px;position:relative}
+.tstep-dot{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:900;color:#fff;position:relative;z-index:2;
 }
-.stat-n.blue { color: #4A8FFF; }
-.stat-n.gold { color: #D5AD36; }
-.stat-n.white { color: #fff; }
-.stat-n.green { color: #4ADE80; }
-.stat-l { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; line-height: 1.5; }
-.s4-sub { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 500; line-height: 1.8; max-width: 260px; margin: 0 auto; }
+.tstep-dot.d1{background:linear-gradient(135deg,#1D56CF,#2563EB);box-shadow:0 0 20px rgba(29,86,207,0.5)}
+.tstep-dot.d2{background:linear-gradient(135deg,#1644AA,#1D56CF);box-shadow:0 0 18px rgba(29,86,207,0.35)}
+.tstep-dot.d3{background:linear-gradient(135deg,#0e3a8c,#1D56CF);box-shadow:0 0 16px rgba(29,86,207,0.25)}
+.tstep-dot.d4{background:linear-gradient(135deg,#D5AD36,#F0CB58);box-shadow:0 0 24px rgba(213,173,54,0.5)}
+.tstep-body{padding-top:10px}
+.tstep-yr{font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:4px}
+.tstep-name{font-size:15px;font-weight:800;color:#fff;margin-bottom:3px;letter-spacing:-0.01em}
+.tstep-desc{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.6}
 
-#s4.active .s4-label { animation: fadeDown 0.4s ease 0.2s both; }
-#s4.active .sc1 { animation: scaleIn 0.5s ease 0.4s both; }
-#s4.active .sc2 { animation: scaleIn 0.5s ease 0.5s both; }
-#s4.active .sc3 { animation: scaleIn 0.5s ease 0.6s both; }
-#s4.active .sc4 { animation: scaleIn 0.5s ease 0.7s both; }
-#s4.active .s4-sub { animation: fadeUp 0.5s ease 0.95s both; }
+#s5.active .s5-title{animation:fadeDown 0.5s ease 0.2s both}
+#s5.active .s5-sub{animation:fadeUp 0.4s ease 0.35s both}
+#s5.active .ts1{animation:slideInRight 0.5s ease 0.5s both}
+#s5.active .ts2{animation:slideInRight 0.5s ease 0.65s both}
+#s5.active .ts3{animation:slideInRight 0.5s ease 0.8s both}
+#s5.active .ts4{animation:slideInRight 0.5s ease 0.95s both}
 
-/* ════════════════════════════════
-   SCENE 5 – How It Works
-════════════════════════════════ */
-#s5 { align-items: flex-start; padding: 60px 32px; }
-.s5-title { font-size: 28px; font-weight: 900; color: #111827; letter-spacing: -0.025em; margin-bottom: 8px; line-height: 1.15; }
-.s5-title em { font-style: normal; color: #1D56CF; }
-.s5-sub-txt { font-size: 12px; color: #6B7280; margin-bottom: 32px; line-height: 1.7; }
-.step-row { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
-.step-dot {
-  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
-  background: #1D56CF; color: #fff;
-  font-size: 14px; font-weight: 900;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 20px rgba(29,86,207,0.35);
+/* ═══════════════════════════════
+   SCENE 6 — CTA FINAL
+═══════════════════════════════ */
+#s6{text-align:center;justify-content:center}
+.s6-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 50%, rgba(29,86,207,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 80%, rgba(213,173,54,0.08) 0%, transparent 55%),
+    linear-gradient(180deg,#06091A 0%,#0A0F2E 50%,#06091A 100%);
 }
-.step-content {}
-.step-name { font-size: 14px; font-weight: 800; color: #111827; margin-bottom: 3px; }
-.step-desc { font-size: 11.5px; color: #6B7280; line-height: 1.6; }
-.step-connector { width: 2px; height: 16px; background: linear-gradient(to bottom, rgba(29,86,207,0.4), rgba(29,86,207,0.1)); margin-left: 19px; margin-bottom: 4px; border-radius: 2px; }
 
-#s5.active .s5-title  { animation: fadeDown 0.4s ease 0.2s both; }
-#s5.active .s5-sub-txt { animation: fadeUp 0.4s ease 0.35s both; }
-#s5.active .st1 { animation: slideRight 0.45s ease 0.5s both; }
-#s5.active .st2 { animation: slideRight 0.45s ease 0.65s both; }
-#s5.active .st3 { animation: slideRight 0.45s ease 0.8s both; }
-#s5.active .st4 { animation: slideRight 0.45s ease 0.95s both; }
-
-/* ════════════════════════════════
-   SCENE 6 – CTA
-════════════════════════════════ */
-#s6 { text-align: center; }
-.cta-ring {
-  width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 28px;
-  background: linear-gradient(135deg, rgba(29,86,207,0.2), rgba(213,173,54,0.15));
-  border: 1.5px solid rgba(29,86,207,0.3);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 60px rgba(29,86,207,0.2);
+.s6-orb{
+  width:240px;height:240px;border-radius:50%;
+  position:relative;margin:0 auto 36px;
+  display:flex;align-items:center;justify-content:center;
 }
-.cta-logo-small {
-  width: 64px; height: 64px; background: linear-gradient(135deg, #1D56CF, #2563EB);
-  border-radius: 18px; display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 28px rgba(29,86,207,0.45);
+.s6-orb-ring1{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(29,86,207,0.35);
+  animation:orbPulse1 3s ease-in-out infinite;
 }
-.cta-logo-small svg { width: 38px; height: 38px; }
-
-.cta-brand { font-size: 36px; font-weight: 900; color: #fff; letter-spacing: -0.025em; margin-bottom: 8px; }
-.cta-brand span { color: #4A8FFF; }
-.cta-tagline { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
-
-.cta-btn {
-  display: inline-block; padding: 16px 36px; border-radius: 14px;
-  background: #1D56CF; color: #fff;
-  font-size: 14px; font-weight: 800; letter-spacing: 0.02em;
-  box-shadow: 0 10px 32px rgba(29,86,207,0.5);
-  margin-bottom: 14px;
+.s6-orb-ring2{
+  position:absolute;inset:18px;border-radius:50%;
+  border:1px solid rgba(213,173,54,0.2);
+  animation:orbPulse2 3s ease-in-out 0.5s infinite;
 }
-.cta-url { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 600; letter-spacing: 0.08em; }
+.s6-orb-ring3{
+  position:absolute;inset:36px;border-radius:50%;
+  border:0.5px solid rgba(29,86,207,0.15);
+  animation:orbPulse1 3s ease-in-out 1s infinite;
+}
+.s6-orb-core{
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%, rgba(29,86,207,0.4) 0%, rgba(6,9,26,0.9) 100%);
+  border:1px solid rgba(29,86,207,0.4);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 60px rgba(29,86,207,0.35),inset 0 0 30px rgba(29,86,207,0.15);
+  position:relative;z-index:2;
+}
+.s6-logo-box{
+  width:64px;height:64px;border-radius:18px;
+  background:linear-gradient(135deg,#1D56CF,#1644AA);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(29,86,207,0.6),inset 0 1px 0 rgba(255,255,255,0.2);
+  position:relative;overflow:hidden;
+}
+.s6-logo-box::after{
+  content:'';position:absolute;top:-50%;left:-60%;
+  width:60%;height:200%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
+  animation:sheen 2.5s ease-in-out 1.5s infinite;
+}
+@keyframes orbPulse1{0%,100%{box-shadow:0 0 0 0 rgba(29,86,207,0.1)}50%{box-shadow:0 0 40px 10px rgba(29,86,207,0.08)}}
+@keyframes orbPulse2{0%,100%{box-shadow:0 0 0 0 rgba(213,173,54,0.08)}50%{box-shadow:0 0 30px 8px rgba(213,173,54,0.06)}}
 
-#s6.active .cta-ring     { animation: logoIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; }
-#s6.active .cta-brand    { animation: fadeUp 0.5s ease 0.7s both; }
-#s6.active .cta-tagline  { animation: fadeUp 0.5s ease 0.85s both; }
-#s6.active .cta-btn      { animation: scaleIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.0s both; }
-#s6.active .cta-url      { animation: fadeUp 0.4s ease 1.2s both; }
+.s6-name{
+  font-size:48px;font-weight:900;letter-spacing:-0.04em;color:#fff;margin-bottom:6px;
+}
+.s6-name span{
+  background:linear-gradient(135deg,#4A8FFF,#1D56CF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s6-tagline{
+  font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);margin-bottom:36px;
+}
 
-/* ── SCENE TRANSITIONS ── */
-.scene { transition: opacity 0.7s ease; }
-.scene.out { opacity: 0; }
+.s6-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 36px;border-radius:16px;margin-bottom:16px;
+  background:linear-gradient(135deg,#1D56CF,#1644AA);
+  color:#fff;font-size:14px;font-weight:800;letter-spacing:0.03em;
+  box-shadow:0 12px 40px rgba(29,86,207,0.55),0 0 0 1px rgba(255,255,255,0.1),inset 0 1px 0 rgba(255,255,255,0.15);
+  position:relative;overflow:hidden;
+}
+.s6-btn::after{
+  content:'';position:absolute;top:-50%;left:-60%;
+  width:50%;height:200%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
+  animation:sheen 2s ease-in-out 2s infinite;
+}
+.s6-url{font-size:11px;color:rgba(255,255,255,0.25);font-weight:600;letter-spacing:0.12em}
+
+#s6.active .s6-orb{animation:zoomIn 0.7s cubic-bezier(0.34,1.3,0.64,1) 0.1s both}
+#s6.active .s6-name{animation:fadeUp 0.5s ease 0.7s both}
+#s6.active .s6-tagline{animation:fadeUp 0.5s ease 0.85s both}
+#s6.active .s6-btn{animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 1.05s both}
+#s6.active .s6-url{animation:fadeUp 0.4s ease 1.25s both}
+
+/* ── SHARED KEYFRAMES ── */
+@keyframes zoomIn{0%{opacity:0;transform:scale(0.6)}100%{opacity:1;transform:scale(1)}}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{0%{opacity:0;transform:translateY(-14px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes expandLine{0%{width:0}100%{width:120px}}
 
 /* ── PROGRESS BAR ── */
-#progress {
-  position: absolute; bottom: 0; left: 0; height: 3px;
-  background: linear-gradient(90deg, #1D56CF, #D5AD36);
-  z-index: 100; border-radius: 0 2px 0 0;
-  transition: width 0.1s linear;
+#progress{
+  position:absolute;bottom:0;left:0;height:2px;
+  background:linear-gradient(90deg,#1D56CF,#4A8FFF,#D5AD36);
+  z-index:200;transition:width 0.1s linear;
+  box-shadow:0 0 10px rgba(29,86,207,0.8);
 }
 
 /* ── SCENE DOTS ── */
-#dots {
-  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 7px; z-index: 100;
+#dots{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;z-index:200;
 }
-.dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(255,255,255,0.3); transition: all 0.3s ease;
-}
-.dot.on { width: 20px; border-radius: 3px; background: #1D56CF; }
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.18);transition:all 0.35s ease}
+.dot.on{width:22px;border-radius:3px;background:linear-gradient(90deg,#1D56CF,#4A8FFF);box-shadow:0 0 8px rgba(29,86,207,0.6)}
 
-/* fullscreen hint */
-#hint {
-  position: absolute; top: 14px; right: 14px;
-  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(100,100,100,0.5); z-index: 200; padding: 5px 10px;
-  background: rgba(0,0,0,0.04); border-radius: 6px;
+/* ── HINT ── */
+#hint{
+  position:absolute;top:16px;right:16px;z-index:300;
+  font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.18);padding:5px 10px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;
 }
 </style>
 </head>
 <body>
 
 <div id="stage">
-  <canvas id="particles"></canvas>
+  <canvas id="canvas"></canvas>
 
-  <!-- ── SCENE 1: Logo Reveal ── -->
-  <div class="scene bg-oat" id="s1">
-    <div class="glow-ring">
-      <div class="logo-mark">
-        <!-- AlmaTech "A" mark -->
-        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M26 8L8 42H16.5L26 22L35.5 42H44L26 8Z" fill="white" fill-opacity="0.95"/>
-          <path d="M19 34H33" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-          <circle cx="26" cy="8" r="3" fill="#D5AD36"/>
-        </svg>
+  <!-- SCENE 1: LOGO REVEAL -->
+  <div class="scene" id="s1">
+    <div class="s1-bg"></div>
+    <div class="logo-outer">
+      <div class="logo-inner">
+        <div class="logo-box">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+            <path d="M26 8L8 42H16.5L26 22L35.5 42H44L26 8Z" fill="white" fill-opacity="0.96"/>
+            <line x1="19" y1="34" x2="33" y2="34" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="26" cy="8" r="3.5" fill="#D5AD36"/>
+          </svg>
+        </div>
       </div>
     </div>
-    <div class="logo-text">Alma<span>Tech</span></div>
-    <div class="tagline-small">Financial Education Platform</div>
+    <div class="s1-name">Alma<span>Tech</span></div>
+    <div class="s1-line"></div>
+    <div class="s1-sub">Financial Education Platform · India</div>
   </div>
 
-  <!-- ── SCENE 2: Tagline ── -->
-  <div class="scene bg-oat" id="s2">
-    <div class="s2-label">India's Future Founders</div>
-    <div class="s2-line"></div>
-    <span class="s2-word s2-w1">Building</span>
-    <span class="s2-word blue s2-w2">India's</span>
-    <span class="s2-word s2-w3">Financial</span>
-    <span class="s2-word gold s2-w4">Founders.</span>
-    <p class="s2-sub">Live financial education for Class 9 &amp; 10 students — taught by IIT &amp; IIM graduates.</p>
+  <!-- SCENE 2: TAGLINE -->
+  <div class="scene" id="s2">
+    <div class="s2-bg"></div>
+    <div class="s2-eyebrow">India's Future Founders</div>
+    <div class="s2-headline">
+      <span class="s2-word s2-w1">Building</span>
+      <span class="s2-word blue-grad s2-w2">India's</span>
+      <span class="s2-word s2-w3">Financial</span>
+      <span class="s2-word accent s2-w4">Founders.</span>
+    </div>
+    <p class="s2-desc">Live financial education for Class 9 &amp; 10 — by IIT &amp; IIM graduates, real entrepreneurs, MBAs &amp; CAs.</p>
   </div>
 
-  <!-- ── SCENE 3: Features ── -->
-  <div class="scene bg-blue" id="s3">
-    <div class="s3-heading">What students build</div>
+  <!-- SCENE 3: FEATURES -->
+  <div class="scene" id="s3">
+    <div class="s3-bg"></div>
+    <div class="s3-top">
+      <div class="s3-label">What students build</div>
+      <div class="s3-heading">Three assets.<br><em>One credential.</em></div>
+    </div>
 
-    <div class="feat-card fc1">
-      <div class="feat-icon gold">
+    <div class="feat gold-feat f1">
+      <div class="feat-border"></div>
+      <div class="feat-icon-wrap gold">
         <svg viewBox="0 0 24 24" fill="none" stroke="#D5AD36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6L5.7 21.4 8 14 2 9.4h7.6z"/>
         </svg>
       </div>
-      <div>
-        <div class="feat-name">Alma<span class="gold-text">Score</span><sup>™</sup></div>
-        <div class="feat-desc">0–1,000 pts · 8 levels · Newcomer to Legend</div>
+      <div style="flex:1">
+        <div class="feat-title">AlmaScore™</div>
+        <div class="feat-sub">0–1,000 pts · Newcomer → Legend · 8 levels</div>
       </div>
+      <div class="feat-number gold-n">1K</div>
     </div>
 
-    <div class="feat-card fc2">
-      <div class="feat-icon blue">
+    <div class="feat blue-feat f2">
+      <div class="feat-border"></div>
+      <div class="feat-icon-wrap blue">
         <svg viewBox="0 0 24 24" fill="none" stroke="#4A8FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
         </svg>
       </div>
-      <div>
-        <div class="feat-name">Alma<span style="color:#4A8FFF">Resume</span><sup>™</sup></div>
-        <div class="feat-desc">India's first school-level verified financial credential</div>
+      <div style="flex:1">
+        <div class="feat-title">AlmaResume™</div>
+        <div class="feat-sub">India's first school-level verified financial credential</div>
       </div>
+      <div class="feat-number blue-n">✦</div>
     </div>
 
-    <div class="feat-card fc3">
-      <div class="feat-icon green">
+    <div class="feat green-feat f3">
+      <div class="feat-border"></div>
+      <div class="feat-icon-wrap green">
         <svg viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91 0z"/>
           <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
         </svg>
       </div>
-      <div>
-        <div class="feat-name" style="color:#fff">Founder's Passport</div>
-        <div class="feat-desc">18 hands-on missions · real ventures · real skills</div>
+      <div style="flex:1">
+        <div class="feat-title">Founder's Passport</div>
+        <div class="feat-sub">18 real-world missions · pitch · build · launch</div>
+      </div>
+      <div class="feat-number green-n">18</div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: STATS -->
+  <div class="scene" id="s4">
+    <div class="s4-bg"></div>
+    <div class="s4-eyebrow">The opportunity · India</div>
+    <div class="stats-wrap">
+      <div class="stat s-blue st1">
+        <div class="stat-glow"></div>
+        <div class="stat-val">250M</div>
+        <div class="stat-lbl">School Students<br>in India</div>
+      </div>
+      <div class="stat s-gold st2">
+        <div class="stat-glow"></div>
+        <div class="stat-val">IIT·IIM</div>
+        <div class="stat-lbl">Expert<br>Educators</div>
+      </div>
+      <div class="stat s-white st3">
+        <div class="stat-glow"></div>
+        <div class="stat-val">2 Yrs</div>
+        <div class="stat-lbl">Class 9 &amp; 10<br>Program</div>
+      </div>
+      <div class="stat s-green st4">
+        <div class="stat-glow"></div>
+        <div class="stat-val">18</div>
+        <div class="stat-lbl">Founder<br>Missions</div>
+      </div>
+    </div>
+    <p class="s4-quote">"Zero financial curriculum in Indian schools.<br>AlmaTech is changing that."</p>
+  </div>
+
+  <!-- SCENE 5: JOURNEY -->
+  <div class="scene" id="s5">
+    <div class="s5-bg"></div>
+    <div class="s5-title">Class 9 to<br><em>Career-Ready.</em></div>
+    <p class="s5-sub">A 2-year track record built before students leave school.</p>
+    <div class="timeline">
+      <div class="tstep ts1">
+        <div class="tstep-dot d1">1</div>
+        <div class="tstep-body">
+          <div class="tstep-yr">Day One</div>
+          <div class="tstep-name">School Partners</div>
+          <div class="tstep-desc">Instant app access, live schedule &amp; Founder's Passport unlocked.</div>
+        </div>
+      </div>
+      <div class="tstep ts2">
+        <div class="tstep-dot d2">2</div>
+        <div class="tstep-body">
+          <div class="tstep-yr">Twice Weekly</div>
+          <div class="tstep-name">Live Expert Classes</div>
+          <div class="tstep-desc">IIT &amp; IIM graduates, entrepreneurs, CAs. Real Q&amp;A — zero recordings.</div>
+        </div>
+      </div>
+      <div class="tstep ts3">
+        <div class="tstep-dot d3">3</div>
+        <div class="tstep-body">
+          <div class="tstep-yr">Ongoing</div>
+          <div class="tstep-name">AlmaScore Climbs</div>
+          <div class="tstep-desc">Every class, quiz &amp; mission earns points across 8 levels.</div>
+        </div>
+      </div>
+      <div class="tstep ts4">
+        <div class="tstep-dot d4">4</div>
+        <div class="tstep-body">
+          <div class="tstep-yr">Graduation</div>
+          <div class="tstep-name">AlmaResume™ Generated</div>
+          <div class="tstep-desc">India's first verified school credential. MNC placement doors open.</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ── SCENE 4: Stats ── -->
-  <div class="scene bg-blue" id="s4">
-    <div class="s4-label">The opportunity</div>
-    <div class="stats-grid">
-      <div class="stat-card sc1">
-        <div class="stat-n blue">250M</div>
-        <div class="stat-l">School Students<br>in India</div>
-      </div>
-      <div class="stat-card sc2">
-        <div class="stat-n gold">IIT &amp; IIM</div>
-        <div class="stat-l">Expert<br>Educators</div>
-      </div>
-      <div class="stat-card sc3">
-        <div class="stat-n white">2 Yrs</div>
-        <div class="stat-l">Class 9 &amp; 10<br>Program</div>
-      </div>
-      <div class="stat-card sc4">
-        <div class="stat-n green">18</div>
-        <div class="stat-l">Founder Missions<br>Completed</div>
+  <!-- SCENE 6: CTA -->
+  <div class="scene" id="s6">
+    <div class="s6-bg"></div>
+    <div class="s6-orb">
+      <div class="s6-orb-ring1"></div>
+      <div class="s6-orb-ring2"></div>
+      <div class="s6-orb-ring3"></div>
+      <div class="s6-orb-core">
+        <div class="s6-logo-box">
+          <svg width="38" height="38" viewBox="0 0 52 52" fill="none">
+            <path d="M26 8L8 42H16.5L26 22L35.5 42H44L26 8Z" fill="white" fill-opacity="0.96"/>
+            <line x1="19" y1="34" x2="33" y2="34" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="26" cy="8" r="3.5" fill="#D5AD36"/>
+          </svg>
+        </div>
       </div>
     </div>
-    <p class="s4-sub">Zero financial curriculum in Indian schools. AlmaTech is changing that.</p>
+    <div class="s6-name">Alma<span>Tech</span></div>
+    <div class="s6-tagline">Building India's Financial Founders</div>
+    <div class="s6-btn">
+      <span>Enroll Your School</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+    <div class="s6-url">almatech.co.in</div>
   </div>
 
-  <!-- ── SCENE 5: How It Works ── -->
-  <div class="scene bg-oat" id="s5">
-    <div class="s5-title">From School to<br><em>Career-Ready</em></div>
-    <p class="s5-sub-txt">A 2-year journey that builds real financial skills before students ever leave school.</p>
-
-    <div class="step-row st1">
-      <div class="step-dot">1</div>
-      <div class="step-content">
-        <div class="step-name">School Partners with AlmaTech</div>
-        <div class="step-desc">Instant access to the app, live schedule &amp; Founder's Passport from day one.</div>
-      </div>
-    </div>
-    <div class="step-connector"></div>
-
-    <div class="step-row st2">
-      <div class="step-dot">2</div>
-      <div class="step-content">
-        <div class="step-name">Live Classes Twice a Week</div>
-        <div class="step-desc">IIT &amp; IIM graduates, entrepreneurs, MBAs &amp; CAs. Real Q&amp;A — zero recordings.</div>
-      </div>
-    </div>
-    <div class="step-connector"></div>
-
-    <div class="step-row st3">
-      <div class="step-dot">3</div>
-      <div class="step-content">
-        <div class="step-name">Students Earn AlmaScore™</div>
-        <div class="step-desc">Every class, quiz &amp; mission climbs the 8-level leaderboard.</div>
-      </div>
-    </div>
-    <div class="step-connector"></div>
-
-    <div class="step-row st4">
-      <div class="step-dot" style="background:#D5AD36; box-shadow:0 6px 20px rgba(213,173,54,0.4);">4</div>
-      <div class="step-content">
-        <div class="step-name">AlmaResume™ Auto-Generated</div>
-        <div class="step-desc">India's first verified school-level credential. MNC placements open.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── SCENE 6: CTA ── -->
-  <div class="scene bg-blue" id="s6">
-    <div class="cta-ring">
-      <div class="cta-logo-small">
-        <svg viewBox="0 0 52 52" fill="none">
-          <path d="M26 8L8 42H16.5L26 22L35.5 42H44L26 8Z" fill="white" fill-opacity="0.95"/>
-          <path d="M19 34H33" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-          <circle cx="26" cy="8" r="3" fill="#D5AD36"/>
-        </svg>
-      </div>
-    </div>
-    <div class="cta-brand">Alma<span>Tech</span></div>
-    <div class="cta-tagline">Building India's Financial Founders</div>
-    <div class="cta-btn">Enroll Your School →</div>
-    <div class="cta-url">almatech.co.in</div>
-  </div>
-
-  <!-- Progress & dots -->
   <div id="progress" style="width:0%"></div>
   <div id="dots">
     <div class="dot on" id="d0"></div>
@@ -521,118 +666,90 @@ body {
     <div class="dot" id="d4"></div>
     <div class="dot" id="d5"></div>
   </div>
-  <div id="hint">screen record me</div>
+  <div id="hint">screen record</div>
 </div>
 
 <script>
-/* ── PARTICLE SYSTEM ── */
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
+/* ── LUXURY PARTICLE SYSTEM ── */
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
 canvas.width = 390; canvas.height = 844;
 
-const particles = [];
-function makeParticle(dark) {
-  return {
-    x: Math.random() * 390,
-    y: 844 + Math.random() * 100,
-    r: Math.random() * 2 + 0.5,
-    speed: Math.random() * 0.6 + 0.2,
-    opacity: Math.random() * 0.4 + 0.05,
-    color: dark
-      ? (Math.random() > 0.6 ? '#D5AD36' : '#4A8FFF')
-      : (Math.random() > 0.7 ? '#D5AD36' : '#1D56CF'),
-    drift: (Math.random() - 0.5) * 0.3
-  };
-}
+function rand(a,b){return a+Math.random()*(b-a)}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
-let darkMode = false;
-for (let i = 0; i < 55; i++) particles.push(makeParticle(false));
+const COLORS = ['#1D56CF','#4A8FFF','#D5AD36','#F0CB58','rgba(255,255,255,0.6)'];
+const pts = Array.from({length:70},()=>({
+  x:rand(0,390), y:rand(-200,844),
+  r:rand(0.4,1.8), vy:rand(0.15,0.7),
+  vx:(Math.random()-.5)*0.25,
+  op:rand(0.04,0.4),
+  color:pick(COLORS), fade:rand(-0.002,0.002)
+}));
 
-function animateParticles() {
-  ctx.clearRect(0, 0, 390, 844);
-  for (const p of particles) {
-    p.y -= p.speed;
-    p.x += p.drift;
-    p.opacity += (Math.random() - 0.5) * 0.005;
-    p.opacity = Math.max(0.02, Math.min(0.5, p.opacity));
-    if (p.y < -10) {
-      p.y = 854; p.x = Math.random() * 390;
-      Object.assign(p, makeParticle(darkMode));
-    }
-    ctx.save();
-    ctx.globalAlpha = p.opacity;
-    ctx.fillStyle = p.color;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
+function drawParticles(){
+  ctx.clearRect(0,0,390,844);
+  for(const p of pts){
+    p.y-=p.vy; p.x+=p.vx;
+    p.op=Math.max(0.02,Math.min(0.45,p.op+p.fade));
+    if(p.y<-8){p.y=852;p.x=rand(0,390);p.color=pick(COLORS)}
+    ctx.save();ctx.globalAlpha=p.op;
+    ctx.fillStyle=p.color;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
     ctx.restore();
   }
-  requestAnimationFrame(animateParticles);
+  // occasional bigger glow dot
+  if(Math.random()<0.005){
+    const gx=rand(40,350),gy=rand(100,700);
+    const g=ctx.createRadialGradient(gx,gy,0,gx,gy,30);
+    g.addColorStop(0,Math.random()>.5?'rgba(29,86,207,0.08)':'rgba(213,173,54,0.06)');
+    g.addColorStop(1,'transparent');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(gx,gy,30,0,Math.PI*2);ctx.fill();
+  }
+  requestAnimationFrame(drawParticles);
 }
-animateParticles();
+drawParticles();
 
-/* ── SCENE CONTROLLER ── */
-const scenes   = ['s1','s2','s3','s4','s5','s6'];
-const durations = [4500, 5000, 5500, 5000, 6000, 5000]; // ms per scene
-const darkScenes = new Set(['s3','s4','s6']);
-let current = 0;
-let elapsed = 0;
-let lastTime = null;
+/* ── SCENE ENGINE ── */
+const IDS  = ['s1','s2','s3','s4','s5','s6'];
+const DUR  = [4500,5500,5500,5000,6000,5500];
+let cur=0, elapsed=0, last=null;
+const TOTAL = DUR.reduce((a,b)=>a+b,0);
 
-function showScene(i) {
-  scenes.forEach((id, idx) => {
-    const el = document.getElementById(id);
-    el.classList.remove('active', 'out');
-    if (idx === i) el.classList.add('active');
+function show(i){
+  IDS.forEach((id,idx)=>{
+    const el=document.getElementById(id);
+    el.classList.remove('active','exit');
+    if(idx===i) el.classList.add('active');
   });
-  // dots
-  scenes.forEach((_, idx) => {
-    document.getElementById('d' + idx).className = 'dot' + (idx === i ? ' on' : '');
+  IDS.forEach((_,idx)=>{
+    const d=document.getElementById('d'+idx);
+    d.className='dot'+(idx===i?' on':'');
   });
-  darkMode = darkScenes.has(scenes[i]);
 }
 
-function tick(ts) {
-  if (!lastTime) lastTime = ts;
-  const dt = ts - lastTime;
-  lastTime = ts;
-  elapsed += dt;
-
-  const total = durations[current];
-  const pct = Math.min(elapsed / total, 1);
-
-  // cumulative progress
-  let cumPrev = 0;
-  for (let i = 0; i < current; i++) cumPrev += durations[i];
-  const totalAll = durations.reduce((a,b) => a+b, 0);
-  const globalPct = ((cumPrev + elapsed) / totalAll) * 100;
-  document.getElementById('progress').style.width = globalPct + '%';
-
-  if (elapsed >= total) {
-    elapsed = 0;
-    if (current < scenes.length - 1) {
-      current++;
-      showScene(current);
-    } else {
-      // loop back
-      current = 0;
-      elapsed = 0;
-      showScene(0);
-      document.getElementById('progress').style.width = '0%';
-    }
+function tick(ts){
+  if(!last) last=ts;
+  const dt=ts-last; last=ts;
+  elapsed+=dt;
+  const prev=DUR.slice(0,cur).reduce((a,b)=>a+b,0);
+  document.getElementById('progress').style.width=
+    Math.min(((prev+elapsed)/TOTAL)*100,100)+'%';
+  if(elapsed>=DUR[cur]){
+    elapsed=0;
+    cur=(cur+1)%IDS.length;
+    if(cur===0) document.getElementById('progress').style.width='0%';
+    show(cur);
   }
   requestAnimationFrame(tick);
 }
 
-showScene(0);
+show(0);
 requestAnimationFrame(tick);
-
-/* click to advance */
-document.getElementById('stage').addEventListener('click', () => {
-  elapsed = 0;
-  current = (current + 1) % scenes.length;
-  showScene(current);
-  if (current === 0) document.getElementById('progress').style.width = '0%';
+document.getElementById('stage').addEventListener('click',()=>{
+  elapsed=0; cur=(cur+1)%IDS.length;
+  if(cur===0) document.getElementById('progress').style.width='0%';
+  show(cur);
 });
 </script>
 </body>
