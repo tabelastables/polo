@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlmaTech – Content Calendar</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1D56CF;--blue-d:#1644AA;--blue-l:#4A8FFF;
+  --gold:#D5AD36;--gold-l:#F0CB58;
+  --dark:#06091A;--dark2:#0A0F2E;--dark3:#111E3A;
+  --white:rgba(255,255,255,0.95);
+  --muted:rgba(255,255,255,0.38);
+  --border:rgba(255,255,255,0.08);
+  --r:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:linear-gradient(160deg,#06091A 0%,#0A0F2E 50%,#06091A 100%);
+  color:#fff;min-height:100vh;
+}
+
+/* ── HEADER ── */
+header{
+  padding:32px 40px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.02);
+  backdrop-filter:blur(20px);
+  position:sticky;top:0;z-index:100;
+}
+.logo-row{display:flex;align-items:center;gap:14px}
+.logo-box{
+  width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,#1D56CF,#1644AA);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(29,86,207,0.45);
+  flex-shrink:0;
+}
+.logo-box svg{width:26px;height:26px}
+.brand-name{font-size:20px;font-weight:900;letter-spacing:-0.03em}
+.brand-name span{color:#4A8FFF}
+.brand-sub{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
+
+.header-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.progress-wrap{text-align:right}
+.progress-label{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.progress-bar-outer{width:180px;height:6px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden}
+.progress-bar-inner{height:100%;background:linear-gradient(90deg,#1D56CF,#D5AD36);border-radius:4px;transition:width 0.4s ease}
+.progress-count{font-size:11px;font-weight:700;color:var(--gold-l);margin-top:5px;text-align:right}
+
+/* ── FILTERS ── */
+.filters{
+  padding:20px 40px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+}
+.filter-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.filter-btn{
+  padding:7px 16px;border-radius:100px;font-size:11px;font-weight:700;
+  font-family:'Montserrat',sans-serif;cursor:pointer;border:1px solid var(--border);
+  background:transparent;color:rgba(255,255,255,0.4);
+  transition:all 0.2s;letter-spacing:0.04em;
+}
+.filter-btn:hover{border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)}
+.filter-btn.active{background:rgba(29,86,207,0.2);border-color:rgba(29,86,207,0.5);color:#4A8FFF}
+.filter-btn.all.active{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.2);color:#fff}
+
+/* ── MAIN GRID ── */
+.main{padding:32px 40px;max-width:1400px;margin:0 auto}
+
+/* ── WEEK SECTION ── */
+.week-section{margin-bottom:40px}
+.week-header{
+  display:flex;align-items:center;gap:16px;margin-bottom:20px;
+}
+.week-badge{
+  padding:6px 16px;border-radius:100px;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);flex-shrink:0;
+}
+.week-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent)}
+.week-stats{font-size:10px;font-weight:700;color:var(--muted);white-space:nowrap}
+
+/* ── POST CARDS GRID ── */
+.posts-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:16px;
+}
+
+/* ── POST CARD ── */
+.post-card{
+  border-radius:var(--r);
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:all 0.25s ease;
+  position:relative;
+}
+.post-card:hover{
+  background:rgba(255,255,255,0.05);
+  border-color:rgba(255,255,255,0.14);
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(0,0,0,0.3);
+}
+.post-card.done{
+  background:rgba(34,197,94,0.04);
+  border-color:rgba(34,197,94,0.15);
+}
+.post-card.done .card-top{background:rgba(34,197,94,0.05)}
+
+/* top color accent bar */
+.card-accent{height:3px;width:100%}
+.pillar-explain .card-accent{background:linear-gradient(90deg,#1D56CF,#4A8FFF)}
+.pillar-mistake .card-accent{background:linear-gradient(90deg,#D5AD36,#F0CB58)}
+.pillar-would .card-accent{background:linear-gradient(90deg,#16a34a,#4ADE80)}
+
+/* card top */
+.card-top{
+  padding:18px 20px 14px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+}
+.card-meta{flex:1}
+.card-date{
+  font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:8px;
+}
+.day-chip{
+  padding:2px 8px;border-radius:100px;font-size:8px;font-weight:800;letter-spacing:0.12em;
+}
+.day-mon{background:rgba(29,86,207,0.2);color:#4A8FFF;border:1px solid rgba(29,86,207,0.3)}
+.day-wed{background:rgba(213,173,54,0.15);color:#D5AD36;border:1px solid rgba(213,173,54,0.25)}
+.day-fri{background:rgba(34,197,94,0.12);color:#4ADE80;border:1px solid rgba(34,197,94,0.2)}
+
+.card-ep{font-size:9px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.card-title{font-size:14px;font-weight:800;color:#fff;line-height:1.35;letter-spacing:-0.01em}
+.card-series{
+  display:inline-block;margin-top:8px;
+  font-size:8px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  padding:3px 10px;border-radius:100px;
+}
+.pillar-explain .card-series{background:rgba(29,86,207,0.15);color:#4A8FFF;border:1px solid rgba(29,86,207,0.25)}
+.pillar-mistake .card-series{background:rgba(213,173,54,0.12);color:#D5AD36;border:1px solid rgba(213,173,54,0.2)}
+.pillar-would  .card-series{background:rgba(34,197,94,0.1);color:#4ADE80;border:1px solid rgba(34,197,94,0.18)}
+
+/* status badge */
+.card-status{flex-shrink:0;text-align:center}
+.status-ring{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--border);
+  font-size:18px;transition:all 0.3s ease;
+  cursor:default;
+}
+.post-card.done .status-ring{
+  border-color:rgba(34,197,94,0.5);
+  background:rgba(34,197,94,0.1);
+  box-shadow:0 0 20px rgba(34,197,94,0.2);
+}
+.status-text{font-size:8px;font-weight:700;color:var(--muted);margin-top:4px;letter-spacing:0.08em}
+.post-card.done .status-text{color:#4ADE80}
+
+/* card body — platforms */
+.card-body{padding:14px 20px 18px}
+.platforms-label{
+  font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;
+}
+.platforms-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.platform-row{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:10px;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  cursor:pointer;transition:all 0.2s;
+  user-select:none;
+}
+.platform-row:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14)}
+.platform-row.checked{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.25)}
+.platform-row.checked .plat-name{color:#4ADE80}
+.platform-row.checked .plat-icon{filter:none}
+
+.plat-checkbox{
+  width:16px;height:16px;border-radius:4px;
+  border:1.5px solid rgba(255,255,255,0.2);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;background:transparent;
+}
+.platform-row.checked .plat-checkbox{
+  background:#22c55e;border-color:#22c55e;
+  box-shadow:0 0 10px rgba(34,197,94,0.35);
+}
+.plat-check-icon{display:none;width:10px;height:10px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.platform-row.checked .plat-check-icon{display:block}
+
+.plat-icon{font-size:14px;flex-shrink:0;filter:grayscale(0.6) opacity(0.7)}
+.platform-row.checked .plat-icon{filter:none}
+.plat-name{font-size:10px;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:0.04em;flex:1}
+.plat-time{font-size:8px;color:var(--muted);font-weight:600}
+
+/* notes row */
+.card-notes{
+  margin-top:12px;display:flex;align-items:center;gap:8px;
+}
+.notes-input{
+  flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:8px;padding:8px 12px;
+  font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
+  color:rgba(255,255,255,0.7);outline:none;
+  transition:border-color 0.2s;
+}
+.notes-input::placeholder{color:rgba(255,255,255,0.2)}
+.notes-input:focus{border-color:rgba(29,86,207,0.4);background:rgba(29,86,207,0.04)}
+
+/* ── LEGEND ── */
+.legend{
+  padding:20px 40px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  border-top:1px solid var(--border);
+  margin-top:8px;
+}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+
+/* ── SCROLL TO TOP ── */
+#scrollTop{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(29,86,207,0.3);border:1px solid rgba(29,86,207,0.4);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.2s;
+  backdrop-filter:blur(10px);
+  opacity:0;pointer-events:none;
+}
+#scrollTop.show{opacity:1;pointer-events:auto}
+#scrollTop:hover{background:rgba(29,86,207,0.5);transform:translateY(-2px)}
+#scrollTop svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  header{padding:20px;flex-wrap:wrap;gap:16px}
+  .filters,.main{padding:16px 20px}
+  .posts-grid{grid-template-columns:1fr}
+  .progress-bar-outer{width:130px}
+  .legend{padding:16px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-row">
+    <div class="logo-box">
+      <svg viewBox="0 0 52 52" fill="none">
+        <path d="M26 8L8 42H16.5L26 22L35.5 42H44L26 8Z" fill="white" fill-opacity="0.96"/>
+        <line x1="19" y1="34" x2="33" y2="34" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="26" cy="8" r="3.5" fill="#D5AD36"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name">Alma<span>Tech</span></div>
+      <div class="brand-sub">Content Calendar · Season 1</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="progress-wrap">
+      <div class="progress-label">Overall Progress</div>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
+      <div class="progress-count" id="progressCount">0 / 48 posts done</div>
+    </div>
+  </div>
+</header>
+
+<!-- FILTERS -->
+<div class="filters">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn all active" onclick="filterCards('all',this)">All Episodes</button>
+  <button class="filter-btn" onclick="filterCards('pillar-explain',this)">🔵 Alma Explains</button>
+  <button class="filter-btn" onclick="filterCards('pillar-mistake',this)">🟡 Alma's Mistake</button>
+  <button class="filter-btn" onclick="filterCards('pillar-would',this)">🟢 Would You Rather</button>
+  <button class="filter-btn" onclick="filterCards('done',this)">✅ Completed</button>
+  <button class="filter-btn" onclick="filterCards('pending',this)">⏳ Pending</button>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main"></div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#4A8FFF"></div> Alma Explains</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D5AD36"></div> Alma's Mistake</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4ADE80"></div> Would You Rather</div>
+  <div class="legend-item" style="margin-left:auto;color:rgba(255,255,255,0.25);font-size:9px">AlmaTech © 2025 · Data saved in browser</div>
+</div>
+
+<div id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   DATA
+═══════════════════════════════════════ */
+const PLATFORMS = [
+  {id:'insta', icon:'📸', name:'Instagram', time:'6–8 PM IST'},
+  {id:'youtube',icon:'▶️', name:'YouTube',   time:'12–2 PM IST'},
+  {id:'linkedin',icon:'💼',name:'LinkedIn',  time:'9–10 AM IST'},
+  {id:'whatsapp',icon:'💬',name:'WhatsApp',  time:'Anytime'},
+];
+
+const WEEKS = [
+  {
+    label:'Week 1', dates:'Jun 23 – Jun 27, 2025',
+    posts:[
+      {ep:'EP 01', day:'MON', date:'Jun 23', pillar:'pillar-explain', series:'Alma Explains',
+       title:'What is Compound Interest? — and why your school never taught you this'},
+      {ep:'EP 02', day:'WED', date:'Jun 25', pillar:'pillar-mistake', series:"Alma's Mistake",
+       title:"Alma spent his entire pocket money on Day 1 — here's what happened next"},
+      {ep:'EP 03', day:'FRI', date:'Jun 27', pillar:'pillar-would',  series:'Would You Rather?',
+       title:'Save ₹5,000/month for 10 years OR invest ₹5,000/month? Alma reveals the answer'},
+    ]
+  },
+  {
+    label:'Week 2', dates:'Jun 30 – Jul 4, 2025',
+    posts:[
+      {ep:'EP 04', day:'MON', date:'Jun 30', pillar:'pillar-explain', series:'Alma Explains',
+       title:'What is a Mutual Fund? — explained in 60 seconds, in plain Hindi & English'},
+      {ep:'EP 05', day:'WED', date:'Jul 2',  pillar:'pillar-mistake', series:"Alma's Mistake",
+       title:"Alma ignored his credit card bill for 3 months — this is how ₹5,000 became ₹11,000"},
+      {ep:'EP 06', day:'FRI', date:'Jul 4',  pillar:'pillar-would',  series:'Would You Rather?',
+       title:'One high-paying job OR your own business? The real numbers, not the hype'},
+    ]
+  },
+  {
+    label:'Week 3', dates:'Jul 7 – Jul 11, 2025',
+    posts:[
+      {ep:'EP 07', day:'MON', date:'Jul 7',  pillar:'pillar-explain', series:'Alma Explains',
+       title:'What is GST actually doing to your money every single day?'},
+      {ep:'EP 08', day:'WED', date:'Jul 9',  pillar:'pillar-mistake', series:"Alma's Mistake",
+       title:"Alma trusted a 'Double Your Money in 30 Days' scheme — what really happened"},
+      {ep:'EP 09', day:'FRI', date:'Jul 11', pillar:'pillar-would',  series:'Would You Rather?',
+       title:'Spend now and enjoy life OR invest now and retire early? Alma does the math'},
+    ]
+  },
+  {
+    label:'Week 4', dates:'Jul 14 – Jul 18, 2025',
+    posts:[
+      {ep:'EP 10', day:'MON', date:'Jul 14', pillar:'pillar-explain', series:'Alma Explains',
+       title:'Credit Score — what it is, why it matters at age 18, and how to build yours'},
+      {ep:'EP 11', day:'WED', date:'Jul 16', pillar:'pillar-mistake', series:"Alma's Mistake",
+       title:"Alma never made a budget — and ran out of money 10 days before month end"},
+      {ep:'EP 12', day:'FRI', date:'Jul 18', pillar:'pillar-would',  series:'Would You Rather?',
+       title:'₹10,000 in Fixed Deposit OR ₹10,000 in Stocks? The answer will surprise you'},
+    ]
+  },
+  {
+    label:'Week 5', dates:'Jul 21 – Jul 25, 2025',
+    posts:[
+      {ep:'EP 13', day:'MON', date:'Jul 21', pillar:'pillar-explain', series:'Alma Explains',
+       title:'What is an EMI trap? How banks profit while you think you\'re saving'},
+      {ep:'EP 14', day:'WED', date:'Jul 23', pillar:'pillar-mistake', series:"Alma's Mistake",
+       title:"Alma took a loan to buy a phone — the real cost shocked everyone"},
+      {ep:'EP 15', day:'FRI', date:'Jul 25', pillar:'pillar-would',  series:'Would You Rather?',
+       title:'₹1 Lakh lump sum investment OR ₹8,300/month SIP? Which wins in 10 years?'},
+    ]
+  },
+  {
+    label:'Week 6', dates:'Jul 28 – Aug 1, 2025',
+    posts:[
+      {ep:'EP 16', day:'MON', date:'Jul 28', pillar:'pillar-explain', series:'Alma Explains',
+       title:'How does the Stock Market actually work? — The simplest explanation ever'},
+      {ep:'EP 17', day:'WED', date:'Jul 30', pillar:'pillar-mistake', series:"Alma's Mistake",
+       title:"Alma put all his savings into one stock — and here's the lesson every investor needs"},
+      {ep:'EP 18', day:'FRI', date:'Aug 1',  pillar:'pillar-would',  series:'Would You Rather?',
+       title:'Earn ₹2 Lakh/month job OR ₹50K/month from your own business? The real answer'},
+    ]
+  },
+];
+
+/* ═══════════════════════════════════════
+   RENDER
+═══════════════════════════════════════ */
+function load(key){ try{return JSON.parse(localStorage.getItem(key)||'null')}catch{return null} }
+function save(key,val){ localStorage.setItem(key,JSON.stringify(val)) }
+
+function cardId(ep){ return 'card_'+ep.replace(/\s/g,'_') }
+function platKey(ep,platId){ return 'plat_'+ep.replace(/\s/g,'_')+'_'+platId }
+function noteKey(ep){ return 'note_'+ep.replace(/\s/g,'_') }
+
+function isCardDone(ep){
+  return PLATFORMS.every(p => load(platKey(ep,p.id))===true);
+}
+
+function buildCard(post){
+  const id  = cardId(post.ep);
+  const done = isCardDone(post.ep);
+  const dayClass = post.day==='MON'?'day-mon':post.day==='WED'?'day-wed':'day-fri';
+  const note = load(noteKey(post.ep))||'';
+
+  let platHTML = '';
+  PLATFORMS.forEach(p=>{
+    const checked = load(platKey(post.ep,p.id))===true;
+    platHTML+=`
+    <div class="platform-row${checked?' checked':''}" onclick="togglePlat('${post.ep}','${p.id}',this)">
+      <div class="plat-checkbox">
+        <svg class="plat-check-icon" viewBox="0 0 12 12"><polyline points="1.5 6 4.5 9 10.5 3"/></svg>
+      </div>
+      <span class="plat-icon">${p.icon}</span>
+      <span class="plat-name">${p.name}</span>
+      <span class="plat-time">${p.time}</span>
+    </div>`;
+  });
+
+  return `
+  <div class="post-card ${post.pillar}${done?' done':''}" id="${id}" data-pillar="${post.pillar}" data-done="${done}">
+    <div class="card-accent"></div>
+    <div class="card-top">
+      <div class="card-meta">
+        <div class="card-date">
+          <span class="day-chip ${dayClass}">${post.day}</span>
+          ${post.date}
+        </div>
+        <div class="card-ep">${post.ep} · AlmaTech Cartoon Series</div>
+        <div class="card-title">${post.title}</div>
+        <span class="card-series">${post.series}</span>
+      </div>
+      <div class="card-status">
+        <div class="status-ring">${done?'✅':'🎬'}</div>
+        <div class="status-text">${done?'DONE':'PENDING'}</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="platforms-label">Post to platforms:</div>
+      <div class="platforms-grid">${platHTML}</div>
+      <div class="card-notes">
+        <input class="notes-input" type="text" placeholder="Add a note... (e.g. link, hashtags, caption)" value="${note}"
+          oninput="saveNote('${post.ep}',this.value)" />
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderAll(){
+  const main = document.getElementById('main');
+  let html = '';
+  WEEKS.forEach(w=>{
+    const doneCount = w.posts.filter(p=>isCardDone(p.ep)).length;
+    html+=`
+    <div class="week-section" data-week="${w.label}">
+      <div class="week-header">
+        <div class="week-badge">${w.label}</div>
+        <div class="week-line"></div>
+        <div class="week-stats">${w.dates} · ${doneCount}/${w.posts.length} done</div>
+      </div>
+      <div class="posts-grid">
+        ${w.posts.map(p=>buildCard(p)).join('')}
+      </div>
+    </div>`;
+  });
+  main.innerHTML = html;
+  updateProgress();
+}
+
+/* ═══════════════════════════════════════
+   INTERACTIONS
+═══════════════════════════════════════ */
+function togglePlat(ep, platId, row){
+  const key = platKey(ep,platId);
+  const was = load(key)===true;
+  save(key, !was);
+  row.classList.toggle('checked', !was);
+  // update checkbox icon
+  const cb = row.querySelector('.plat-checkbox');
+  const icon = row.querySelector('.plat-check-icon');
+  cb.style.background = !was ? '#22c55e' : '';
+  cb.style.borderColor = !was ? '#22c55e' : '';
+  icon.style.display   = !was ? 'block' : 'none';
+  // update card done state
+  const done = isCardDone(ep);
+  const card = document.getElementById(cardId(ep));
+  if(card){
+    card.classList.toggle('done', done);
+    card.dataset.done = done;
+    card.querySelector('.status-ring').textContent = done?'✅':'🎬';
+    card.querySelector('.status-text').textContent  = done?'DONE':'PENDING';
+  }
+  updateProgress();
+}
+
+function saveNote(ep, val){
+  save(noteKey(ep), val);
+}
+
+function updateProgress(){
+  const allPosts = WEEKS.flatMap(w=>w.posts);
+  const totalChecks = allPosts.length * PLATFORMS.length;
+  let doneChecks = 0;
+  allPosts.forEach(p=>{
+    PLATFORMS.forEach(pl=>{
+      if(load(platKey(p.ep,pl.id))===true) doneChecks++;
+    });
+  });
+  const pct = Math.round((doneChecks/totalChecks)*100);
+  document.getElementById('progressBar').style.width = pct+'%';
+  document.getElementById('progressCount').textContent = `${doneChecks} / ${totalChecks} posts done`;
+}
+
+/* ═══════════════════════════════════════
+   FILTER
+═══════════════════════════════════════ */
+function filterCards(type, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.post-card').forEach(card=>{
+    let show = true;
+    if(type==='done')    show = card.dataset.done==='true';
+    else if(type==='pending') show = card.dataset.done!=='true';
+    else if(type!=='all') show = card.dataset.pillar===type;
+    card.closest('.post-card').style.display = show?'':'none';
+  });
+  // hide empty week sections
+  document.querySelectorAll('.week-section').forEach(ws=>{
+    const visible = [...ws.querySelectorAll('.post-card')].some(c=>c.style.display!=='none');
+    ws.style.display = visible?'':'none';
+  });
+}
+
+/* ── SCROLL TO TOP ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').classList.toggle('show', window.scrollY>400);
+},{passive:true});
+
+/* ── INIT ── */
+renderAll();
+</script>
+</body>
+</html>
