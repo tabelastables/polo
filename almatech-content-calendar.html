@@ -9,250 +9,250 @@
 :root{
   --blue:#1D56CF;--blue-d:#1644AA;--blue-l:#4A8FFF;
   --gold:#D5AD36;--gold-l:#F0CB58;
-  --dark:#06091A;--dark2:#0A0F2E;--dark3:#111E3A;
-  --white:rgba(255,255,255,0.95);
-  --muted:rgba(255,255,255,0.38);
-  --border:rgba(255,255,255,0.08);
+  --green:#16a34a;--green-l:#4ADE80;
+  --bg:#F5F0E8;--bg2:#EEF3FF;--surface:#fff;
+  --text1:#111827;--text2:#374151;--text3:#6B7280;
+  --border:rgba(29,86,207,0.12);--border2:rgba(29,86,207,0.08);
+  --shadow:rgba(29,86,207,0.08);
   --r:16px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Montserrat',sans-serif;
-  background:linear-gradient(160deg,#06091A 0%,#0A0F2E 50%,#06091A 100%);
-  color:#fff;min-height:100vh;
+  background:linear-gradient(160deg,#F5F0E8 0%,#EEF3FF 100%);
+  color:var(--text1);min-height:100vh;
 }
 
 /* ── HEADER ── */
 header{
-  padding:32px 40px 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  background:rgba(255,255,255,0.02);
-  backdrop-filter:blur(20px);
+  padding:24px 40px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  border-bottom:1.5px solid var(--border);
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(40px) saturate(180%);
   position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 20px var(--shadow);
 }
 .logo-row{display:flex;align-items:center;gap:14px}
 .logo-box{
-  width:42px;height:42px;border-radius:12px;
+  width:44px;height:44px;border-radius:13px;
   background:linear-gradient(135deg,#1D56CF,#1644AA);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 20px rgba(29,86,207,0.45);
-  flex-shrink:0;
+  box-shadow:0 6px 20px rgba(29,86,207,0.35);flex-shrink:0;
 }
 .logo-box svg{width:26px;height:26px}
-.brand-name{font-size:20px;font-weight:900;letter-spacing:-0.03em}
-.brand-name span{color:#4A8FFF}
-.brand-sub{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
-
+.brand-name{font-size:21px;font-weight:900;letter-spacing:-0.03em;color:var(--text1)}
+.brand-name span{color:var(--blue)}
+.brand-sub{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3)}
 .header-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .progress-wrap{text-align:right}
-.progress-label{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.progress-bar-outer{width:180px;height:6px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden}
+.progress-label{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.progress-bar-outer{width:180px;height:7px;background:rgba(29,86,207,0.1);border-radius:4px;overflow:hidden;border:1px solid var(--border)}
 .progress-bar-inner{height:100%;background:linear-gradient(90deg,#1D56CF,#D5AD36);border-radius:4px;transition:width 0.4s ease}
-.progress-count{font-size:11px;font-weight:700;color:var(--gold-l);margin-top:5px;text-align:right}
+.progress-count{font-size:11px;font-weight:800;color:var(--blue);margin-top:5px;text-align:right}
 
 /* ── FILTERS ── */
 .filters{
-  padding:20px 40px;
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  border-bottom:1px solid var(--border);
+  padding:16px 40px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  border-bottom:1.5px solid var(--border);
+  background:rgba(255,255,255,0.6);
 }
-.filter-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.filter-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);margin-right:4px}
 .filter-btn{
   padding:7px 16px;border-radius:100px;font-size:11px;font-weight:700;
-  font-family:'Montserrat',sans-serif;cursor:pointer;border:1px solid var(--border);
-  background:transparent;color:rgba(255,255,255,0.4);
-  transition:all 0.2s;letter-spacing:0.04em;
+  font-family:'Montserrat',sans-serif;cursor:pointer;
+  border:1.5px solid var(--border);background:transparent;color:var(--text3);
+  transition:all 0.2s;letter-spacing:0.03em;
 }
-.filter-btn:hover{border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)}
-.filter-btn.active{background:rgba(29,86,207,0.2);border-color:rgba(29,86,207,0.5);color:#4A8FFF}
-.filter-btn.all.active{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.2);color:#fff}
+.filter-btn:hover{border-color:rgba(29,86,207,0.3);color:var(--blue);background:rgba(29,86,207,0.04)}
+.filter-btn.active{background:rgba(29,86,207,0.08);border-color:rgba(29,86,207,0.35);color:var(--blue)}
 
-/* ── MAIN GRID ── */
+/* ── MAIN ── */
 .main{padding:32px 40px;max-width:1400px;margin:0 auto}
 
-/* ── WEEK SECTION ── */
-.week-section{margin-bottom:40px}
-.week-header{
-  display:flex;align-items:center;gap:16px;margin-bottom:20px;
-}
+/* ── WEEK ── */
+.week-section{margin-bottom:44px}
+.week-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
 .week-badge{
-  padding:6px 16px;border-radius:100px;
-  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  padding:6px 18px;border-radius:100px;
+  background:rgba(29,86,207,0.07);border:1.5px solid var(--border);
   font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;
-  color:rgba(255,255,255,0.5);flex-shrink:0;
+  color:var(--blue);flex-shrink:0;
 }
-.week-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent)}
-.week-stats{font-size:10px;font-weight:700;color:var(--muted);white-space:nowrap}
+.week-line{flex:1;height:1.5px;background:linear-gradient(90deg,var(--border),transparent)}
+.week-stats{font-size:10px;font-weight:700;color:var(--text3);white-space:nowrap}
 
-/* ── POST CARDS GRID ── */
-.posts-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-  gap:16px;
-}
+/* ── POSTS GRID ── */
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px}
 
 /* ── POST CARD ── */
 .post-card{
-  border-radius:var(--r);
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-  overflow:hidden;
-  transition:all 0.25s ease;
-  position:relative;
+  border-radius:20px;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  box-shadow:0 4px 24px var(--shadow),0 1px 4px rgba(0,0,0,0.04),inset 0 1px 0 rgba(255,255,255,0.9);
+  overflow:hidden;transition:all 0.25s ease;position:relative;
+}
+.post-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(29,86,207,0.2),transparent);
 }
 .post-card:hover{
-  background:rgba(255,255,255,0.05);
-  border-color:rgba(255,255,255,0.14);
-  transform:translateY(-2px);
-  box-shadow:0 12px 40px rgba(0,0,0,0.3);
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(29,86,207,0.12),0 4px 12px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.95);
+  border-color:rgba(29,86,207,0.25);
 }
 .post-card.done{
-  background:rgba(34,197,94,0.04);
-  border-color:rgba(34,197,94,0.15);
+  background:linear-gradient(160deg,#f0fdf4,#fff);
+  border-color:rgba(22,163,74,0.25);
 }
-.post-card.done .card-top{background:rgba(34,197,94,0.05)}
+.post-card.done::before{background:linear-gradient(90deg,transparent,rgba(22,163,74,0.3),transparent)}
 
-/* top color accent bar */
+/* accent bar */
 .card-accent{height:3px;width:100%}
 .pillar-explain .card-accent{background:linear-gradient(90deg,#1D56CF,#4A8FFF)}
 .pillar-mistake .card-accent{background:linear-gradient(90deg,#D5AD36,#F0CB58)}
-.pillar-would .card-accent{background:linear-gradient(90deg,#16a34a,#4ADE80)}
+.pillar-would   .card-accent{background:linear-gradient(90deg,#16a34a,#4ADE80)}
 
 /* card top */
 .card-top{
-  padding:18px 20px 14px;
-  border-bottom:1px solid var(--border);
+  padding:18px 20px 14px;border-bottom:1.5px solid var(--border2);
   display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
 }
 .card-meta{flex:1}
-.card-date{
-  font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:8px;
-}
-.day-chip{
-  padding:2px 8px;border-radius:100px;font-size:8px;font-weight:800;letter-spacing:0.12em;
-}
-.day-mon{background:rgba(29,86,207,0.2);color:#4A8FFF;border:1px solid rgba(29,86,207,0.3)}
-.day-wed{background:rgba(213,173,54,0.15);color:#D5AD36;border:1px solid rgba(213,173,54,0.25)}
-.day-fri{background:rgba(34,197,94,0.12);color:#4ADE80;border:1px solid rgba(34,197,94,0.2)}
-
-.card-ep{font-size:9px;font-weight:700;color:var(--muted);margin-bottom:5px}
-.card-title{font-size:14px;font-weight:800;color:#fff;line-height:1.35;letter-spacing:-0.01em}
+.card-date-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.day-chip{padding:3px 9px;border-radius:100px;font-size:8px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase}
+.day-mon{background:rgba(29,86,207,0.1);color:var(--blue);border:1px solid rgba(29,86,207,0.2)}
+.day-wed{background:rgba(213,173,54,0.12);color:#9a7a1a;border:1px solid rgba(213,173,54,0.25)}
+.day-fri{background:rgba(22,163,74,0.1);color:#15803d;border:1px solid rgba(22,163,74,0.2)}
+.card-date-txt{font-size:10px;font-weight:600;color:var(--text3)}
+.card-ep{font-size:9px;font-weight:700;color:var(--text3);letter-spacing:0.1em;margin-bottom:5px}
+.card-title{font-size:14px;font-weight:800;color:var(--text1);line-height:1.38;letter-spacing:-0.01em}
 .card-series{
-  display:inline-block;margin-top:8px;
+  display:inline-block;margin-top:9px;
   font-size:8px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
   padding:3px 10px;border-radius:100px;
 }
-.pillar-explain .card-series{background:rgba(29,86,207,0.15);color:#4A8FFF;border:1px solid rgba(29,86,207,0.25)}
-.pillar-mistake .card-series{background:rgba(213,173,54,0.12);color:#D5AD36;border:1px solid rgba(213,173,54,0.2)}
-.pillar-would  .card-series{background:rgba(34,197,94,0.1);color:#4ADE80;border:1px solid rgba(34,197,94,0.18)}
+.pillar-explain .card-series{background:rgba(29,86,207,0.08);color:var(--blue);border:1px solid rgba(29,86,207,0.18)}
+.pillar-mistake .card-series{background:rgba(213,173,54,0.1);color:#9a7a1a;border:1px solid rgba(213,173,54,0.2)}
+.pillar-would   .card-series{background:rgba(22,163,74,0.08);color:#15803d;border:1px solid rgba(22,163,74,0.18)}
 
-/* status badge */
 .card-status{flex-shrink:0;text-align:center}
 .status-ring{
-  width:42px;height:42px;border-radius:50%;
+  width:44px;height:44px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  border:2px solid var(--border);
-  font-size:18px;transition:all 0.3s ease;
-  cursor:default;
+  border:1.5px solid var(--border);font-size:20px;
+  background:rgba(29,86,207,0.04);transition:all 0.3s;
 }
 .post-card.done .status-ring{
-  border-color:rgba(34,197,94,0.5);
-  background:rgba(34,197,94,0.1);
-  box-shadow:0 0 20px rgba(34,197,94,0.2);
+  border-color:rgba(22,163,74,0.4);background:rgba(22,163,74,0.07);
+  box-shadow:0 0 16px rgba(22,163,74,0.15);
 }
-.status-text{font-size:8px;font-weight:700;color:var(--muted);margin-top:4px;letter-spacing:0.08em}
-.post-card.done .status-text{color:#4ADE80}
+.status-text{font-size:8px;font-weight:700;color:var(--text3);margin-top:4px;letter-spacing:0.08em}
+.post-card.done .status-text{color:#15803d}
 
-/* card body — platforms */
-.card-body{padding:14px 20px 18px}
-.platforms-label{
-  font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:12px;
-}
-.platforms-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* ── PLATFORMS ── */
+.card-body{padding:16px 20px}
+.section-label{font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.platforms-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .platform-row{
-  display:flex;align-items:center;gap:10px;
+  display:flex;align-items:center;gap:9px;
   padding:9px 12px;border-radius:10px;
-  background:rgba(255,255,255,0.03);border:1px solid var(--border);
-  cursor:pointer;transition:all 0.2s;
-  user-select:none;
+  background:rgba(29,86,207,0.03);border:1.5px solid var(--border2);
+  cursor:pointer;transition:all 0.18s;user-select:none;
 }
-.platform-row:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14)}
-.platform-row.checked{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.25)}
-.platform-row.checked .plat-name{color:#4ADE80}
-.platform-row.checked .plat-icon{filter:none}
-
+.platform-row:hover{background:rgba(29,86,207,0.06);border-color:rgba(29,86,207,0.2)}
+.platform-row.checked{background:rgba(22,163,74,0.06);border-color:rgba(22,163,74,0.28)}
+.platform-row.checked .plat-name{color:#15803d;font-weight:800}
 .plat-checkbox{
-  width:16px;height:16px;border-radius:4px;
-  border:1.5px solid rgba(255,255,255,0.2);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.2s;background:transparent;
+  width:16px;height:16px;border-radius:4px;border:1.5px solid rgba(29,86,207,0.25);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:transparent;transition:all 0.18s;
 }
-.platform-row.checked .plat-checkbox{
-  background:#22c55e;border-color:#22c55e;
-  box-shadow:0 0 10px rgba(34,197,94,0.35);
-}
+.platform-row.checked .plat-checkbox{background:#16a34a;border-color:#16a34a;box-shadow:0 0 8px rgba(22,163,74,0.3)}
 .plat-check-icon{display:none;width:10px;height:10px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .platform-row.checked .plat-check-icon{display:block}
+.plat-icon{font-size:13px;flex-shrink:0}
+.plat-name{font-size:10px;font-weight:700;color:var(--text2);flex:1}
+.plat-time{font-size:8px;color:var(--text3);font-weight:600;white-space:nowrap}
 
-.plat-icon{font-size:14px;flex-shrink:0;filter:grayscale(0.6) opacity(0.7)}
-.platform-row.checked .plat-icon{filter:none}
-.plat-name{font-size:10px;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:0.04em;flex:1}
-.plat-time{font-size:8px;color:var(--muted);font-weight:600}
-
-/* notes row */
-.card-notes{
-  margin-top:12px;display:flex;align-items:center;gap:8px;
+/* ── CAPTIONS ── */
+.captions-wrap{margin-top:4px}
+.caption-tabs{display:flex;gap:6px;margin-bottom:10px}
+.cap-tab{
+  padding:5px 13px;border-radius:100px;font-size:10px;font-weight:700;
+  font-family:'Montserrat',sans-serif;cursor:pointer;
+  border:1.5px solid var(--border);background:transparent;color:var(--text3);
+  transition:all 0.15s;
 }
+.cap-tab.active{background:rgba(29,86,207,0.08);border-color:rgba(29,86,207,0.3);color:var(--blue)}
+.caption-box{
+  position:relative;border-radius:12px;
+  background:rgba(29,86,207,0.03);border:1.5px solid var(--border2);
+  padding:13px 14px;
+}
+.caption-text{
+  font-size:11px;color:var(--text2);line-height:1.75;font-weight:500;
+  white-space:pre-wrap;word-break:break-word;
+  max-height:130px;overflow-y:auto;
+  padding-right:6px;
+}
+.caption-text::-webkit-scrollbar{width:3px}
+.caption-text::-webkit-scrollbar-track{background:transparent}
+.caption-text::-webkit-scrollbar-thumb{background:rgba(29,86,207,0.2);border-radius:4px}
+.copy-btn{
+  position:absolute;top:10px;right:10px;
+  padding:5px 12px;border-radius:8px;font-size:9px;font-weight:800;
+  font-family:'Montserrat',sans-serif;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;
+  border:1.5px solid rgba(29,86,207,0.25);background:rgba(29,86,207,0.07);
+  color:var(--blue);transition:all 0.2s;
+}
+.copy-btn:hover{background:rgba(29,86,207,0.14);border-color:rgba(29,86,207,0.4)}
+.copy-btn.copied{background:rgba(22,163,74,0.1);border-color:rgba(22,163,74,0.35);color:#15803d}
+
+/* ── NOTES ── */
+.notes-row{margin-top:10px}
 .notes-input{
-  flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);
-  border-radius:8px;padding:8px 12px;
+  width:100%;background:rgba(29,86,207,0.02);border:1.5px solid var(--border2);
+  border-radius:10px;padding:9px 13px;
   font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;
-  color:rgba(255,255,255,0.7);outline:none;
-  transition:border-color 0.2s;
+  color:var(--text1);outline:none;transition:border-color 0.2s;
 }
-.notes-input::placeholder{color:rgba(255,255,255,0.2)}
-.notes-input:focus{border-color:rgba(29,86,207,0.4);background:rgba(29,86,207,0.04)}
+.notes-input::placeholder{color:var(--text3)}
+.notes-input:focus{border-color:rgba(29,86,207,0.35);background:rgba(29,86,207,0.03)}
 
 /* ── LEGEND ── */
 .legend{
-  padding:20px 40px;
-  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
-  border-top:1px solid var(--border);
-  margin-top:8px;
+  padding:18px 40px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  border-top:1.5px solid var(--border);background:rgba(255,255,255,0.5);
 }
-.legend-item{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;color:var(--muted)}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:600;color:var(--text3)}
 .legend-dot{width:10px;height:10px;border-radius:50%}
 
-/* ── SCROLL TO TOP ── */
+/* ── SCROLL TOP ── */
 #scrollTop{
   position:fixed;bottom:28px;right:28px;z-index:200;
   width:44px;height:44px;border-radius:50%;
-  background:rgba(29,86,207,0.3);border:1px solid rgba(29,86,207,0.4);
+  background:var(--blue);
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;transition:all 0.2s;
-  backdrop-filter:blur(10px);
+  box-shadow:0 6px 20px rgba(29,86,207,0.4);
   opacity:0;pointer-events:none;
 }
 #scrollTop.show{opacity:1;pointer-events:auto}
-#scrollTop:hover{background:rgba(29,86,207,0.5);transform:translateY(-2px)}
+#scrollTop:hover{background:var(--blue-d);transform:translateY(-2px)}
 #scrollTop svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── RESPONSIVE ── */
 @media(max-width:700px){
-  header{padding:20px;flex-wrap:wrap;gap:16px}
-  .filters,.main{padding:16px 20px}
+  header,.filters,.main,.legend{padding-left:16px;padding-right:16px}
   .posts-grid{grid-template-columns:1fr}
   .progress-bar-outer{width:130px}
-  .legend{padding:16px 20px}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo-row">
     <div class="logo-box">
@@ -264,22 +264,21 @@ header{
     </div>
     <div>
       <div class="brand-name">Alma<span>Tech</span></div>
-      <div class="brand-sub">Content Calendar · Season 1</div>
+      <div class="brand-sub">Content Calendar · Season 1 · India</div>
     </div>
   </div>
   <div class="header-right">
     <div class="progress-wrap">
       <div class="progress-label">Overall Progress</div>
       <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
-      <div class="progress-count" id="progressCount">0 / 48 posts done</div>
+      <div class="progress-count" id="progressCount">0 / 72 posts done</div>
     </div>
   </div>
 </header>
 
-<!-- FILTERS -->
 <div class="filters">
   <span class="filter-label">Filter:</span>
-  <button class="filter-btn all active" onclick="filterCards('all',this)">All Episodes</button>
+  <button class="filter-btn active" onclick="filterCards('all',this)">All Episodes</button>
   <button class="filter-btn" onclick="filterCards('pillar-explain',this)">🔵 Alma Explains</button>
   <button class="filter-btn" onclick="filterCards('pillar-mistake',this)">🟡 Alma's Mistake</button>
   <button class="filter-btn" onclick="filterCards('pillar-would',this)">🟢 Would You Rather</button>
@@ -287,15 +286,13 @@ header{
   <button class="filter-btn" onclick="filterCards('pending',this)">⏳ Pending</button>
 </div>
 
-<!-- MAIN -->
 <div class="main" id="main"></div>
 
-<!-- LEGEND -->
 <div class="legend">
-  <div class="legend-item"><div class="legend-dot" style="background:#4A8FFF"></div> Alma Explains</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#D5AD36"></div> Alma's Mistake</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#4ADE80"></div> Would You Rather</div>
-  <div class="legend-item" style="margin-left:auto;color:rgba(255,255,255,0.25);font-size:9px">AlmaTech © 2025 · Data saved in browser</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1D56CF"></div>Alma Explains — Every Monday</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D5AD36"></div>Alma's Mistake — Every Wednesday</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div>Would You Rather — Every Friday</div>
+  <div class="legend-item" style="margin-left:auto;font-size:9px">AlmaTech © 2025 · Auto-saved in browser</div>
 </div>
 
 <div id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -303,127 +300,645 @@ header{
 </div>
 
 <script>
-/* ═══════════════════════════════════════
-   DATA
-═══════════════════════════════════════ */
 const PLATFORMS = [
-  {id:'insta', icon:'📸', name:'Instagram', time:'6–8 PM IST'},
-  {id:'youtube',icon:'▶️', name:'YouTube',   time:'12–2 PM IST'},
-  {id:'linkedin',icon:'💼',name:'LinkedIn',  time:'9–10 AM IST'},
-  {id:'whatsapp',icon:'💬',name:'WhatsApp',  time:'Anytime'},
+  {id:'insta',   icon:'📸', name:'Instagram', time:'7–9 PM IST'},
+  {id:'youtube', icon:'▶️', name:'YouTube',   time:'12–2 PM IST'},
+  {id:'linkedin',icon:'💼', name:'LinkedIn',  time:'8–10 AM IST'},
+  {id:'whatsapp',icon:'💬', name:'WhatsApp',  time:'Anytime'},
 ];
 
+/* ═══════════════════════════════════════════════
+   EPISODES — each has English + Hindi caption
+═══════════════════════════════════════════════ */
 const WEEKS = [
   {
     label:'Week 1', dates:'Jun 23 – Jun 27, 2025',
     posts:[
-      {ep:'EP 01', day:'MON', date:'Jun 23', pillar:'pillar-explain', series:'Alma Explains',
-       title:'What is Compound Interest? — and why your school never taught you this'},
-      {ep:'EP 02', day:'WED', date:'Jun 25', pillar:'pillar-mistake', series:"Alma's Mistake",
-       title:"Alma spent his entire pocket money on Day 1 — here's what happened next"},
-      {ep:'EP 03', day:'FRI', date:'Jun 27', pillar:'pillar-would',  series:'Would You Rather?',
-       title:'Save ₹5,000/month for 10 years OR invest ₹5,000/month? Alma reveals the answer'},
+      {
+        ep:'EP 01', day:'MON', date:'Mon, Jun 23', pillar:'pillar-explain', series:'Alma Explains',
+        title:'What is Compound Interest? — and why your school never taught you this',
+        captions:{
+          en:`🚀 Your school taught you algebra. But not THIS.
+
+What is Compound Interest — and why it's the most powerful money rule you were never taught.
+
+Alma breaks it down in 60 seconds. 🧠💸
+
+📌 Save this. Share it with every student you know.
+
+💡 At AlmaTech, we teach Class 9 & 10 students what money actually does — live, twice a week, with IIT & IIM experts.
+
+👉 Link in bio to enroll your school.
+
+#CompoundInterest #AlmaTech #FinancialEducation #MoneyTips #IndiaStudents #Class9 #Class10 #FinancialLiteracy #AlmaExplains #LearnMoney #EdTechIndia`,
+          hi:`🚀 School ने algebra सिखाया। लेकिन ये नहीं।
+
+Compound Interest क्या होता है — और ये सबसे powerful money rule क्यों है जो आपको कभी नहीं पढ़ाया गया।
+
+Alma समझाता है — सिर्फ 60 seconds में। 🧠💸
+
+📌 इसे Save करें। हर student को Share करें।
+
+💡 AlmaTech में हम Class 9 & 10 के students को सिखाते हैं कि पैसा असल में कैसे काम करता है — IIT & IIM experts के साथ, हफ्ते में दो बार, Live।
+
+👉 अपना school enroll करने के लिए bio का link देखें।
+
+#CompoundInterest #AlmaTech #FinancialEducation #MoneyTips #IndiaStudents #PaisaKaiseBadhao #AlmaExplains`,
+        }
+      },
+      {
+        ep:'EP 02', day:'WED', date:'Wed, Jun 25', pillar:'pillar-mistake', series:"Alma's Mistake",
+        title:"Alma spent his entire pocket money on Day 1 — here's what happened next",
+        captions:{
+          en:`😅 We've all been Alma at some point.
+
+Alma got his pocket money. By evening — it was gone. All of it.
+
+But what happened next changed how he thinks about money forever. 👀
+
+Watch to see the mistake — and the lesson that follows.
+
+💡 At AlmaTech, we teach real money decisions to Class 9 & 10 students — because no school does.
+
+📌 Tag a friend who needs to see this.
+
+#AlmasMistake #MoneyMistakes #AlmaTech #FinancialLiteracy #TeenageMoney #IndiaStudents #PocketMoney #LearnFromMistakes #EdTechIndia #Class9 #Class10`,
+          hi:`😅 हम सब कभी न कभी Alma जैसे रहे हैं।
+
+Alma को pocket money मिली। शाम तक — खत्म। सब कुछ।
+
+लेकिन जो इसके बाद हुआ, उसने उसकी पैसों के बारे में सोच ही बदल दी। 👀
+
+देखो — गलती क्या थी, और सबक क्या मिला।
+
+💡 AlmaTech में हम Class 9 & 10 students को real money decisions सिखाते हैं — क्योंकि कोई school नहीं सिखाता।
+
+📌 किसी दोस्त को tag करो जिसे ये देखना चाहिए।
+
+#AlmasMistake #PaisaKiGalti #AlmaTech #FinancialLiteracy #IndiaStudents #PocketMoney #Class9 #Class10 #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 03', day:'FRI', date:'Fri, Jun 27', pillar:'pillar-would', series:'Would You Rather?',
+        title:'Save ₹5,000/month for 10 years OR invest ₹5,000/month? Alma reveals the answer',
+        captions:{
+          en:`💰 Same money. Very different outcome.
+
+Would you rather:
+A) Save ₹5,000/month for 10 years
+B) Invest ₹5,000/month for 10 years
+
+Most people pick A. Alma reveals why B wins — by a LOT. 📈
+
+Comment your answer before watching! 👇
+
+💡 AlmaTech teaches Class 9 & 10 students to make choices like this — before they enter the real world.
+
+#WouldYouRather #SavingVsInvesting #AlmaTech #MoneyTips #FinancialLiteracy #IndiaStudents #InvestmentTips #AlmaCartoon #EdTechIndia #Class9 #Class10`,
+          hi:`💰 पैसा एक जैसा। नतीजा बिल्कुल अलग।
+
+आप क्या करेंगे?
+A) ₹5,000/महीना 10 साल तक Save करना
+B) ₹5,000/महीना 10 साल तक Invest करना
+
+ज़्यादातर लोग A चुनते हैं। Alma बताता है क्यों B बहुत आगे निकल जाता है — बहुत ज़्यादा। 📈
+
+देखने से पहले comment में अपना जवाब दो! 👇
+
+💡 AlmaTech Class 9 & 10 students को ऐसे decisions लेना सिखाता है — real world में जाने से पहले।
+
+#WouldYouRather #BachatYaNivesh #AlmaTech #MoneyTips #FinancialLiteracy #IndiaStudents #AlmaCartoon #EdTechIndia`,
+        }
+      },
     ]
   },
   {
     label:'Week 2', dates:'Jun 30 – Jul 4, 2025',
     posts:[
-      {ep:'EP 04', day:'MON', date:'Jun 30', pillar:'pillar-explain', series:'Alma Explains',
-       title:'What is a Mutual Fund? — explained in 60 seconds, in plain Hindi & English'},
-      {ep:'EP 05', day:'WED', date:'Jul 2',  pillar:'pillar-mistake', series:"Alma's Mistake",
-       title:"Alma ignored his credit card bill for 3 months — this is how ₹5,000 became ₹11,000"},
-      {ep:'EP 06', day:'FRI', date:'Jul 4',  pillar:'pillar-would',  series:'Would You Rather?',
-       title:'One high-paying job OR your own business? The real numbers, not the hype'},
+      {
+        ep:'EP 04', day:'MON', date:'Mon, Jun 30', pillar:'pillar-explain', series:'Alma Explains',
+        title:'What is a Mutual Fund? — explained in 60 seconds, plain and simple',
+        captions:{
+          en:`📦 A Mutual Fund is just a group of people pooling their money.
+
+Sounds simple — but most people still don't know how it actually works.
+
+Alma explains it in 60 seconds. No jargon. No confusion. Just clarity. ✅
+
+📌 Save this for later. Your future self will thank you.
+
+💡 AlmaTech brings this kind of education into actual school classrooms — live, with IIT & IIM experts.
+
+👉 Enroll your school at almatech.co.in
+
+#MutualFunds #AlmaExplains #AlmaTech #FinancialLiteracy #InvestmentBasics #MoneyTips #IndiaStudents #Class9 #Class10 #EdTechIndia`,
+          hi:`📦 Mutual Fund बस इतना है — लोगों का पैसा एक साथ लगाना।
+
+Simple लगता है — लेकिन ज़्यादातर लोगों को अभी भी नहीं पता ये कैसे काम करता है।
+
+Alma 60 seconds में समझाता है। कोई jargon नहीं। कोई confusion नहीं। बस clarity। ✅
+
+📌 इसे Save करो। आगे काम आएगा।
+
+💡 AlmaTech ऐसी education real school classrooms में लाता है — IIT & IIM experts के साथ, Live।
+
+👉 Enroll करें: almatech.co.in
+
+#MutualFunds #AlmaExplains #AlmaTech #FinancialLiteracy #NiveshKaisKarey #IndiaStudents #Class9 #Class10`,
+        }
+      },
+      {
+        ep:'EP 05', day:'WED', date:'Wed, Jul 2', pillar:'pillar-mistake', series:"Alma's Mistake",
+        title:"Alma ignored his credit card bill for 3 months — watch how ₹5,000 became ₹11,000",
+        captions:{
+          en:`😨 ₹5,000 became ₹11,000. In just 3 months.
+
+Alma ignored one credit card bill. Just one. And this is what happened.
+
+Banks don't tell you this. But we will. 🏦
+
+Watch this before you ever touch a credit card.
+
+💡 AlmaTech teaches Class 9 & 10 students the real rules of money — the ones banks don't explain.
+
+📌 Share with anyone who has a credit card.
+
+#CreditCard #AlmasMistake #AlmaTech #MoneyMistakes #FinancialLiteracy #IndiaStudents #DebtTrap #RealMoneyLesson #EdTechIndia`,
+          hi:`😨 ₹5,000 बन गए ₹11,000। सिर्फ 3 महीनों में।
+
+Alma ने एक credit card bill ignore किया। सिर्फ एक। और ये हो गया।
+
+Banks ये नहीं बताते। लेकिन हम बताएंगे। 🏦
+
+Credit card use करने से पहले ये ज़रूर देखो।
+
+💡 AlmaTech Class 9 & 10 students को पैसे के real rules सिखाता है — जो banks नहीं समझाते।
+
+📌 जिसके पास credit card है उसके साथ share करो।
+
+#CreditCard #AlmasMistake #AlmaTech #PaisaDoubleGalat #FinancialLiteracy #IndiaStudents #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 06', day:'FRI', date:'Fri, Jul 4', pillar:'pillar-would', series:'Would You Rather?',
+        title:'One high-paying job OR your own business? The real numbers, not the hype',
+        captions:{
+          en:`💼 vs 🚀 The question everyone is asking. The answer nobody gives honestly.
+
+Would you rather:
+A) ₹2 Lakh/month job at a top company
+B) Start your own business
+
+Alma doesn't give you the motivational answer. He gives you the REAL one. 📊
+
+Drop your choice below 👇 then watch.
+
+💡 At AlmaTech, we teach entrepreneurship AND financial skills — so students can make this call with full information.
+
+#WouldYouRather #JobVsBusiness #AlmaTech #Entrepreneurship #IndiaStudents #FinancialLiteracy #AlmaCartoon #StartupIndia #EdTechIndia`,
+          hi:`💼 vs 🚀 सबका सवाल। कोई honest जवाब नहीं देता।
+
+आप क्या चुनेंगे?
+A) किसी top company में ₹2 Lakh/महीना job
+B) खुद का business शुरू करना
+
+Alma motivational जवाब नहीं देता। वो REAL जवाब देता है। 📊
+
+पहले नीचे comment करो 👇 फिर देखो।
+
+💡 AlmaTech में हम entrepreneurship और financial skills दोनों सिखाते हैं — ताकि students पूरी जानकारी के साथ decide कर सकें।
+
+#WouldYouRather #JobYaBusiness #AlmaTech #Entrepreneurship #IndiaStudents #StartupIndia #EdTechIndia`,
+        }
+      },
     ]
   },
   {
     label:'Week 3', dates:'Jul 7 – Jul 11, 2025',
     posts:[
-      {ep:'EP 07', day:'MON', date:'Jul 7',  pillar:'pillar-explain', series:'Alma Explains',
-       title:'What is GST actually doing to your money every single day?'},
-      {ep:'EP 08', day:'WED', date:'Jul 9',  pillar:'pillar-mistake', series:"Alma's Mistake",
-       title:"Alma trusted a 'Double Your Money in 30 Days' scheme — what really happened"},
-      {ep:'EP 09', day:'FRI', date:'Jul 11', pillar:'pillar-would',  series:'Would You Rather?',
-       title:'Spend now and enjoy life OR invest now and retire early? Alma does the math'},
+      {
+        ep:'EP 07', day:'MON', date:'Mon, Jul 7', pillar:'pillar-explain', series:'Alma Explains',
+        title:'What is GST actually doing to your money every single day?',
+        captions:{
+          en:`🧾 You pay GST every single day. But do you actually know what it is?
+
+Every chai, every online order, every movie ticket — GST is there. Silently.
+
+Alma explains what it is, where it goes, and why you should actually care. 🍵
+
+📌 The most important tax you never studied in school.
+
+💡 AlmaTech teaches real financial skills to Class 9 & 10 students — because school doesn't.
+
+#GST #AlmaExplains #AlmaTech #FinancialLiteracy #TaxEducation #IndiaStudents #MoneyBasics #EdTechIndia #Class9 #Class10`,
+          hi:`🧾 आप हर रोज़ GST देते हैं। लेकिन क्या सच में जानते हैं ये है क्या?
+
+हर chai, हर online order, हर movie ticket — GST वहाँ है। चुपचाप।
+
+Alma explain करता है — ये क्या है, कहाँ जाता है, और आपको क्यों care करनी चाहिए। 🍵
+
+📌 School में सबसे important tax जो कभी नहीं पढ़ाया गया।
+
+💡 AlmaTech Class 9 & 10 students को real financial skills सिखाता है — क्योंकि school नहीं सिखाता।
+
+#GST #AlmaExplains #AlmaTech #TaxEducation #IndiaStudents #PaisaBasics #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 08', day:'WED', date:'Wed, Jul 9', pillar:'pillar-mistake', series:"Alma's Mistake",
+        title:"Alma trusted a 'Double Your Money in 30 Days' scheme — what really happened",
+        captions:{
+          en:`🚨 "Double your money in 30 days."
+
+Alma saw the ad. It looked real. He invested. And then... 😬
+
+This happens to thousands of Indians every year. Don't let it happen to you.
+
+Watch before you trust any "guaranteed returns" promise.
+
+💡 AlmaTech teaches students to spot financial scams before they fall for them.
+
+📌 Share this with your parents too. This one's for everyone.
+
+#FinancialScam #AlmasMistake #AlmaTech #PonziScheme #MoneyMistakes #FinancialLiteracy #IndiaStudents #ScamAlert #EdTechIndia`,
+          hi:`🚨 "30 दिनों में पैसा double करो।"
+
+Alma ने ad देखा। Real लगा। Invest किया। और फिर... 😬
+
+ये हर साल हज़ारों Indians के साथ होता है। आपके साथ मत होने दो।
+
+कोई भी "guaranteed returns" promise trust करने से पहले ये देखो।
+
+💡 AlmaTech students को सिखाता है कि financial scams को पहले ही पकड़ें — फंसने से पहले।
+
+📌 इसे अपने parents को भी share करो। ये सबके लिए है।
+
+#FinancialScam #AlmasMistake #AlmaTech #PaisaDouble #MoneyMistakes #IndiaStudents #ScamAlert #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 09', day:'FRI', date:'Fri, Jul 11', pillar:'pillar-would', series:'Would You Rather?',
+        title:'Spend now and enjoy life OR invest now and retire early? Alma does the math',
+        captions:{
+          en:`🛍️ vs 🌴 YOLO vs Financial Freedom. Which side are you on?
+
+Would you rather:
+A) Spend freely now and enjoy your 20s
+B) Invest consistently now and retire at 45
+
+Alma doesn't judge. He just shows you the actual numbers. The answer might surprise you. 📊
+
+Comment A or B first 👇
+
+💡 AlmaTech helps students understand decisions like this before they hit 18.
+
+#WouldYouRather #SpendOrInvest #RetireEarly #AlmaTech #FinancialFreedom #IndiaStudents #MoneyDecisions #AlmaCartoon #EdTechIndia`,
+          hi:`🛍️ vs 🌴 YOLO vs Financial Freedom। आप किस side हो?
+
+आप क्या prefer करेंगे?
+A) अभी freely खर्च करो, 20s enjoy करो
+B) अभी consistently invest करो, 45 में retire करो
+
+Alma judge नहीं करता। वो बस actual numbers दिखाता है। जवाब चौंका सकता है। 📊
+
+पहले A या B comment करो 👇
+
+💡 AlmaTech students को 18 साल से पहले ऐसे decisions समझना सिखाता है।
+
+#WouldYouRather #KharchaYaNivesh #RetireEarly #AlmaTech #FinancialFreedom #IndiaStudents #EdTechIndia`,
+        }
+      },
     ]
   },
   {
     label:'Week 4', dates:'Jul 14 – Jul 18, 2025',
     posts:[
-      {ep:'EP 10', day:'MON', date:'Jul 14', pillar:'pillar-explain', series:'Alma Explains',
-       title:'Credit Score — what it is, why it matters at age 18, and how to build yours'},
-      {ep:'EP 11', day:'WED', date:'Jul 16', pillar:'pillar-mistake', series:"Alma's Mistake",
-       title:"Alma never made a budget — and ran out of money 10 days before month end"},
-      {ep:'EP 12', day:'FRI', date:'Jul 18', pillar:'pillar-would',  series:'Would You Rather?',
-       title:'₹10,000 in Fixed Deposit OR ₹10,000 in Stocks? The answer will surprise you'},
+      {
+        ep:'EP 10', day:'MON', date:'Mon, Jul 14', pillar:'pillar-explain', series:'Alma Explains',
+        title:'Credit Score — what it is, why it matters at age 18, and how to build yours',
+        captions:{
+          en:`📊 A number you don't know yet — but will follow you for life.
+
+Your Credit Score. Most people only discover it exists when they need a loan. And by then, it's too late to fix.
+
+Alma explains what it is and how to start building it from age 18. 🏗️
+
+📌 Save this. You'll need it sooner than you think.
+
+💡 AlmaTech teaches Class 9 & 10 students financial skills they'll actually use — starting now.
+
+#CreditScore #AlmaExplains #AlmaTech #FinancialLiteracy #IndiaStudents #MoneyBasics #CIBIL #EdTechIndia #Class9 #Class10`,
+          hi:`📊 एक number जो अभी नहीं पता — लेकिन ज़िंदगीभर साथ रहेगा।
+
+आपका Credit Score। ज़्यादातर लोगों को तब पता चलता है जब loan चाहिए। और तब तक बहुत देर हो जाती है।
+
+Alma समझाता है — ये क्या है और 18 साल की उम्र से इसे कैसे बनाएं। 🏗️
+
+📌 Save करो। जल्दी काम आएगा।
+
+💡 AlmaTech Class 9 & 10 students को वो financial skills सिखाता है जो actually काम आती हैं।
+
+#CreditScore #AlmaExplains #AlmaTech #FinancialLiteracy #IndiaStudents #CIBIL #PaisaBasics #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 11', day:'WED', date:'Wed, Jul 16', pillar:'pillar-mistake', series:"Alma's Mistake",
+        title:"Alma never made a budget — and ran out of money 10 days before month end",
+        captions:{
+          en:`📅 10 days left. ₹0 left.
+
+Alma thought budgeting was for "old people." He was wrong.
+
+This episode shows exactly what happens when you spend without a plan — and the one simple fix that changes everything. 💡
+
+📌 If you've ever said "I'll start budgeting next month" — this one's for you.
+
+💡 AlmaTech teaches real money management to Class 9 & 10 students — before bad habits form.
+
+#Budgeting #AlmasMistake #AlmaTech #MoneyManagement #FinancialLiteracy #IndiaStudents #MoneyHabits #EdTechIndia`,
+          hi:`📅 10 दिन बाकी। ₹0 बाकी।
+
+Alma सोचता था budgeting "बड़े लोगों" के लिए है। वो गलत था।
+
+ये episode दिखाता है कि बिना plan के खर्च करने से exactly क्या होता है — और एक simple fix जो सब बदल देती है। 💡
+
+📌 अगर कभी कहा है "अगले महीने से budget बनाऊंगा" — ये आपके लिए है।
+
+💡 AlmaTech Class 9 & 10 students को real money management सिखाता है — बुरी आदतें बनने से पहले।
+
+#Budgeting #AlmasMistake #AlmaTech #MoneyManagement #FinancialLiteracy #IndiaStudents #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 12', day:'FRI', date:'Fri, Jul 18', pillar:'pillar-would', series:'Would You Rather?',
+        title:'₹10,000 in Fixed Deposit OR ₹10,000 in Stocks? The answer will surprise you',
+        captions:{
+          en:`🏦 vs 📈 The classic debate. Finally settled.
+
+Would you rather put ₹10,000 in:
+A) Fixed Deposit (safe, guaranteed)
+B) Stock Market (risky, but...)
+
+Alma runs the actual numbers over 10 years. The result? Not what most people expect. 👀
+
+Tell us your pick in the comments 👇
+
+💡 AlmaTech teaches students to make smart investment decisions before they enter the workforce.
+
+#WouldYouRather #FDvsStocks #AlmaTech #InvestmentTips #FinancialLiteracy #IndiaStudents #StockMarket #FixedDeposit #EdTechIndia`,
+          hi:`🏦 vs 📈 Classic debate। आखिरकार settle होगा।
+
+आप ₹10,000 कहाँ लगाएंगे?
+A) Fixed Deposit (safe, guaranteed)
+B) Stock Market (risky, लेकिन...)
+
+Alma 10 साल के actual numbers चलाता है। Result? जो ज़्यादातर लोग सोचते हैं, वो नहीं। 👀
+
+Comments में बताओ आपकी choice 👇
+
+💡 AlmaTech students को workforce join करने से पहले smart investment decisions सिखाता है।
+
+#WouldYouRather #FDvsShares #AlmaTech #NiveshTips #FinancialLiteracy #IndiaStudents #StockMarket #EdTechIndia`,
+        }
+      },
     ]
   },
   {
     label:'Week 5', dates:'Jul 21 – Jul 25, 2025',
     posts:[
-      {ep:'EP 13', day:'MON', date:'Jul 21', pillar:'pillar-explain', series:'Alma Explains',
-       title:'What is an EMI trap? How banks profit while you think you\'re saving'},
-      {ep:'EP 14', day:'WED', date:'Jul 23', pillar:'pillar-mistake', series:"Alma's Mistake",
-       title:"Alma took a loan to buy a phone — the real cost shocked everyone"},
-      {ep:'EP 15', day:'FRI', date:'Jul 25', pillar:'pillar-would',  series:'Would You Rather?',
-       title:'₹1 Lakh lump sum investment OR ₹8,300/month SIP? Which wins in 10 years?'},
+      {
+        ep:'EP 13', day:'MON', date:'Mon, Jul 21', pillar:'pillar-explain', series:'Alma Explains',
+        title:"What is an EMI trap? How banks profit while you think you're saving",
+        captions:{
+          en:`📱 "No cost EMI." Sounds free. It never is.
+
+The EMI trap is one of the most profitable tricks banks use — and most people fall for it every single time.
+
+Alma exposes exactly how it works. 🎭
+
+📌 Watch before your next big purchase on EMI.
+
+💡 AlmaTech teaches financial awareness to Class 9 & 10 students — so they never fall for this.
+
+#EMITrap #AlmaExplains #AlmaTech #FinancialLiteracy #NoCostEMI #MoneyTips #IndiaStudents #BankingTricks #EdTechIndia`,
+          hi:`📱 "No cost EMI।" Free लगता है। होता कभी नहीं।
+
+EMI trap — banks का सबसे profitable trick है — और ज़्यादातर लोग हर बार इसमें फंस जाते हैं।
+
+Alma exactly बताता है ये कैसे काम करता है। 🎭
+
+📌 अगली बड़ी EMI purchase से पहले देखो।
+
+💡 AlmaTech Class 9 & 10 students को financial awareness सिखाता है — ताकि वो कभी इसमें न फंसें।
+
+#EMITrap #AlmaExplains #AlmaTech #NoCostEMI #FinancialLiteracy #MoneyTips #IndiaStudents #BankTricks #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 14', day:'WED', date:'Wed, Jul 23', pillar:'pillar-mistake', series:"Alma's Mistake",
+        title:"Alma took a loan to buy a phone — here's the real cost that shocked him",
+        captions:{
+          en:`📱 Alma wanted the latest phone. He took a loan. Bad idea.
+
+The phone cost ₹40,000. But by the time Alma paid it off — the REAL cost was very different.
+
+This episode shows the math nobody shows you at the store. 🧮
+
+📌 Tag someone who's thinking about a phone loan.
+
+💡 AlmaTech teaches smart financial decisions to Class 9 & 10 students across India.
+
+#AlmasMistake #PhoneLoan #AlmaTech #MoneyMistakes #FinancialLiteracy #IndiaStudents #PersonalFinance #EMI #EdTechIndia`,
+          hi:`📱 Alma को latest phone चाहिए था। Loan लिया। बुरा idea।
+
+Phone की कीमत थी ₹40,000। लेकिन जब Alma ने पूरा pay किया — REAL cost बहुत अलग थी।
+
+ये episode वो math दिखाता है जो store पर कोई नहीं दिखाता। 🧮
+
+📌 उसे tag करो जो phone loan के बारे में सोच रहा है।
+
+💡 AlmaTech पूरे India में Class 9 & 10 students को smart financial decisions सिखाता है।
+
+#AlmasMistake #PhoneLoan #AlmaTech #PaisaGalti #FinancialLiteracy #IndiaStudents #EMI #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 15', day:'FRI', date:'Fri, Jul 25', pillar:'pillar-would', series:'Would You Rather?',
+        title:'₹1 Lakh lump sum investment OR ₹8,300/month SIP? Which wins in 10 years?',
+        captions:{
+          en:`💰 ₹1 Lakh at once vs ₹8,300 every month for 10 years.
+
+Same total money. Completely different strategy.
+
+Would you rather:
+A) Invest ₹1 Lakh right now in one shot
+B) SIP ₹8,300 every month for 10 years
+
+Alma reveals which one wins — and by how much. 📊
+
+Drop your answer 👇 before watching!
+
+💡 AlmaTech makes these concepts real for Class 9 & 10 students — with live experts, twice a week.
+
+#WouldYouRather #SIPvsLumpsum #AlmaTech #MutualFunds #InvestmentTips #IndiaStudents #FinancialLiteracy #AlmaCartoon #EdTechIndia`,
+          hi:`💰 एक बार ₹1 Lakh vs हर महीने ₹8,300 — 10 साल तक।
+
+Total पैसा same। Strategy बिल्कुल अलग।
+
+आप क्या choose करेंगे?
+A) अभी एक साथ ₹1 Lakh invest करो
+B) हर महीने ₹8,300 का SIP — 10 साल तक
+
+Alma बताता है कौन जीतता है — और कितने से। 📊
+
+देखने से पहले जवाब दो 👇
+
+💡 AlmaTech ये concepts Class 9 & 10 students के लिए real बनाता है — live experts के साथ, हफ्ते में दो बार।
+
+#WouldYouRather #SIPvsEkmusht #AlmaTech #MutualFunds #NiveshTips #IndiaStudents #FinancialLiteracy #EdTechIndia`,
+        }
+      },
     ]
   },
   {
     label:'Week 6', dates:'Jul 28 – Aug 1, 2025',
     posts:[
-      {ep:'EP 16', day:'MON', date:'Jul 28', pillar:'pillar-explain', series:'Alma Explains',
-       title:'How does the Stock Market actually work? — The simplest explanation ever'},
-      {ep:'EP 17', day:'WED', date:'Jul 30', pillar:'pillar-mistake', series:"Alma's Mistake",
-       title:"Alma put all his savings into one stock — and here's the lesson every investor needs"},
-      {ep:'EP 18', day:'FRI', date:'Aug 1',  pillar:'pillar-would',  series:'Would You Rather?',
-       title:'Earn ₹2 Lakh/month job OR ₹50K/month from your own business? The real answer'},
+      {
+        ep:'EP 16', day:'MON', date:'Mon, Jul 28', pillar:'pillar-explain', series:'Alma Explains',
+        title:'How does the Stock Market actually work? — The simplest explanation ever',
+        captions:{
+          en:`📈 "Markets are up." "Sensex crashed." You hear it every day. But what does it actually MEAN?
+
+Alma explains the Stock Market in the simplest way possible. No finance degree needed. 🎓
+
+By the end of this, you'll actually understand what the news is talking about.
+
+📌 Save this. Best 60 seconds you'll spend today.
+
+💡 AlmaTech brings real financial education into Class 9 & 10 classrooms across India.
+
+#StockMarket #AlmaExplains #AlmaTech #Sensex #FinancialLiteracy #IndiaStudents #InvestingBasics #MoneyTips #EdTechIndia`,
+          hi:`📈 "Markets ऊपर हैं।" "Sensex गिरा।" हर रोज़ सुनते हैं। लेकिन actually मतलब क्या होता है?
+
+Alma Stock Market को सबसे simple तरीके से explain करता है। कोई finance degree ज़रूरी नहीं। 🎓
+
+इसके बाद आप actually समझ जाएंगे news क्या कह रही है।
+
+📌 Save करो। आज का सबसे अच्छा 60 seconds।
+
+💡 AlmaTech पूरे India में Class 9 & 10 classrooms में real financial education लाता है।
+
+#StockMarket #AlmaExplains #AlmaTech #Sensex #FinancialLiteracy #IndiaStudents #NiveshBasics #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 17', day:'WED', date:'Wed, Jul 30', pillar:'pillar-mistake', series:"Alma's Mistake",
+        title:"Alma put all his savings into one stock — here's the lesson every investor needs",
+        captions:{
+          en:`📉 "It was a sure thing." Famous last words.
+
+Alma put everything into one stock. One company. One bet.
+
+You already know how this ends. But the lesson? That's what matters. 🎯
+
+This is the most important rule in investing — and it takes Alma one painful mistake to learn it.
+
+📌 Share with anyone who's just starting to invest.
+
+💡 AlmaTech teaches Class 9 & 10 students to invest smart — before they make expensive mistakes in real life.
+
+#Diversification #AlmasMistake #AlmaTech #InvestingLesson #StockMarket #MoneyMistakes #IndiaStudents #DontPutAllEggsInOneBasket #EdTechIndia`,
+          hi:`📉 "पक्का था।" Last में यही सुनाई देता है।
+
+Alma ने सारी savings एक ही stock में लगा दी। एक company। एक bet।
+
+आप already जानते हो ये कैसे खत्म होगा। लेकिन lesson? वो matter करता है। 🎯
+
+ये investing का सबसे important rule है — और Alma एक painful गलती से सीखता है।
+
+📌 उसके साथ share करो जो अभी invest करना शुरू कर रहा है।
+
+💡 AlmaTech Class 9 & 10 students को smart invest करना सिखाता है — real life में महंगी गलतियाँ करने से पहले।
+
+#Diversification #AlmasMistake #AlmaTech #NiveshSabak #StockMarket #MoneyMistakes #IndiaStudents #EdTechIndia`,
+        }
+      },
+      {
+        ep:'EP 18', day:'FRI', date:'Fri, Aug 1', pillar:'pillar-would', series:'Would You Rather?',
+        title:'Earn ₹2 Lakh/month salary OR ₹50K/month from your own business? Real answer',
+        captions:{
+          en:`💼 ₹2 Lakh salary vs ₹50K from your own business.
+
+On paper, the salary wins. But Alma looks at the FULL picture — freedom, growth, taxes, equity — and the answer flips completely. 🔄
+
+Would you rather:
+A) ₹2 Lakh/month job — stable, prestigious
+B) ₹50K/month own business — small now, but YOURS
+
+Comment A or B 👇 then watch Alma's breakdown.
+
+💡 AlmaTech teaches students both financial skills AND entrepreneurial thinking — so they can make this choice wisely.
+
+#WouldYouRather #SalaryVsBusiness #AlmaTech #Entrepreneurship #FinancialFreedom #IndiaStudents #StartupIndia #AlmaCartoon #EdTechIndia`,
+          hi:`💼 ₹2 Lakh salary vs खुद के business से ₹50K।
+
+Paper पर salary जीतती है। लेकिन Alma FULL picture देखता है — freedom, growth, taxes, equity — और जवाब completely बदल जाता है। 🔄
+
+आप क्या choose करेंगे?
+A) ₹2 Lakh/month job — stable, prestigious
+B) ₹50K/month खुद का business — अभी छोटा, लेकिन अपना
+
+A या B comment करो 👇 फिर Alma का breakdown देखो।
+
+💡 AlmaTech students को financial skills और entrepreneurial thinking दोनों सिखाता है — ताकि ये choice समझदारी से करें।
+
+#WouldYouRather #NaukriYaBusiness #AlmaTech #Entrepreneurship #FinancialFreedom #IndiaStudents #StartupIndia #EdTechIndia`,
+        }
+      },
     ]
   },
 ];
 
-/* ═══════════════════════════════════════
-   RENDER
-═══════════════════════════════════════ */
-function load(key){ try{return JSON.parse(localStorage.getItem(key)||'null')}catch{return null} }
-function save(key,val){ localStorage.setItem(key,JSON.stringify(val)) }
+/* ═══════════════════════════════════════════════
+   STORAGE
+═══════════════════════════════════════════════ */
+function load(k){try{return JSON.parse(localStorage.getItem(k))}catch{return null}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function platKey(ep,pid){return 'plt_'+ep.replace(/\s/g,'_')+'_'+pid}
+function noteKey(ep){return 'nte_'+ep.replace(/\s/g,'_')}
+function capLangKey(ep){return 'clng_'+ep.replace(/\s/g,'_')}
+function cardId(ep){return 'card_'+ep.replace(/\s/g,'_')}
+function isDone(ep){return PLATFORMS.every(p=>load(platKey(ep,p.id))===true)}
 
-function cardId(ep){ return 'card_'+ep.replace(/\s/g,'_') }
-function platKey(ep,platId){ return 'plat_'+ep.replace(/\s/g,'_')+'_'+platId }
-function noteKey(ep){ return 'note_'+ep.replace(/\s/g,'_') }
-
-function isCardDone(ep){
-  return PLATFORMS.every(p => load(platKey(ep,p.id))===true);
-}
-
+/* ═══════════════════════════════════════════════
+   BUILD CARD
+═══════════════════════════════════════════════ */
 function buildCard(post){
-  const id  = cardId(post.ep);
-  const done = isCardDone(post.ep);
-  const dayClass = post.day==='MON'?'day-mon':post.day==='WED'?'day-wed':'day-fri';
-  const note = load(noteKey(post.ep))||'';
+  const done     = isDone(post.ep);
+  const note     = load(noteKey(post.ep))||'';
+  const capLang  = load(capLangKey(post.ep))||'en';
+  const dayCls   = post.day==='MON'?'day-mon':post.day==='WED'?'day-wed':'day-fri';
 
-  let platHTML = '';
-  PLATFORMS.forEach(p=>{
-    const checked = load(platKey(post.ep,p.id))===true;
-    platHTML+=`
-    <div class="platform-row${checked?' checked':''}" onclick="togglePlat('${post.ep}','${p.id}',this)">
-      <div class="plat-checkbox">
-        <svg class="plat-check-icon" viewBox="0 0 12 12"><polyline points="1.5 6 4.5 9 10.5 3"/></svg>
-      </div>
+  const plats = PLATFORMS.map(p=>{
+    const chk = load(platKey(post.ep,p.id))===true;
+    return `<div class="platform-row${chk?' checked':''}" onclick="togglePlat('${post.ep}','${p.id}',this)">
+      <div class="plat-checkbox"><svg class="plat-check-icon" viewBox="0 0 12 12"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></div>
       <span class="plat-icon">${p.icon}</span>
       <span class="plat-name">${p.name}</span>
       <span class="plat-time">${p.time}</span>
     </div>`;
-  });
+  }).join('');
+
+  const capText = (post.captions[capLang]||'').replace(/`/g,'\\`');
 
   return `
-  <div class="post-card ${post.pillar}${done?' done':''}" id="${id}" data-pillar="${post.pillar}" data-done="${done}">
+  <div class="post-card ${post.pillar}${done?' done':''}" id="${cardId(post.ep)}" data-pillar="${post.pillar}" data-done="${done}">
     <div class="card-accent"></div>
     <div class="card-top">
       <div class="card-meta">
-        <div class="card-date">
-          <span class="day-chip ${dayClass}">${post.day}</span>
-          ${post.date}
+        <div class="card-date-row">
+          <span class="day-chip ${dayCls}">${post.day}</span>
+          <span class="card-date-txt">${post.date}</span>
         </div>
         <div class="card-ep">${post.ep} · AlmaTech Cartoon Series</div>
         <div class="card-title">${post.title}</div>
@@ -435,107 +950,130 @@ function buildCard(post){
       </div>
     </div>
     <div class="card-body">
-      <div class="platforms-label">Post to platforms:</div>
-      <div class="platforms-grid">${platHTML}</div>
-      <div class="card-notes">
-        <input class="notes-input" type="text" placeholder="Add a note... (e.g. link, hashtags, caption)" value="${note}"
-          oninput="saveNote('${post.ep}',this.value)" />
+      <div class="section-label">Post to platforms</div>
+      <div class="platforms-grid">${plats}</div>
+
+      <div class="captions-wrap">
+        <div class="section-label">Caption — copy &amp; paste</div>
+        <div class="caption-tabs">
+          <button class="cap-tab${capLang==='en'?' active':''}" onclick="switchLang('${post.ep}','en',this)">🇬🇧 English</button>
+          <button class="cap-tab${capLang==='hi'?' active':''}" onclick="switchLang('${post.ep}','hi',this)">🇮🇳 Hindi</button>
+        </div>
+        <div class="caption-box" id="capbox_${cardId(post.ep)}">
+          <div class="caption-text" id="captxt_${cardId(post.ep)}">${(post.captions[capLang]||'').replace(/</g,'&lt;')}</div>
+          <button class="copy-btn" id="copybtn_${cardId(post.ep)}" onclick="copyCaption('${post.ep}')">Copy</button>
+        </div>
+      </div>
+
+      <div class="notes-row">
+        <input class="notes-input" type="text" placeholder="📝 Add notes — link, scheduling time, performance..." value="${note.replace(/"/g,'&quot;')}" oninput="saveNote('${post.ep}',this.value)"/>
       </div>
     </div>
   </div>`;
 }
 
+/* ═══════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════ */
 function renderAll(){
   const main = document.getElementById('main');
-  let html = '';
+  let html='';
   WEEKS.forEach(w=>{
-    const doneCount = w.posts.filter(p=>isCardDone(p.ep)).length;
-    html+=`
-    <div class="week-section" data-week="${w.label}">
+    const doneN = w.posts.filter(p=>isDone(p.ep)).length;
+    html+=`<div class="week-section">
       <div class="week-header">
         <div class="week-badge">${w.label}</div>
         <div class="week-line"></div>
-        <div class="week-stats">${w.dates} · ${doneCount}/${w.posts.length} done</div>
+        <div class="week-stats">${w.dates} · ${doneN}/${w.posts.length} done</div>
       </div>
-      <div class="posts-grid">
-        ${w.posts.map(p=>buildCard(p)).join('')}
-      </div>
+      <div class="posts-grid">${w.posts.map(buildCard).join('')}</div>
     </div>`;
   });
-  main.innerHTML = html;
+  main.innerHTML=html;
   updateProgress();
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════════════════
    INTERACTIONS
-═══════════════════════════════════════ */
-function togglePlat(ep, platId, row){
-  const key = platKey(ep,platId);
-  const was = load(key)===true;
-  save(key, !was);
-  row.classList.toggle('checked', !was);
-  // update checkbox icon
-  const cb = row.querySelector('.plat-checkbox');
-  const icon = row.querySelector('.plat-check-icon');
-  cb.style.background = !was ? '#22c55e' : '';
-  cb.style.borderColor = !was ? '#22c55e' : '';
-  icon.style.display   = !was ? 'block' : 'none';
-  // update card done state
-  const done = isCardDone(ep);
-  const card = document.getElementById(cardId(ep));
+═══════════════════════════════════════════════ */
+function togglePlat(ep,pid,row){
+  const was=load(platKey(ep,pid))===true;
+  save(platKey(ep,pid),!was);
+  row.classList.toggle('checked',!was);
+  const icon=row.querySelector('.plat-check-icon');
+  const cb=row.querySelector('.plat-checkbox');
+  icon.style.display=!was?'block':'none';
+  cb.style.background=!was?'#16a34a':'';
+  cb.style.borderColor=!was?'#16a34a':'';
+  const done=isDone(ep);
+  const card=document.getElementById(cardId(ep));
   if(card){
-    card.classList.toggle('done', done);
-    card.dataset.done = done;
-    card.querySelector('.status-ring').textContent = done?'✅':'🎬';
-    card.querySelector('.status-text').textContent  = done?'DONE':'PENDING';
+    card.classList.toggle('done',done);
+    card.dataset.done=done;
+    card.querySelector('.status-ring').textContent=done?'✅':'🎬';
+    card.querySelector('.status-text').textContent=done?'DONE':'PENDING';
   }
   updateProgress();
 }
 
-function saveNote(ep, val){
-  save(noteKey(ep), val);
+function switchLang(ep,lang,btn){
+  save(capLangKey(ep),lang);
+  const post=WEEKS.flatMap(w=>w.posts).find(p=>p.ep===ep);
+  if(!post) return;
+  const cid=cardId(ep);
+  document.getElementById('captxt_'+cid).innerHTML=(post.captions[lang]||'').replace(/</g,'&lt;');
+  btn.closest('.caption-tabs').querySelectorAll('.cap-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  // reset copy button
+  const copyBtn=document.getElementById('copybtn_'+cid);
+  if(copyBtn){copyBtn.textContent='Copy';copyBtn.classList.remove('copied')}
 }
+
+function copyCaption(ep){
+  const lang=load(capLangKey(ep))||'en';
+  const post=WEEKS.flatMap(w=>w.posts).find(p=>p.ep===ep);
+  if(!post) return;
+  navigator.clipboard.writeText(post.captions[lang]||'').then(()=>{
+    const btn=document.getElementById('copybtn_'+cardId(ep));
+    if(btn){btn.textContent='✅ Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2500)}
+  }).catch(()=>{
+    const txt=document.getElementById('captxt_'+cardId(ep));
+    if(txt){const r=document.createRange();r.selectNode(txt);window.getSelection().removeAllRanges();window.getSelection().addRange(r)}
+  });
+}
+
+function saveNote(ep,val){save(noteKey(ep),val)}
 
 function updateProgress(){
-  const allPosts = WEEKS.flatMap(w=>w.posts);
-  const totalChecks = allPosts.length * PLATFORMS.length;
-  let doneChecks = 0;
-  allPosts.forEach(p=>{
-    PLATFORMS.forEach(pl=>{
-      if(load(platKey(p.ep,pl.id))===true) doneChecks++;
-    });
-  });
-  const pct = Math.round((doneChecks/totalChecks)*100);
-  document.getElementById('progressBar').style.width = pct+'%';
-  document.getElementById('progressCount').textContent = `${doneChecks} / ${totalChecks} posts done`;
+  const all=WEEKS.flatMap(w=>w.posts);
+  const total=all.length*PLATFORMS.length;
+  const done=all.reduce((n,p)=>n+PLATFORMS.filter(pl=>load(platKey(p.ep,pl.id))===true).length,0);
+  const pct=Math.round((done/total)*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressCount').textContent=`${done} / ${total} posts done`;
 }
 
-/* ═══════════════════════════════════════
-   FILTER
-═══════════════════════════════════════ */
-function filterCards(type, btn){
+/* ── FILTER ── */
+function filterCards(type,btn){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.post-card').forEach(card=>{
-    let show = true;
-    if(type==='done')    show = card.dataset.done==='true';
-    else if(type==='pending') show = card.dataset.done!=='true';
-    else if(type!=='all') show = card.dataset.pillar===type;
-    card.closest('.post-card').style.display = show?'':'none';
+  document.querySelectorAll('.post-card').forEach(c=>{
+    let show=true;
+    if(type==='done') show=c.dataset.done==='true';
+    else if(type==='pending') show=c.dataset.done!=='true';
+    else if(type!=='all') show=c.dataset.pillar===type;
+    c.style.display=show?'':'none';
   });
-  // hide empty week sections
   document.querySelectorAll('.week-section').forEach(ws=>{
-    const visible = [...ws.querySelectorAll('.post-card')].some(c=>c.style.display!=='none');
-    ws.style.display = visible?'':'none';
+    ws.style.display=[...ws.querySelectorAll('.post-card')].some(c=>c.style.display!=='none')?'':'none';
   });
 }
 
-/* ── SCROLL TO TOP ── */
+/* ── SCROLL TOP ── */
 window.addEventListener('scroll',()=>{
-  document.getElementById('scrollTop').classList.toggle('show', window.scrollY>400);
+  document.getElementById('scrollTop').classList.toggle('show',window.scrollY>400);
 },{passive:true});
 
-/* ── INIT ── */
 renderAll();
 </script>
 </body>
