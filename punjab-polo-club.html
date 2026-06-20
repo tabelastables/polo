@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Tabela & Punjab Polo Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:#0A1540}
+:root{
+  --bg:#FAFAF8;--white:#FFFFFF;--charcoal:#1A1718;--gray:#706870;--mist:#C8C0CC;--sand:#E8E0D8;
+  --ppc:#2B44DF;--ppc-lt:#EEF0FF;--ppc-mid:#4A62F0;--ppc-dk:#1B2FA0;--ppc-navy:#0A1540;
+  --tab:#3D2010;--tab-mid:#5C3D1E;--tab-warm:#8B6914;--tab-gold:#C8A96E;--tab-cream:#F5EAD5;--tab-lt:#FBF5E8;
+}
+#app{position:fixed;inset:0;display:flex;justify-content:center;background:#0A1540}
+.screen{display:none;width:100%;max-width:430px;height:100%;flex-direction:column;background:var(--bg);overflow:hidden}
+.screen.active{display:flex}
+.scrollbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.scrollbody::-webkit-scrollbar{display:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes zoomIn{from{opacity:0;transform:scale(0.72)}to{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:.9}}
+@keyframes ringPop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes checkIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+
+/* SPLASH */
+#screen-splash{background:var(--ppc-navy);align-items:center;justify-content:center}
+.sp-inner{display:flex;flex-direction:column;align-items:center;gap:28px;animation:fadeUp 1.2s ease both;cursor:pointer}
+.sp-logos{display:flex;align-items:center;gap:22px}
+.sp-logo{display:flex;flex-direction:column;align-items:center;gap:10px;animation:zoomIn 1.4s cubic-bezier(.34,1.38,.64,1) both}
+.sp-logo:nth-child(3){animation-delay:.18s}
+.sp-logo-name{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.75);text-align:center;line-height:1.6}
+.sp-div{width:1px;height:72px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.35),transparent)}
+.sp-logo svg{filter:drop-shadow(0 4px 24px rgba(255,255,255,.12))}
+.sp-tagline{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.42);text-align:center}
+.sp-tap{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.32);letter-spacing:1px;animation:pulse 2.2s infinite}
+
+/* TOP BAR */
+.topbar{padding:50px 18px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(250,250,248,.92);border-bottom:1px solid rgba(0,0,0,.06)}
+.topbar-title{flex:1;font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--charcoal)}
+.topbar-sub{font-family:'Inter',sans-serif;font-size:10px;color:var(--gray);letter-spacing:.4px}
+.tb-btn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.05);border:none;cursor:pointer}
+.tb-btn .material-symbols-outlined{font-size:19px;color:var(--charcoal);font-variation-settings:'FILL' 0,'wght' 200}
+
+/* BOTTOM NAV */
+.bottom-nav{display:flex;background:var(--white);border-top:1px solid rgba(0,0,0,.07);padding:6px 0 22px;position:sticky;bottom:0;z-index:10}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;cursor:pointer;border:none;background:none}
+.nav-item .material-symbols-outlined{font-size:21px;font-variation-settings:'FILL' 0,'wght' 200;color:var(--mist);transition:color .18s}
+.nav-item .nav-lbl{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:500;color:var(--mist);transition:color .18s}
+.nav-item.n-active .material-symbols-outlined,.nav-item.n-active .nav-lbl{color:var(--ppc)}
+.nav-item.n-tab .material-symbols-outlined,.nav-item.n-tab .nav-lbl{color:var(--tab-warm)}
+
+/* HOME */
+.home-topbar{padding:52px 18px 14px;background:var(--white);border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between}
+.home-brand{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--gray)}
+.home-logo-row{display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 18px 12px;background:var(--white);border-bottom:1px solid rgba(0,0,0,.05)}
+.hlr-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.hlr-name{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:500;color:var(--gray);letter-spacing:.8px;text-transform:uppercase}
+.hlr-div{width:1px;height:48px;background:var(--sand)}
+.home-bell{width:36px;height:36px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.home-bell .material-symbols-outlined{font-size:19px;color:var(--gray);font-variation-settings:'FILL' 0,'wght' 200}
+.home-greet{padding:20px 18px 4px}
+.home-greet-time{font-family:'Inter',sans-serif;font-size:11px;font-weight:400;color:var(--gray);letter-spacing:.5px}
+.home-greet-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal);line-height:1.15;margin-top:2px}
+.home-cards{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.sec-card{border-radius:22px;overflow:hidden;cursor:pointer;position:relative;min-height:186px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;transition:transform .15s;box-shadow:0 4px 24px rgba(0,0,0,.13)}
+.sec-card:active{transform:scale(.975)}
+.sc-ppc{background:linear-gradient(148deg,#070E2E 0%,#1B2FA0 55%,#2B44DF 100%)}
+.sc-tab{background:linear-gradient(148deg,#160800 0%,#3D2010 50%,#8B6914 100%)}
+.sc-wm{position:absolute;top:10px;right:14px;opacity:.22}
+.sc-arr{position:absolute;top:22px;right:22px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
+.sc-arr .material-symbols-outlined{font-size:16px;color:rgba(255,255,255,.8);font-variation-settings:'FILL' 0,'wght' 200}
+.sc-tag{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:4px}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:700;color:#fff;line-height:1.1}
+.sc-desc{font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,.58);margin-top:5px;line-height:1.5}
+.sc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.sc-chip{padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.12);font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:rgba(255,255,255,.78)}
+.home-info{display:flex;gap:10px;padding:0 18px 18px}
+.info-pill{flex:1;background:var(--white);border-radius:14px;border:1px solid rgba(0,0,0,.07);padding:14px 12px;text-align:center}
+.ip-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--charcoal)}
+.ip-lbl{font-family:'Inter',sans-serif;font-size:10px;color:var(--gray);margin-top:2px}
+
+/* SECTION HEADINGS */
+.sec-head{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--charcoal);padding:18px 18px 10px}
+.sec-head-sm{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);padding:16px 18px 10px}
+
+/* HERO SECTIONS */
+.hero-section{padding:50px 22px 28px;position:relative;overflow:hidden}
+.hero-ppc{background:linear-gradient(148deg,#070E2E,#1B2FA0,#2B44DF)}
+.hero-tab{background:linear-gradient(148deg,#160800,#3D2010,#6B4420)}
+.hero-section::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-back{display:flex;align-items:center;gap:5px;margin-bottom:16px;cursor:pointer;position:relative;z-index:1}
+.hero-back .material-symbols-outlined{font-size:17px;color:rgba(255,255,255,.58);font-variation-settings:'FILL' 0,'wght' 200}
+.hero-back span.hb-txt{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.58)}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#fff;line-height:1.1;position:relative;z-index:1}
+.hero-sub{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.58);margin-top:6px;line-height:1.55;position:relative;z-index:1}
+.hero-stats{display:flex;gap:20px;margin-top:18px;position:relative;z-index:1}
+.hs-item{text-align:center}
+.hs-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff}
+.hs-lbl{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.48)}
+
+/* TABELA FACILITIES */
+.fac-row{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 12px}
+.fac-pill{display:flex;align-items:center;gap:5px;background:var(--tab-lt);border:1px solid var(--tab-cream);border-radius:20px;padding:6px 11px}
+.fac-pill .material-symbols-outlined{font-size:13px;color:var(--tab-warm);font-variation-settings:'FILL' 0,'wght' 200}
+.fac-pill .fp-txt{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:500;color:var(--tab-mid)}
+
+/* STABLE SCROLL */
+.stable-scroll{display:flex;gap:10px;padding:0 18px 4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.stable-scroll::-webkit-scrollbar{display:none}
+.stable-card{flex:0 0 128px;background:var(--white);border-radius:14px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.sct{height:82px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.sct-1{background:linear-gradient(135deg,#f5e8d4,#e8c894)}
+.sct-2{background:linear-gradient(135deg,#d4e8f5,#a8ccec)}
+.sct-3{background:linear-gradient(135deg,#d4f0d4,#a8dca8)}
+.sct-4{background:linear-gradient(135deg,#f5d4e8,#e8a8c8)}
+.sc-sinfo{padding:9px 10px 11px}
+.sc-sname{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--charcoal)}
+.sc-sdet{font-family:'Inter',sans-serif;font-size:10px;color:var(--gray);margin-top:1px}
+
+/* EVENT CARDS */
+.event-list{display:flex;flex-direction:column;gap:10px;padding:0 18px 20px}
+.ev-card{background:var(--white);border:1px solid rgba(0,0,0,.07);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .15s}
+.ev-card:active{transform:scale(.975)}
+.ev-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ev-icon .material-symbols-outlined{font-size:22px;font-variation-settings:'FILL' 0,'wght' 200}
+.ei-k{background:#FFF3E8}.ei-k .material-symbols-outlined{color:#E67E22}
+.ei-b{background:#FFF0F5}.ei-b .material-symbols-outlined{color:#D81B7B}
+.ei-c{background:var(--ppc-lt)}.ei-c .material-symbols-outlined{color:var(--ppc)}
+.ev-body{flex:1}
+.ev-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--charcoal)}
+.ev-desc{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray);margin-top:2px;line-height:1.45}
+.ev-cta{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:600;color:var(--tab-warm);margin-top:5px}
+.ev-chev .material-symbols-outlined{font-size:18px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200}
+
+/* SERVICE CARDS */
+.svc-list{display:flex;flex-direction:column;gap:10px;padding:0 18px 20px}
+.svc-card{background:var(--white);border:1px solid rgba(0,0,0,.07);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .15s}
+.svc-card:active{transform:scale(.975)}
+.svc-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.svc-icon .material-symbols-outlined{font-size:22px;font-variation-settings:'FILL' 0,'wght' 200}
+.si-r{background:var(--ppc-lt)}.si-r .material-symbols-outlined{color:var(--ppc)}
+.si-t{background:linear-gradient(135deg,#e0e8ff,#c8d6ff)}.si-t .material-symbols-outlined{color:var(--ppc-dk)}
+.si-c{background:linear-gradient(135deg,#0A1540,#1B2FA0)}.si-c .material-symbols-outlined{color:#fff}
+.svc-body{flex:1}
+.svc-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--charcoal)}
+.svc-desc{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray);margin-top:2px;line-height:1.45}
+.svc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.svc-tag{background:var(--ppc-lt);color:var(--ppc-dk);font-family:'Inter',sans-serif;font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:5px}
+.svc-chev .material-symbols-outlined{font-size:18px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200}
+
+/* ABOUT STRIP */
+.about-strip{margin:0 18px 22px;background:linear-gradient(135deg,var(--ppc-lt),#E0E8FF);border-radius:16px;padding:18px;border:1px solid rgba(43,68,223,.1)}
+.ab-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--ppc-dk);margin-bottom:6px}
+.ab-text{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--gray);line-height:1.6}
+
+/* FORMS */
+.form-wrap{padding:14px 18px 30px;display:flex;flex-direction:column;gap:13px}
+.form-card{background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.fc-head{padding:13px 16px;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px}
+.fc-head .material-symbols-outlined{font-size:17px;color:var(--gray);font-variation-settings:'FILL' 0,'wght' 200}
+.fc-head-txt{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--charcoal)}
+.fc-row{padding:11px 16px;border-bottom:1px solid rgba(0,0,0,.04)}
+.fc-row:last-child{border-bottom:none}
+.fc-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:var(--gray);letter-spacing:.3px;margin-bottom:5px}
+.fc-input{width:100%;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:var(--charcoal);background:transparent}
+.fc-textarea{width:100%;border:none;outline:none;font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal);background:transparent;resize:none;line-height:1.5}
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 16px}
+.type-btn{padding:13px 8px;border-radius:11px;border:1.5px solid var(--sand);background:none;cursor:pointer;text-align:center;transition:all .15s}
+.type-btn.sel-ppc{border-color:var(--ppc);background:var(--ppc-lt)}
+.type-btn.sel-tab{border-color:var(--tab-warm);background:var(--tab-lt)}
+.tb-icon .material-symbols-outlined{font-size:20px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200;display:block;margin-bottom:4px}
+.type-btn.sel-ppc .tb-icon .material-symbols-outlined{color:var(--ppc)}
+.type-btn.sel-tab .tb-icon .material-symbols-outlined{color:var(--tab-warm)}
+.tb-lbl{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray)}
+.type-btn.sel-ppc .tb-lbl{color:var(--ppc)}
+.type-btn.sel-tab .tb-lbl{color:var(--tab-warm)}
+.skill-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;padding:12px 16px}
+.date-strip{display:flex;gap:7px;padding:12px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.date-strip::-webkit-scrollbar{display:none}
+.d-cell{flex:0 0 46px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;border-radius:11px;border:1.5px solid var(--sand);cursor:pointer;transition:all .15s}
+.d-cell.sel-ppc{background:var(--ppc);border-color:var(--ppc)}
+.d-cell.sel-tab{background:var(--tab-warm);border-color:var(--tab-warm)}
+.dc-day{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;color:var(--gray)}
+.dc-num{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--charcoal)}
+.d-cell.sel-ppc .dc-day,.d-cell.sel-ppc .dc-num,.d-cell.sel-tab .dc-day,.d-cell.sel-tab .dc-num{color:#fff}
+.time-grid{display:flex;flex-wrap:wrap;gap:7px;padding:12px 16px}
+.t-pill{padding:8px 14px;border-radius:20px;border:1.5px solid var(--sand);background:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray);transition:all .15s}
+.t-pill.sel-ppc{background:var(--ppc-lt);border-color:var(--ppc);color:var(--ppc)}
+.t-pill.sel-tab{background:var(--tab-lt);border-color:var(--tab-warm);color:var(--tab-warm)}
+.t-pill.na{opacity:.3;pointer-events:none;text-decoration:line-through}
+.cta-wrap{padding:14px 18px 32px}
+.btn-cta{width:100%;padding:16px;border-radius:14px;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:.5px;transition:transform .15s}
+.btn-cta:active{transform:scale(.97)}
+.cta-ppc{background:linear-gradient(135deg,var(--ppc-dk),var(--ppc));color:#fff;box-shadow:0 4px 20px rgba(43,68,223,.32)}
+.cta-tab{background:linear-gradient(135deg,var(--tab),var(--tab-warm));color:#fff;box-shadow:0 4px 20px rgba(139,105,20,.3)}
+
+/* GALLERY */
+.gal-filter{display:flex;gap:8px;padding:14px 18px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gal-filter::-webkit-scrollbar{display:none}
+.gf-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--sand);background:none;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.gf-btn.gf-on{background:var(--ppc);border-color:var(--ppc);color:#fff}
+.gal-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding-bottom:100px}
+.gi{aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer}
+.gi.tall{grid-row:span 2;aspect-ratio:unset}
+.gi-lbl{position:absolute;bottom:8px;left:8px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:rgba(255,255,255,.92);background:rgba(0,0,0,.38);padding:3px 8px;border-radius:6px;backdrop-filter:blur(4px)}
+.gi-ico{font-size:32px;opacity:.7}
+.ga{background:linear-gradient(135deg,#070E2E,#2B44DF)}
+.gb{background:linear-gradient(135deg,#3D2010,#8B6914)}
+.gc{background:linear-gradient(135deg,#1B3068,#4A62F0)}
+.gd{background:linear-gradient(135deg,#5C3D1E,#C8A96E)}
+.ge{background:linear-gradient(135deg,#0F1E52,#2B44DF)}
+.gf2{background:linear-gradient(135deg,#3D2010,#6B4420)}
+.gg{background:linear-gradient(135deg,#1A2052,#3D55E0)}
+.gh{background:linear-gradient(135deg,#4A2A12,#A07830)}
+.gi2{background:linear-gradient(135deg,#0A1540,#1B2FA0)}
+.gj{background:linear-gradient(135deg,#6B3D10,#C8A96E)}
+
+/* BOOKINGS */
+.bk-tabs{display:flex;padding:14px 18px 10px;gap:8px}
+.bk-tab{padding:7px 18px;border-radius:20px;border:1.5px solid var(--sand);background:none;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray);cursor:pointer;transition:all .15s}
+.bk-tab.bk-on{background:var(--ppc);border-color:var(--ppc);color:#fff}
+.bk-item{background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);margin:0 18px 10px;overflow:hidden}
+.bk-top{padding:13px 15px;display:flex;align-items:center;gap:11px}
+.bk-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bk-ico.bp{background:var(--ppc-lt)}.bk-ico.bp .material-symbols-outlined{color:var(--ppc);font-size:20px;font-variation-settings:'FILL' 0,'wght' 200}
+.bk-ico.bt{background:var(--tab-lt)}.bk-ico.bt .material-symbols-outlined{color:var(--tab-warm);font-size:20px;font-variation-settings:'FILL' 0,'wght' 200}
+.bk-info{flex:1}
+.bk-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--charcoal)}
+.bk-date{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray);margin-top:1px}
+.bk-status{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:3px 9px;border-radius:6px}
+.bs-c{background:#E8F5E9;color:#2E7D32}
+.bs-p{background:#FFF8E1;color:#F57F17}
+.bk-foot{padding:9px 15px 13px;border-top:1px solid rgba(0,0,0,.05);display:flex;gap:16px}
+.bkf{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray)}
+.bkf strong{color:var(--charcoal);font-weight:500}
+
+/* PROFILE */
+.prof-hero{background:linear-gradient(148deg,#070E2E,#1B2FA0);padding:52px 20px 28px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.prof-av{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.13);border:2px solid rgba(255,255,255,.26);display:flex;align-items:center;justify-content:center}
+.prof-av .material-symbols-outlined{font-size:34px;color:rgba(255,255,255,.78);font-variation-settings:'FILL' 0,'wght' 200}
+.prof-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff}
+.prof-email{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.52)}
+.mem-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);padding:6px 14px;border-radius:20px}
+.mc-dot{width:7px;height:7px;border-radius:50%;background:var(--tab-gold)}
+.mc-txt{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,.78)}
+.prof-sec{margin:14px 18px 0;background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.ps-hd{padding:10px 15px;border-bottom:1px solid rgba(0,0,0,.05);font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.ps-row{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer}
+.ps-row:last-child{border-bottom:none}
+.ps-row .material-symbols-outlined{font-size:19px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200}
+.ps-lbl{flex:1;font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal)}
+.ps-val{font-family:'Inter',sans-serif;font-size:12px;color:var(--gray)}
+.ps-chv .material-symbols-outlined{font-size:15px;color:var(--mist)}
+.ps-row.danger .ps-lbl{color:#D32F2F}
+.ps-row.danger .material-symbols-outlined{color:#D32F2F}
+
+/* CONTACT */
+.map-block{height:210px;background:linear-gradient(135deg,#C8DFC8,#A8C4A8);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.map-grid{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.04) 0,rgba(0,0,0,.04) 1px,transparent 1px,transparent 36px),repeating-linear-gradient(90deg,rgba(0,0,0,.04) 0,rgba(0,0,0,.04) 1px,transparent 1px,transparent 36px)}
+.map-pin{width:42px;height:42px;border-radius:50%;background:var(--ppc);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(43,68,223,.4);z-index:1}
+.map-pin .material-symbols-outlined{font-size:21px;color:#fff}
+.map-tag{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--charcoal);background:rgba(255,255,255,.9);padding:4px 12px;border-radius:8px;z-index:1}
+.ct-actions{display:flex;gap:10px;padding:14px 18px}
+.ct-btn{flex:1;padding:13px 8px;border-radius:13px;display:flex;align-items:center;justify-content:center;gap:7px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;transition:transform .15s}
+.ct-btn:active{transform:scale(.97)}
+.ct-btn .material-symbols-outlined{font-size:17px;font-variation-settings:'FILL' 0,'wght' 200}
+.cb-call{background:var(--ppc);color:#fff}
+.cb-wa{background:#25D366;color:#fff}
+.cb-dir{background:var(--white);color:var(--charcoal);border:1px solid var(--sand)}
+.ct-info{margin:0 18px 24px;background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.ct-row{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-bottom:1px solid rgba(0,0,0,.04)}
+.ct-row:last-child{border-bottom:none}
+.ct-row .material-symbols-outlined{font-size:18px;color:var(--ppc);font-variation-settings:'FILL' 0,'wght' 200;margin-top:1px}
+.ct-lbl{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--gray);margin-bottom:2px}
+.ct-val{font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal);line-height:1.5}
+
+/* CONFIRMATION */
+#screen-confirm{background:var(--bg)}
+.conf-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;gap:20px;text-align:center}
+.conf-ring{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:ringPop .6s cubic-bezier(.34,1.56,.64,1) both}
+.conf-ring.cr-ppc{background:var(--ppc-lt)}
+.conf-ring.cr-tab{background:var(--tab-lt)}
+.conf-check{font-size:38px;animation:checkIn .4s ease .42s both;opacity:0;font-variation-settings:'FILL' 0,'wght' 200}
+.conf-ring.cr-ppc .conf-check{color:var(--ppc)}
+.conf-ring.cr-tab .conf-check{color:var(--tab-warm)}
+.conf-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal)}
+.conf-sub{font-family:'Inter',sans-serif;font-size:13px;color:var(--gray);line-height:1.65;max-width:280px}
+.conf-card{background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);padding:16px 18px;width:100%;text-align:left;display:flex;flex-direction:column;gap:11px}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+.cc-row:last-child{padding-bottom:0;border-bottom:none}
+.cc-lbl{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray)}
+.cc-val{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--charcoal)}
+.conf-ref{font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);letter-spacing:.5px}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ═══════════════ SPLASH ═══════════════ -->
+<div class="screen" id="screen-splash">
+<div class="sp-inner" onclick="goTo('home')">
+  <div class="sp-logos">
+
+    <!-- Tabela Sheesh Mahal Logo -->
+    <div class="sp-logo">
+      <svg width="130" height="130" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="54" cy="54" r="50" fill="white"/>
+        <circle cx="54" cy="54" r="50" stroke="#3D2010" stroke-width="2.5" fill="none"/>
+        <circle cx="54" cy="54" r="44" stroke="#C8A96E" stroke-width="0.8" fill="none"/>
+        <path d="M12 48 A42 42 0 0 1 96 48" stroke="#C8A96E" stroke-width="2" fill="none"/>
+        <path d="M12 62 A42 42 0 0 0 96 62" stroke="#C8A96E" stroke-width="2" fill="none"/>
+        <!-- Sunburst rays -->
+        <g stroke="#E8C87A" stroke-width="0.9" opacity="0.5">
+          <line x1="54" y1="54" x2="54" y2="16"/><line x1="54" y1="54" x2="81" y2="24"/>
+          <line x1="54" y1="54" x2="92" y2="46"/><line x1="54" y1="54" x2="90" y2="66"/>
+          <line x1="54" y1="54" x2="76" y2="86"/><line x1="54" y1="54" x2="54" y2="92"/>
+          <line x1="54" y1="54" x2="28" y2="84"/><line x1="54" y1="54" x2="16" y2="64"/>
+          <line x1="54" y1="54" x2="18" y2="44"/><line x1="54" y1="54" x2="30" y2="24"/>
+          <line x1="54" y1="54" x2="67" y2="18"/><line x1="54" y1="54" x2="87" y2="54"/>
+          <line x1="54" y1="54" x2="67" y2="90"/><line x1="54" y1="54" x2="41" y2="90"/>
+          <line x1="54" y1="54" x2="21" y2="54"/><line x1="54" y1="54" x2="41" y2="18"/>
+        </g>
+        <!-- Rearing horse -->
+        <line x1="36" y1="70" x2="32" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+        <line x1="46" y1="72" x2="46" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+        <ellipse cx="40" cy="64" rx="13" ry="11" fill="#3D2010"/>
+        <path d="M40,56 Q50,46 62,42 Q68,42 68,50 Q64,60 48,68 Z" fill="#3D2010"/>
+        <ellipse cx="64" cy="48" rx="9" ry="11" fill="#3D2010"/>
+        <path d="M60,42 Q52,34 48,24" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <path d="M68,42 Q74,34 78,26" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <path d="M66,38 Q70,26 68,16" stroke="#3D2010" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <ellipse cx="66" cy="14" rx="9" ry="7" transform="rotate(-10 66 14)" fill="#3D2010"/>
+        <path d="M61,9 Q58,3 62,5" stroke="#3D2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M30,62 Q18,55 16,42" stroke="#3D2010" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="40" cy="90" rx="18" ry="3.5" fill="#3D2010" opacity="0.12"/>
+        <!-- Text -->
+        <defs>
+          <path id="t-top" d="M 10 54 A 44 44 0 0 1 98 54"/>
+          <path id="t-bot" d="M 7 57 A 47 47 0 0 0 101 57"/>
+        </defs>
+        <text font-family="Georgia,serif" font-size="11" font-weight="bold" fill="#3D2010" letter-spacing="4">
+          <textPath href="#t-top" startOffset="16%">TABELA</textPath>
+        </text>
+        <text font-family="Georgia,serif" font-size="8.5" font-weight="bold" fill="#3D2010" letter-spacing="1.5">
+          <textPath href="#t-bot" startOffset="6%">SHEESH MAHAL</textPath>
+        </text>
+        <text x="54" y="98" font-family="Georgia,serif" font-size="7.5" font-style="italic" fill="#C8A96E" text-anchor="middle" letter-spacing="1">Est. 2018</text>
+      </svg>
+      <div class="sp-logo-name">Tabela<br>Sheesh Mahal</div>
+    </div>
+
+    <div class="sp-div"></div>
+
+    <!-- Punjab Polo Club Logo -->
+    <div class="sp-logo">
+      <svg width="118" height="130" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="30" y1="200" x2="170" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+        <line x1="170" y1="200" x2="30" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+        <rect x="4" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(-45 19 195)"/>
+        <rect x="166" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(45 181 195)"/>
+        <ellipse cx="28" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+        <ellipse cx="172" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+        <path d="M82,24 L88,8 L100,18 L112,8 L118,24 L126,14 L122,26 L78,26 L74,14 Z" fill="#2B44DF"/>
+        <circle cx="100" cy="4" r="5" fill="#2B44DF"/>
+        <g stroke="#2B44DF" stroke-width="2.5" fill="none">
+          <ellipse cx="34" cy="72" rx="9" ry="5" transform="rotate(-50 34 72)"/>
+          <ellipse cx="26" cy="84" rx="9" ry="5" transform="rotate(-35 26 84)"/>
+          <ellipse cx="22" cy="98" rx="9" ry="5" transform="rotate(-15 22 98)"/>
+          <ellipse cx="23" cy="112" rx="9" ry="5" transform="rotate(10 23 112)"/>
+          <ellipse cx="30" cy="124" rx="9" ry="5" transform="rotate(28 30 124)"/>
+          <ellipse cx="42" cy="133" rx="9" ry="5" transform="rotate(45 42 133)"/>
+        </g>
+        <g stroke="#2B44DF" stroke-width="2.5" fill="none">
+          <ellipse cx="166" cy="72" rx="9" ry="5" transform="rotate(50 166 72)"/>
+          <ellipse cx="174" cy="84" rx="9" ry="5" transform="rotate(35 174 84)"/>
+          <ellipse cx="178" cy="98" rx="9" ry="5" transform="rotate(15 178 98)"/>
+          <ellipse cx="177" cy="112" rx="9" ry="5" transform="rotate(-10 177 112)"/>
+          <ellipse cx="170" cy="124" rx="9" ry="5" transform="rotate(-28 170 124)"/>
+          <ellipse cx="158" cy="133" rx="9" ry="5" transform="rotate(-45 158 133)"/>
+        </g>
+        <path d="M62,32 L138,32 L138,110 Q100,138 62,110 Z" fill="none" stroke="#2B44DF" stroke-width="5"/>
+        <line x1="100" y1="32" x2="100" y2="122" stroke="#2B44DF" stroke-width="1.5" opacity="0.35"/>
+        <!-- Left horse -->
+        <g fill="#2B44DF">
+          <ellipse cx="80" cy="100" rx="10" ry="7" transform="rotate(-25 80 100)"/>
+          <ellipse cx="74" cy="94" rx="6" ry="8"/>
+          <path d="M82,88 Q84,78 82,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <ellipse cx="80" cy="67" rx="6" ry="5" transform="rotate(10 80 67)"/>
+          <path d="M76,94 Q70,88 68,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M82,96 Q80,104 78,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M88,98 Q88,106 86,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Right horse -->
+        <g fill="#2B44DF">
+          <ellipse cx="120" cy="100" rx="10" ry="7" transform="rotate(25 120 100)"/>
+          <ellipse cx="126" cy="94" rx="6" ry="8"/>
+          <path d="M118,88 Q116,78 118,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <ellipse cx="120" cy="67" rx="6" ry="5" transform="rotate(-10 120 67)"/>
+          <path d="M124,94 Q130,88 132,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M118,96 Q120,104 122,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M112,98 Q112,106 114,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Banner -->
+        <path d="M42,146 Q44,138 100,138 Q156,138 158,146 L152,162 Q100,157 48,162 Z" fill="#2B44DF"/>
+        <path d="M42,146 L38,162 L48,162 Z" fill="#1B2FA0"/>
+        <path d="M158,146 L162,162 L152,162 Z" fill="#1B2FA0"/>
+        <text x="100" y="155" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="2">PUNJAB</text>
+        <text x="100" y="176" font-family="Arial,sans-serif" font-size="11" font-weight="600" fill="#2B44DF" text-anchor="middle" letter-spacing="3">POLO CLUB</text>
+      </svg>
+      <div class="sp-logo-name">Punjab<br>Polo Club</div>
+    </div>
+  </div>
+  <div class="sp-tagline">Lahore's Premier Equestrian Destination</div>
+  <div class="sp-tap">Tap to enter</div>
+</div>
+</div>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="screen" id="screen-home">
+<div class="home-topbar">
+  <span class="home-brand">Tabela &nbsp;·&nbsp; Punjab Polo Club</span>
+  <button class="home-bell" onclick="goTo('contact')">
+    <span class="material-symbols-outlined">location_on</span>
+  </button>
+</div>
+<!-- Dual logo strip -->
+<div class="home-logo-row">
+  <div class="hlr-item" onclick="goTo('tabela')">
+    <svg width="54" height="54" viewBox="0 0 108 108" fill="none">
+      <circle cx="54" cy="54" r="50" fill="white"/>
+      <circle cx="54" cy="54" r="50" stroke="#3D2010" stroke-width="2.5" fill="none"/>
+      <circle cx="54" cy="54" r="44" stroke="#C8A96E" stroke-width="0.8" fill="none"/>
+      <path d="M12 48 A42 42 0 0 1 96 48" stroke="#C8A96E" stroke-width="2" fill="none"/>
+      <path d="M12 62 A42 42 0 0 0 96 62" stroke="#C8A96E" stroke-width="2" fill="none"/>
+      <g stroke="#E8C87A" stroke-width="0.9" opacity="0.5"><line x1="54" y1="54" x2="54" y2="16"/><line x1="54" y1="54" x2="81" y2="24"/><line x1="54" y1="54" x2="92" y2="46"/><line x1="54" y1="54" x2="90" y2="66"/><line x1="54" y1="54" x2="76" y2="86"/><line x1="54" y1="54" x2="54" y2="92"/><line x1="54" y1="54" x2="28" y2="84"/><line x1="54" y1="54" x2="16" y2="64"/><line x1="54" y1="54" x2="18" y2="44"/><line x1="54" y1="54" x2="30" y2="24"/><line x1="54" y1="54" x2="67" y2="18"/><line x1="54" y1="54" x2="87" y2="54"/><line x1="54" y1="54" x2="67" y2="90"/><line x1="54" y1="54" x2="41" y2="90"/><line x1="54" y1="54" x2="21" y2="54"/><line x1="54" y1="54" x2="41" y2="18"/></g>
+      <line x1="36" y1="70" x2="32" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+      <line x1="46" y1="72" x2="46" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+      <ellipse cx="40" cy="64" rx="13" ry="11" fill="#3D2010"/>
+      <path d="M40,56 Q50,46 62,42 Q68,42 68,50 Q64,60 48,68 Z" fill="#3D2010"/>
+      <ellipse cx="64" cy="48" rx="9" ry="11" fill="#3D2010"/>
+      <path d="M60,42 Q52,34 48,24" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <path d="M68,42 Q74,34 78,26" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <path d="M66,38 Q70,26 68,16" stroke="#3D2010" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <ellipse cx="66" cy="14" rx="9" ry="7" transform="rotate(-10 66 14)" fill="#3D2010"/>
+      <path d="M30,62 Q18,55 16,42" stroke="#3D2010" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <defs><path id="hl-top" d="M 10 54 A 44 44 0 0 1 98 54"/><path id="hl-bot" d="M 7 57 A 47 47 0 0 0 101 57"/></defs>
+      <text font-family="Georgia,serif" font-size="11" font-weight="bold" fill="#3D2010" letter-spacing="4"><textPath href="#hl-top" startOffset="16%">TABELA</textPath></text>
+      <text font-family="Georgia,serif" font-size="8.5" font-weight="bold" fill="#3D2010" letter-spacing="1.5"><textPath href="#hl-bot" startOffset="6%">SHEESH MAHAL</textPath></text>
+      <text x="54" y="98" font-family="Georgia,serif" font-size="7.5" font-style="italic" fill="#C8A96E" text-anchor="middle" letter-spacing="1">Est. 2018</text>
+    </svg>
+    <span class="hlr-name">Tabela</span>
+  </div>
+  <div class="hlr-div"></div>
+  <div class="hlr-item" onclick="goTo('ppc')">
+    <svg width="52" height="58" viewBox="0 0 200 220" fill="none">
+      <line x1="30" y1="200" x2="170" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+      <line x1="170" y1="200" x2="30" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+      <rect x="4" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(-45 19 195)"/>
+      <rect x="166" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(45 181 195)"/>
+      <ellipse cx="28" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+      <ellipse cx="172" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+      <path d="M82,24 L88,8 L100,18 L112,8 L118,24 L126,14 L122,26 L78,26 L74,14 Z" fill="#2B44DF"/>
+      <circle cx="100" cy="4" r="5" fill="#2B44DF"/>
+      <g stroke="#2B44DF" stroke-width="2.5" fill="none"><ellipse cx="34" cy="72" rx="9" ry="5" transform="rotate(-50 34 72)"/><ellipse cx="26" cy="84" rx="9" ry="5" transform="rotate(-35 26 84)"/><ellipse cx="22" cy="98" rx="9" ry="5" transform="rotate(-15 22 98)"/><ellipse cx="23" cy="112" rx="9" ry="5" transform="rotate(10 23 112)"/><ellipse cx="30" cy="124" rx="9" ry="5" transform="rotate(28 30 124)"/><ellipse cx="42" cy="133" rx="9" ry="5" transform="rotate(45 42 133)"/></g>
+      <g stroke="#2B44DF" stroke-width="2.5" fill="none"><ellipse cx="166" cy="72" rx="9" ry="5" transform="rotate(50 166 72)"/><ellipse cx="174" cy="84" rx="9" ry="5" transform="rotate(35 174 84)"/><ellipse cx="178" cy="98" rx="9" ry="5" transform="rotate(15 178 98)"/><ellipse cx="177" cy="112" rx="9" ry="5" transform="rotate(-10 177 112)"/><ellipse cx="170" cy="124" rx="9" ry="5" transform="rotate(-28 170 124)"/><ellipse cx="158" cy="133" rx="9" ry="5" transform="rotate(-45 158 133)"/></g>
+      <path d="M62,32 L138,32 L138,110 Q100,138 62,110 Z" fill="none" stroke="#2B44DF" stroke-width="5"/>
+      <g fill="#2B44DF"><ellipse cx="80" cy="100" rx="10" ry="7" transform="rotate(-25 80 100)"/><ellipse cx="74" cy="94" rx="6" ry="8"/><path d="M82,88 Q84,78 82,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="80" cy="67" rx="6" ry="5" transform="rotate(10 80 67)"/><path d="M76,94 Q70,88 68,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M82,96 Q80,104 78,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M88,98 Q88,106 86,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+      <g fill="#2B44DF"><ellipse cx="120" cy="100" rx="10" ry="7" transform="rotate(25 120 100)"/><ellipse cx="126" cy="94" rx="6" ry="8"/><path d="M118,88 Q116,78 118,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="120" cy="67" rx="6" ry="5" transform="rotate(-10 120 67)"/><path d="M124,94 Q130,88 132,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M118,96 Q120,104 122,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M112,98 Q112,106 114,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+      <path d="M42,146 Q44,138 100,138 Q156,138 158,146 L152,162 Q100,157 48,162 Z" fill="#2B44DF"/>
+      <path d="M42,146 L38,162 L48,162 Z" fill="#1B2FA0"/>
+      <path d="M158,146 L162,162 L152,162 Z" fill="#1B2FA0"/>
+      <text x="100" y="155" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="2">PUNJAB</text>
+      <text x="100" y="176" font-family="Arial,sans-serif" font-size="11" font-weight="600" fill="#2B44DF" text-anchor="middle" letter-spacing="3">POLO CLUB</text>
+    </svg>
+    <span class="hlr-name">Punjab Polo Club</span>
+  </div>
+</div>
+<div class="scrollbody">
+  <div class="home-greet">
+    <div class="home-greet-time" id="greet-time">Good Morning</div>
+    <div class="home-greet-name">Where would you<br>like to go today?</div>
+  </div>
+  <div class="home-cards">
+    <div class="sec-card sc-ppc" onclick="goTo('ppc')">
+      <div class="sc-wm">
+        <svg width="70" height="70" viewBox="0 0 200 220" fill="none"><line x1="30" y1="200" x2="170" y2="30" stroke="white" stroke-width="10" stroke-linecap="round"/><line x1="170" y1="200" x2="30" y2="30" stroke="white" stroke-width="10" stroke-linecap="round"/><path d="M62,32 L138,32 L138,110 Q100,138 62,110 Z" fill="none" stroke="white" stroke-width="5"/><path d="M82,24 L100,18 L118,24 L78,24 Z" fill="white"/></svg>
+      </div>
+      <div class="sc-arr"><span class="material-symbols-outlined">arrow_forward</span></div>
+      <div class="sc-tag">Polo · Riding · Training</div>
+      <div class="sc-title">Punjab<br>Polo Club</div>
+      <div class="sc-desc">Horse riding, polo training &amp; full chukkers on our professional ground</div>
+      <div class="sc-chips"><span class="sc-chip">Horse Riding</span><span class="sc-chip">Polo Training</span><span class="sc-chip">Chukkers</span></div>
+    </div>
+    <div class="sec-card sc-tab" onclick="goTo('tabela')">
+      <div class="sc-wm">
+        <svg width="68" height="68" viewBox="0 0 108 108" fill="none"><circle cx="54" cy="54" r="50" stroke="white" stroke-width="2" fill="none"/><g stroke="white" stroke-width="0.8" opacity="0.5"><line x1="54" y1="54" x2="54" y2="16"/><line x1="54" y1="54" x2="80" y2="24"/><line x1="54" y1="54" x2="92" y2="46"/><line x1="54" y1="54" x2="90" y2="66"/><line x1="54" y1="54" x2="54" y2="92"/><line x1="54" y1="54" x2="28" y2="84"/><line x1="54" y1="54" x2="18" y2="44"/><line x1="54" y1="54" x2="30" y2="24"/></g><ellipse cx="40" cy="64" rx="13" ry="11" fill="white" opacity="0.4"/></svg>
+      </div>
+      <div class="sc-arr"><span class="material-symbols-outlined">arrow_forward</span></div>
+      <div class="sc-tag">Stables · Events · Parties</div>
+      <div class="sc-title">Tabela<br>Sheesh Mahal</div>
+      <div class="sc-desc">13 premium stables &amp; event venue — kitty parties, birthdays &amp; corporate events</div>
+      <div class="sc-chips"><span class="sc-chip">13 Stables</span><span class="sc-chip">Events</span><span class="sc-chip">Est. 2018</span></div>
+    </div>
+  </div>
+  <div class="home-info">
+    <div class="info-pill"><div class="ip-val">13</div><div class="ip-lbl">Premium Stables</div></div>
+    <div class="info-pill"><div class="ip-val">1</div><div class="ip-lbl">Polo Ground</div></div>
+    <div class="info-pill"><div class="ip-val">2018</div><div class="ip-lbl">Established</div></div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item n-active" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ TABELA HOME ═══════════════ -->
+<div class="screen" id="screen-tabela">
+<div class="scrollbody">
+  <div class="hero-section hero-tab">
+    <div class="hero-back" onclick="goTo('home')">
+      <span class="material-symbols-outlined">arrow_back</span><span class="hb-txt">Home</span>
+    </div>
+    <div class="hero-title">Tabela<br>Sheesh Mahal</div>
+    <div class="hero-sub">Lahore's finest equestrian stable &amp; event venue — where every occasion becomes a memory.</div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-val">13</div><div class="hs-lbl">Stables</div></div>
+      <div class="hs-item"><div class="hs-val">CCTV</div><div class="hs-lbl">Secured</div></div>
+      <div class="hs-item"><div class="hs-val">24/7</div><div class="hs-lbl">Care</div></div>
+      <div class="hs-item"><div class="hs-val">2018</div><div class="hs-lbl">Est.</div></div>
+    </div>
+  </div>
+
+  <div class="sec-head-sm">Facilities</div>
+  <div class="fac-row">
+    <div class="fac-pill"><span class="material-symbols-outlined">videocam</span><span class="fp-txt">CCTV</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">air</span><span class="fp-txt">Ventilation</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">mode_fan</span><span class="fp-txt">Ceiling Fans</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">bed</span><span class="fp-txt">Proper Rooms</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">water_drop</span><span class="fp-txt">Water System</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">grass</span><span class="fp-txt">Premium Fodder</span></div>
+  </div>
+
+  <div class="sec-head">Our Stables</div>
+  <div class="stable-scroll">
+    <div class="stable-card"><div class="sct sct-1">🐴</div><div class="sc-sinfo"><div class="sc-sname">Block A</div><div class="sc-sdet">Stalls 1–4 · Premium</div></div></div>
+    <div class="stable-card"><div class="sct sct-2">🏇</div><div class="sc-sinfo"><div class="sc-sname">Block B</div><div class="sc-sdet">Stalls 5–8 · Standard</div></div></div>
+    <div class="stable-card"><div class="sct sct-3">🌿</div><div class="sc-sinfo"><div class="sc-sname">Block C</div><div class="sc-sdet">Stalls 9–11 · Garden</div></div></div>
+    <div class="stable-card"><div class="sct sct-4">⭐</div><div class="sc-sinfo"><div class="sc-sname">VIP Block</div><div class="sc-sdet">Stalls 12–13 · VIP</div></div></div>
+  </div>
+
+  <div class="sec-head">Book an Event</div>
+  <div class="event-list">
+    <div class="ev-card" onclick="bookEvent('Kitty Party')">
+      <div class="ev-icon ei-k"><span class="material-symbols-outlined">groups</span></div>
+      <div class="ev-body">
+        <div class="ev-title">Kitty Party</div>
+        <div class="ev-desc">Intimate gatherings with stunning polo ground views &amp; live match experience</div>
+        <div class="ev-cta">Book Now →</div>
+      </div>
+      <div class="ev-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="ev-card" onclick="bookEvent('Birthday Party')">
+      <div class="ev-icon ei-b"><span class="material-symbols-outlined">cake</span></div>
+      <div class="ev-body">
+        <div class="ev-title">Birthday Party</div>
+        <div class="ev-desc">Celebrate with horse experiences, polo demos &amp; premium event setup on the ground</div>
+        <div class="ev-cta">Book Now →</div>
+      </div>
+      <div class="ev-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="ev-card" onclick="bookEvent('Corporate Event')">
+      <div class="ev-icon ei-c"><span class="material-symbols-outlined">business_center</span></div>
+      <div class="ev-body">
+        <div class="ev-title">Corporate Event</div>
+        <div class="ev-desc">Team building, client entertainment &amp; corporate polo matches — tailored for business</div>
+        <div class="ev-cta">Book Now →</div>
+      </div>
+      <div class="ev-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item n-tab" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ TABELA BOOKING ═══════════════ -->
+<div class="screen" id="screen-tbook">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('tabela')"><span class="material-symbols-outlined">arrow_back</span></button>
+  <div><div class="topbar-title">Book Event</div><div class="topbar-sub">Tabela Sheesh Mahal</div></div>
+</div>
+<div class="scrollbody">
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">celebration</span><span class="fc-head-txt">Event Type</span></div>
+    <div class="type-grid" id="tg1">
+      <button class="type-btn" onclick="selType(this,'Kitty Party','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">groups</span></div><div class="tb-lbl">Kitty Party</div></button>
+      <button class="type-btn" onclick="selType(this,'Birthday Party','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">cake</span></div><div class="tb-lbl">Birthday</div></button>
+      <button class="type-btn" onclick="selType(this,'Corporate Event','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">business_center</span></div><div class="tb-lbl">Corporate</div></button>
+      <button class="type-btn" onclick="selType(this,'Custom Event','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">star</span></div><div class="tb-lbl">Custom</div></button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">calendar_today</span><span class="fc-head-txt">Select Date</span></div>
+    <div class="date-strip" id="tbl-dates"></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">schedule</span><span class="fc-head-txt">Preferred Time</span></div>
+    <div class="time-grid" id="tbl-times">
+      <button class="t-pill" onclick="selTime(this,'10:00 AM','tab','tbl-times')">10:00 AM</button>
+      <button class="t-pill" onclick="selTime(this,'12:00 PM','tab','tbl-times')">12:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'2:00 PM','tab','tbl-times')">2:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'4:00 PM','tab','tbl-times')">4:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'6:00 PM','tab','tbl-times')">6:00 PM</button>
+      <button class="t-pill na">8:00 PM</button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">person</span><span class="fc-head-txt">Guest Details</span></div>
+    <div class="fc-row"><div class="fc-label">Full Name</div><input class="fc-input" type="text" placeholder="Your full name"/></div>
+    <div class="fc-row"><div class="fc-label">Phone Number</div><input class="fc-input" type="tel" placeholder="+92 300 0000000"/></div>
+    <div class="fc-row"><div class="fc-label">Number of Guests</div><input class="fc-input" type="number" placeholder="e.g. 25" min="1"/></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">note_alt</span><span class="fc-head-txt">Special Requests</span></div>
+    <div class="fc-row"><div class="fc-label">Notes (optional)</div><textarea class="fc-textarea" rows="3" placeholder="Decoration preferences, polo match viewing, dietary requirements..."></textarea></div>
+  </div>
+</div>
+</div>
+<div class="cta-wrap"><button class="btn-cta cta-tab" onclick="confirmBook('tab')">Confirm Booking</button></div>
+</div>
+
+<!-- ═══════════════ PPC HOME ═══════════════ -->
+<div class="screen" id="screen-ppc">
+<div class="scrollbody">
+  <div class="hero-section hero-ppc">
+    <div class="hero-back" onclick="goTo('home')">
+      <span class="material-symbols-outlined">arrow_back</span><span class="hb-txt">Home</span>
+    </div>
+    <div class="hero-title">Punjab<br>Polo Club</div>
+    <div class="hero-sub">Professional polo training, horse riding &amp; full chukkers on our championship-grade ground.</div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-val">Pro</div><div class="hs-lbl">Ground</div></div>
+      <div class="hs-item"><div class="hs-val">All</div><div class="hs-lbl">Levels</div></div>
+      <div class="hs-item"><div class="hs-val">Full</div><div class="hs-lbl">Chukkers</div></div>
+    </div>
+  </div>
+
+  <div class="sec-head">Our Services</div>
+  <div class="svc-list">
+    <div class="svc-card" onclick="bookSession('Horse Riding')">
+      <div class="svc-icon si-r"><span class="material-symbols-outlined">sports_motorsports</span></div>
+      <div class="svc-body">
+        <div class="svc-title">Horse Riding</div>
+        <div class="svc-desc">Guided riding sessions for all experience levels — from first-timers to seasoned riders</div>
+        <div class="svc-tags"><span class="svc-tag">Beginners</span><span class="svc-tag">Intermediate</span><span class="svc-tag">Advanced</span></div>
+      </div>
+      <div class="svc-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="svc-card" onclick="bookSession('Polo Training')">
+      <div class="svc-icon si-t"><span class="material-symbols-outlined">sports_handball</span></div>
+      <div class="svc-body">
+        <div class="svc-title">Polo Training</div>
+        <div class="svc-desc">Professional coaching — stick &amp; ball, team drills &amp; tactical sessions with our coaches</div>
+        <div class="svc-tags"><span class="svc-tag">Private</span><span class="svc-tag">Group</span><span class="svc-tag">Intensive</span></div>
+      </div>
+      <div class="svc-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="svc-card" onclick="bookSession('Full Chukker')">
+      <div class="svc-icon si-c"><span class="material-symbols-outlined">sports</span></div>
+      <div class="svc-body">
+        <div class="svc-title">Full Chukkers</div>
+        <div class="svc-desc">Book a complete polo match — 4 to 6 chukkers on our professional ground with referees</div>
+        <div class="svc-tags"><span class="svc-tag">4 Chukkers</span><span class="svc-tag">6 Chukkers</span></div>
+      </div>
+      <div class="svc-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+  </div>
+
+  <div class="about-strip">
+    <div class="ab-title">About the Club</div>
+    <div class="ab-text">Punjab Polo Club operates on the same grounds as Tabela Sheesh Mahal, offering a complete equestrian experience. Our professional polo ground hosts general riding, structured training, and competitive full chukker matches — open to members and guests alike.</div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item n-active" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ PPC BOOKING ═══════════════ -->
+<div class="screen" id="screen-pbook">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('ppc')"><span class="material-symbols-outlined">arrow_back</span></button>
+  <div><div class="topbar-title">Book Session</div><div class="topbar-sub">Punjab Polo Club</div></div>
+</div>
+<div class="scrollbody">
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">sports</span><span class="fc-head-txt">Session Type</span></div>
+    <div class="type-grid" id="pg1">
+      <button class="type-btn" onclick="selType(this,'Horse Riding','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">sports_motorsports</span></div><div class="tb-lbl">Horse Riding</div></button>
+      <button class="type-btn" onclick="selType(this,'Polo Training','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">sports_handball</span></div><div class="tb-lbl">Polo Training</div></button>
+      <button class="type-btn" onclick="selType(this,'Full Chukker','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">sports</span></div><div class="tb-lbl">Full Chukker</div></button>
+      <button class="type-btn" onclick="selType(this,'General Riding','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">directions_run</span></div><div class="tb-lbl">General</div></button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">bar_chart</span><span class="fc-head-txt">Skill Level</span></div>
+    <div class="skill-row" id="pg2">
+      <button class="type-btn" onclick="selType(this,'Beginner','ppc','pg2')"><div class="tb-lbl">Beginner</div></button>
+      <button class="type-btn" onclick="selType(this,'Intermediate','ppc','pg2')"><div class="tb-lbl">Intermediate</div></button>
+      <button class="type-btn" onclick="selType(this,'Advanced','ppc','pg2')"><div class="tb-lbl">Advanced</div></button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">calendar_today</span><span class="fc-head-txt">Select Date</span></div>
+    <div class="date-strip" id="ppc-dates"></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">schedule</span><span class="fc-head-txt">Preferred Time</span></div>
+    <div class="time-grid" id="ppc-times">
+      <button class="t-pill" onclick="selTime(this,'6:00 AM','ppc','ppc-times')">6:00 AM</button>
+      <button class="t-pill" onclick="selTime(this,'8:00 AM','ppc','ppc-times')">8:00 AM</button>
+      <button class="t-pill" onclick="selTime(this,'10:00 AM','ppc','ppc-times')">10:00 AM</button>
+      <button class="t-pill na">12:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'3:00 PM','ppc','ppc-times')">3:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'5:00 PM','ppc','ppc-times')">5:00 PM</button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">person</span><span class="fc-head-txt">Rider Details</span></div>
+    <div class="fc-row"><div class="fc-label">Full Name</div><input class="fc-input" type="text" placeholder="Your full name"/></div>
+    <div class="fc-row"><div class="fc-label">Phone Number</div><input class="fc-input" type="tel" placeholder="+92 300 0000000"/></div>
+    <div class="fc-row"><div class="fc-label">Number of Riders</div><input class="fc-input" type="number" placeholder="e.g. 2" min="1"/></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">note_alt</span><span class="fc-head-txt">Additional Notes</span></div>
+    <div class="fc-row"><div class="fc-label">Notes (optional)</div><textarea class="fc-textarea" rows="3" placeholder="Horse preferences, experience details, special requirements..."></textarea></div>
+  </div>
+</div>
+</div>
+<div class="cta-wrap"><button class="btn-cta cta-ppc" onclick="confirmBook('ppc')">Confirm Session</button></div>
+</div>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<div class="screen" id="screen-gallery">
+<div class="topbar"><div class="topbar-title">Gallery</div></div>
+<div class="scrollbody">
+  <div class="gal-filter">
+    <button class="gf-btn gf-on" onclick="setFilter(this)">All</button>
+    <button class="gf-btn" onclick="setFilter(this)">Polo Club</button>
+    <button class="gf-btn" onclick="setFilter(this)">Tabela</button>
+    <button class="gf-btn" onclick="setFilter(this)">Events</button>
+    <button class="gf-btn" onclick="setFilter(this)">Stables</button>
+  </div>
+  <div class="gal-grid">
+    <div class="gi tall ga"><span class="gi-ico">🏇</span><span class="gi-lbl">Polo Match</span></div>
+    <div class="gi gb"><span class="gi-ico">🐴</span><span class="gi-lbl">Stables Block A</span></div>
+    <div class="gi gc"><span class="gi-ico">⚡</span><span class="gi-lbl">Training Session</span></div>
+    <div class="gi gd"><span class="gi-ico">🎂</span><span class="gi-lbl">Birthday Event</span></div>
+    <div class="gi tall ge"><span class="gi-ico">🏆</span><span class="gi-lbl">Championship</span></div>
+    <div class="gi gf2"><span class="gi-ico">🐎</span><span class="gi-lbl">Morning Ride</span></div>
+    <div class="gi gg"><span class="gi-ico">🌅</span><span class="gi-lbl">Sunset Polo</span></div>
+    <div class="gi gh"><span class="gi-ico">🌿</span><span class="gi-lbl">Block C Garden</span></div>
+    <div class="gi gi2"><span class="gi-ico">👑</span><span class="gi-lbl">VIP Stables</span></div>
+    <div class="gi gj"><span class="gi-ico">🎉</span><span class="gi-lbl">Corporate Event</span></div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item n-active"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ MY BOOKINGS ═══════════════ -->
+<div class="screen" id="screen-bookings">
+<div class="topbar"><div class="topbar-title">My Bookings</div></div>
+<div class="scrollbody">
+  <div class="bk-tabs">
+    <button class="bk-tab bk-on">Upcoming</button>
+    <button class="bk-tab">Past</button>
+    <button class="bk-tab">Cancelled</button>
+  </div>
+  <div class="bk-item">
+    <div class="bk-top">
+      <div class="bk-ico bp"><span class="material-symbols-outlined">sports</span></div>
+      <div class="bk-info"><div class="bk-title">Polo Training Session</div><div class="bk-date">Punjab Polo Club · Tomorrow, 8:00 AM</div></div>
+      <span class="bk-status bs-c">Confirmed</span>
+    </div>
+    <div class="bk-foot">
+      <span class="bkf"><strong>Riders:</strong> 2</span>
+      <span class="bkf"><strong>Level:</strong> Intermediate</span>
+      <span class="bkf"><strong>Ref:</strong> PPC-001</span>
+    </div>
+  </div>
+  <div class="bk-item">
+    <div class="bk-top">
+      <div class="bk-ico bt"><span class="material-symbols-outlined">cake</span></div>
+      <div class="bk-info"><div class="bk-title">Birthday Party</div><div class="bk-date">Tabela Sheesh Mahal · Jun 28, 4:00 PM</div></div>
+      <span class="bk-status bs-p">Pending</span>
+    </div>
+    <div class="bk-foot">
+      <span class="bkf"><strong>Guests:</strong> 35</span>
+      <span class="bkf"><strong>Type:</strong> Outdoor</span>
+      <span class="bkf"><strong>Ref:</strong> TAB-002</span>
+    </div>
+  </div>
+  <div class="bk-item">
+    <div class="bk-top">
+      <div class="bk-ico bp"><span class="material-symbols-outlined">sports_motorsports</span></div>
+      <div class="bk-info"><div class="bk-title">Horse Riding</div><div class="bk-date">Punjab Polo Club · Jul 2, 6:00 AM</div></div>
+      <span class="bk-status bs-c">Confirmed</span>
+    </div>
+    <div class="bk-foot">
+      <span class="bkf"><strong>Riders:</strong> 1</span>
+      <span class="bkf"><strong>Level:</strong> Beginner</span>
+      <span class="bkf"><strong>Ref:</strong> PPC-003</span>
+    </div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item n-active"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ PROFILE ═══════════════ -->
+<div class="screen" id="screen-profile">
+<div class="scrollbody">
+  <div class="prof-hero">
+    <div class="prof-av"><span class="material-symbols-outlined">person</span></div>
+    <div class="prof-name">Ranbir Ohmyr</div>
+    <div class="prof-email">ohmyr@tabelastables.com</div>
+    <div class="mem-chip"><div class="mc-dot"></div><span class="mc-txt">Premium Member · Since 2022</span></div>
+  </div>
+  <div class="prof-sec">
+    <div class="ps-hd">Membership</div>
+    <div class="ps-row"><span class="material-symbols-outlined">verified</span><span class="ps-lbl">Member Type</span><span class="ps-val">Premium</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">card_membership</span><span class="ps-lbl">Member ID</span><span class="ps-val">TBL-2022-047</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">event_available</span><span class="ps-lbl">Sessions This Month</span><span class="ps-val">5</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+  </div>
+  <div class="prof-sec">
+    <div class="ps-hd">Account</div>
+    <div class="ps-row"><span class="material-symbols-outlined">person</span><span class="ps-lbl">Edit Profile</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">notifications</span><span class="ps-lbl">Notifications</span><span class="ps-val">On</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">lock</span><span class="ps-lbl">Change Password</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+  </div>
+  <div class="prof-sec">
+    <div class="ps-hd">Support</div>
+    <div class="ps-row" onclick="goTo('contact')"><span class="material-symbols-outlined">location_on</span><span class="ps-lbl">Contact &amp; Location</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">help</span><span class="ps-lbl">Help &amp; FAQ</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">share</span><span class="ps-lbl">Share App</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+  </div>
+  <div class="prof-sec" style="margin-bottom:0">
+    <div class="ps-row danger"><span class="material-symbols-outlined">logout</span><span class="ps-lbl">Sign Out</span></div>
+  </div>
+  <div style="height:100px"></div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item n-active"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<div class="screen" id="screen-contact">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
+  <div class="topbar-title">Contact &amp; Location</div>
+</div>
+<div class="scrollbody">
+  <div class="map-block">
+    <div class="map-grid"></div>
+    <div class="map-pin"><span class="material-symbols-outlined">location_on</span></div>
+    <div class="map-tag">Tabela Sheesh Mahal, Lahore</div>
+  </div>
+  <div class="ct-actions">
+    <button class="ct-btn cb-call"><span class="material-symbols-outlined">call</span>Call</button>
+    <button class="ct-btn cb-wa"><span class="material-symbols-outlined">chat</span>WhatsApp</button>
+    <button class="ct-btn cb-dir"><span class="material-symbols-outlined">directions</span>Directions</button>
+  </div>
+  <div class="ct-info">
+    <div class="ct-row">
+      <span class="material-symbols-outlined">location_on</span>
+      <div><div class="ct-lbl">Address</div><div class="ct-val">Tabela Sheesh Mahal &amp; Punjab Polo Club<br>Lahore, Punjab, Pakistan</div></div>
+    </div>
+    <div class="ct-row">
+      <span class="material-symbols-outlined">schedule</span>
+      <div><div class="ct-lbl">Hours</div><div class="ct-val">Daily: 6:00 AM – 8:00 PM<br>Events by appointment</div></div>
+    </div>
+    <div class="ct-row">
+      <span class="material-symbols-outlined">call</span>
+      <div><div class="ct-lbl">Phone</div><div class="ct-val">+92 300 000 0000</div></div>
+    </div>
+    <div class="ct-row">
+      <span class="material-symbols-outlined">mail</span>
+      <div><div class="ct-lbl">Email</div><div class="ct-val">info@tabelastables.com</div></div>
+    </div>
+  </div>
+  <div style="height:30px"></div>
+</div>
+</div>
+
+<!-- ═══════════════ CONFIRMATION ═══════════════ -->
+<div class="screen" id="screen-confirm">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('home')"><span class="material-symbols-outlined">close</span></button>
+  <div class="topbar-title">Booking Confirmed</div>
+</div>
+<div class="conf-inner">
+  <div class="conf-ring cr-ppc" id="conf-ring">
+    <span class="material-symbols-outlined conf-check">check_circle</span>
+  </div>
+  <div class="conf-title">You're all set!</div>
+  <div class="conf-sub">Your booking has been received. Our team will confirm within 2 hours via WhatsApp.</div>
+  <div class="conf-card">
+    <div class="cc-row"><span class="cc-lbl">Venue</span><span class="cc-val" id="conf-org">Punjab Polo Club</span></div>
+    <div class="cc-row"><span class="cc-lbl">Booking Type</span><span class="cc-val" id="conf-type">—</span></div>
+    <div class="cc-row"><span class="cc-lbl">Date</span><span class="cc-val" id="conf-date">—</span></div>
+    <div class="cc-row"><span class="cc-lbl">Time</span><span class="cc-val" id="conf-time">—</span></div>
+  </div>
+  <div class="conf-ref" id="conf-ref">Reference: —</div>
+</div>
+<div class="cta-wrap">
+  <button class="btn-cta cta-ppc" id="conf-btn" onclick="goTo('bookings')">View My Bookings</button>
+</div>
+</div>
+
+</div><!-- /#app -->
+<script>
+let selTypeVal='', selDateVal='', selTimeVal='';
+
+function goTo(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('screen-'+name);
+  if(el){el.classList.add('active');const sb=el.querySelector('.scrollbody');if(sb)sb.scrollTop=0;}
+}
+
+function setGreeting(){
+  const h=new Date().getHours();
+  const el=document.getElementById('greet-time');
+  if(el)el.textContent=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
+}
+
+function buildDates(id,theme){
+  const strip=document.getElementById(id);
+  if(!strip)return;
+  strip.innerHTML='';
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const today=new Date();
+  for(let i=1;i<=10;i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    const cell=document.createElement('div');
+    cell.className='d-cell';
+    cell.innerHTML='<div class="dc-day">'+days[d.getDay()]+'</div><div class="dc-num">'+d.getDate()+'</div>';
+    const ds=days[d.getDay()]+' '+d.getDate();
+    cell.onclick=function(){strip.querySelectorAll('.d-cell').forEach(c=>c.classList.remove('sel-ppc','sel-tab'));this.classList.add('sel-'+theme);selDateVal=ds;};
+    strip.appendChild(cell);
+  }
+}
+
+function selType(btn,val,theme,gridId){
+  const g=document.getElementById(gridId);
+  if(g)g.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('sel-ppc','sel-tab'));
+  btn.classList.add('sel-'+theme);selTypeVal=val;
+}
+
+function selTime(btn,val,theme,gridId){
+  const g=document.getElementById(gridId);
+  if(g)g.querySelectorAll('.t-pill:not(.na)').forEach(b=>b.classList.remove('sel-ppc','sel-tab'));
+  btn.classList.add('sel-'+theme);selTimeVal=val;
+}
+
+function setFilter(btn){
+  document.querySelectorAll('.gf-btn').forEach(b=>b.classList.remove('gf-on'));
+  btn.classList.add('gf-on');
+}
+
+function bookEvent(type){
+  selTypeVal=type;goTo('tbook');
+  setTimeout(()=>{
+    const g=document.getElementById('tg1');
+    if(g)g.querySelectorAll('.type-btn').forEach(b=>{
+      const l=b.querySelector('.tb-lbl');
+      if(l&&type.includes(l.textContent.trim()))b.classList.add('sel-tab');
+    });
+  },60);
+}
+
+function bookSession(type){
+  selTypeVal=type;goTo('pbook');
+  setTimeout(()=>{
+    const g=document.getElementById('pg1');
+    if(g)g.querySelectorAll('.type-btn').forEach(b=>{
+      const l=b.querySelector('.tb-lbl');
+      if(l&&type.includes(l.textContent.trim()))b.classList.add('sel-ppc');
+    });
+  },60);
+}
+
+function confirmBook(origin){
+  const ring=document.getElementById('conf-ring');
+  const orgEl=document.getElementById('conf-org');
+  const typeEl=document.getElementById('conf-type');
+  const dateEl=document.getElementById('conf-date');
+  const timeEl=document.getElementById('conf-time');
+  const refEl=document.getElementById('conf-ref');
+  const btn=document.getElementById('conf-btn');
+  if(origin==='tab'){
+    ring.className='conf-ring cr-tab';
+    ring.querySelector('.conf-check').style.color='var(--tab-warm)';
+    if(orgEl)orgEl.textContent='Tabela Sheesh Mahal';
+    if(btn)btn.className='btn-cta cta-tab';
+  }else{
+    ring.className='conf-ring cr-ppc';
+    ring.querySelector('.conf-check').style.color='var(--ppc)';
+    if(orgEl)orgEl.textContent='Punjab Polo Club';
+    if(btn)btn.className='btn-cta cta-ppc';
+  }
+  if(typeEl)typeEl.textContent=selTypeVal||'General Booking';
+  if(dateEl)dateEl.textContent=selDateVal||'To be confirmed';
+  if(timeEl)timeEl.textContent=selTimeVal||'To be confirmed';
+  const pfx=origin==='tab'?'TAB':'PPC';
+  if(refEl)refEl.textContent='Reference: '+pfx+'-'+Date.now().toString().slice(-5);
+  ring.style.animation='none';ring.offsetHeight;ring.style.animation='';
+  goTo('confirm');
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  setGreeting();
+  buildDates('tbl-dates','tab');
+  buildDates('ppc-dates','ppc');
+  goTo('splash');
+  setTimeout(()=>goTo('home'),3200);
+});
+</script>
+</body>
+</html>

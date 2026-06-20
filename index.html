@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Punjab Polo Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ivory: '#F9F5EE',
+        'ivory-dim': '#EFE9DF',
+        cream: '#FEFCF9',
+        gold: '#B8935A',
+        'gold-light': '#F5EAD5',
+        'gold-muted': '#C9A96E',
+        'gold-dark': '#7A5C20',
+        navy: '#1B3068',
+        charcoal: '#1C1610',
+        'warm-gray': '#7A6E65',
+        mist: '#C4BAB0',
+        sand: '#E5DDD0',
+        sage: '#5A6B5B',
+        blush: '#F5EDE8',
+      },
+      fontFamily: {
+        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+<style>
+  * { -webkit-font-smoothing: antialiased; }
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-style: normal; font-size: 24px; line-height: 1;
+    letter-spacing: normal; text-transform: none;
+    display: inline-block; white-space: nowrap;
+    font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+  }
+  body {
+    background-color: #F9F5EE;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 30% 0%, rgba(184,147,90,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 100%, rgba(27,48,104,0.04) 0%, transparent 55%);
+  }
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    opacity: 0.018;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 300px 300px;
+  }
+  .corner { position: fixed; width: 28px; height: 28px; border-color: #B8935A; border-style: solid; opacity: 0.35; }
+  .corner.tl { top:20px; left:20px; border-width:1px 0 0 1px; }
+  .corner.tr { top:20px; right:20px; border-width:1px 1px 0 0; }
+  .corner.bl { bottom:20px; left:20px; border-width:0 0 1px 1px; }
+  .corner.br { bottom:20px; right:20px; border-width:0 1px 1px 0; }
+
+  @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+  @keyframes riseUp  { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes shimmer { to{background-position:200% center} }
+
+  .a1 { animation: fadeIn 1.4s ease-out both; }
+  .a2 { animation: riseUp 1s ease-out 0.4s both; }
+  .a3 { animation: riseUp 1s ease-out 0.75s both; }
+  .a4 { animation: riseUp 1s ease-out 1.05s both; }
+
+  .gold-line {
+    display: flex; align-items: center; gap: 10px; justify-content: center;
+  }
+  .gold-line span { display: block; height:1px; width:44px; background: linear-gradient(90deg, transparent, #B8935A); }
+  .gold-line span:last-child { background: linear-gradient(90deg, #B8935A, transparent); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #B8935A 0%, #C9A96E 50%, #B8935A 100%);
+    background-size: 200% auto;
+    transition: background-position .5s ease, transform .15s ease, box-shadow .3s ease;
+  }
+  .btn-gold:hover {
+    background-position: right center;
+    box-shadow: 0 8px 28px rgba(184,147,90,0.28);
+    transform: translateY(-1px);
+  }
+  .btn-gold:active { transform:translateY(0) scale(0.98); }
+</style>
+</head>
+<body class="flex flex-col items-center justify-between min-h-screen font-sans overflow-hidden">
+<div class="grain"></div>
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+
+<!-- Top vertical accent line -->
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-gold to-transparent opacity-40 z-10"></div>
+
+<div class="flex-1 flex items-end pb-6 z-10">
+  <!-- Club Crest -->
+  <div class="a1 flex flex-col items-center">
+    <div class="relative">
+      <div class="absolute inset-0 bg-gold rounded-full blur-2xl opacity-10 animate-pulse scale-150"></div>
+      <div class="relative w-36 h-36 rounded-full bg-white flex items-center justify-center shadow-sm"
+           style="box-shadow:0 4px 24px rgba(27,48,104,0.10), 0 0 0 1px rgba(184,147,90,0.2)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 115" class="w-24 h-24">
+          <!-- Crossed mallets -->
+          <line x1="18" y1="102" x2="55" y2="18" stroke="#B8935A" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="82" y1="102" x2="45" y2="18" stroke="#B8935A" stroke-width="3.5" stroke-linecap="round"/>
+          <rect x="10" y="97" width="14" height="7" rx="1.5" fill="#B8935A"/>
+          <rect x="76" y="97" width="14" height="7" rx="1.5" fill="#B8935A"/>
+          <!-- Shield -->
+          <path d="M24 28 L76 28 L76 67 Q76 89 50 100 Q24 89 24 67 Z" fill="#EEF1FA" stroke="#1B3068" stroke-width="2"/>
+          <!-- Inner shield accent -->
+          <path d="M28 32 L72 32 L72 67 Q72 86 50 96 Q28 86 28 67 Z" fill="none" stroke="#B8935A" stroke-width="0.6" opacity="0.5"/>
+          <!-- Crown -->
+          <path d="M37 26 L41 17 L50 22 L59 17 L63 26 Z" fill="#B8935A"/>
+          <circle cx="50" cy="15" r="2" fill="#B8935A"/>
+          <circle cx="41" cy="17" r="1.5" fill="#B8935A"/>
+          <circle cx="59" cy="17" r="1.5" fill="#B8935A"/>
+          <!-- Horses simplified (two rearing) -->
+          <path d="M33 62 Q31 52 37 48 Q39 44 43 46 Q41 50 43 54 Q46 49 50 51 Q48 58 44 63 Z" fill="#1B3068"/>
+          <path d="M67 62 Q69 52 63 48 Q61 44 57 46 Q59 50 57 54 Q54 49 50 51 Q52 58 56 63 Z" fill="#1B3068"/>
+          <!-- Laurel hints -->
+          <path d="M19 62 Q22 55 20 68" fill="none" stroke="#1B3068" stroke-width="1.2" opacity="0.4"/>
+          <path d="M17 70 Q20 63 18 76" fill="none" stroke="#1B3068" stroke-width="1.2" opacity="0.4"/>
+          <path d="M81 62 Q78 55 80 68" fill="none" stroke="#1B3068" stroke-width="1.2" opacity="0.4"/>
+          <path d="M83 70 Q80 63 82 76" fill="none" stroke="#1B3068" stroke-width="1.2" opacity="0.4"/>
+          <!-- Banner -->
+          <path d="M20 95 Q50 103 80 95 L78 110 Q50 117 22 110 Z" fill="#1B3068"/>
+          <text x="50" y="106" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="2">PUNJAB</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Text -->
+<main class="z-10 flex flex-col items-center text-center px-8 max-w-sm w-full pt-10">
+  <div class="a2 mb-8">
+    <p class="font-sans text-xs tracking-[0.35em] uppercase text-gold font-medium mb-5">Est. 1904 · Jaipur Chapter</p>
+    <h1 class="font-serif font-light text-charcoal leading-none" style="font-size:3.2rem;letter-spacing:-0.01em">
+      Punjab<br/><em style="font-style:italic;font-weight:500">Polo Club</em>
+    </h1>
+  </div>
+
+  <div class="a3 mb-8 flex flex-col items-center gap-5">
+    <div class="gold-line">
+      <span></span>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 0L6.12 3.88L10 5L6.12 6.12L5 10L3.88 6.12L0 5L3.88 3.88Z" fill="#B8935A"/>
+      </svg>
+      <span></span>
+    </div>
+    <p class="font-serif text-xl font-light italic text-warm-gray leading-relaxed max-w-xs">
+      "Where Heritage Meets the Field"
+    </p>
+  </div>
+</main>
+
+<!-- CTA Footer -->
+<div class="z-10 w-full max-w-sm px-8 pb-14 flex flex-col items-center gap-6 a4">
+  <a href="home.html" class="btn-gold block w-full rounded-xl py-[18px] text-center">
+    <span class="font-sans text-xs font-semibold tracking-[0.28em] uppercase text-white">Enter The Club</span>
+  </a>
+
+  <div class="flex items-center gap-5 opacity-25">
+    <span class="material-symbols-outlined text-charcoal" style="font-size:18px">shield</span>
+    <div class="w-px h-4 bg-sand"></div>
+    <span class="material-symbols-outlined text-charcoal" style="font-size:18px">emoji_events</span>
+    <div class="w-px h-4 bg-sand"></div>
+    <span class="material-symbols-outlined text-charcoal" style="font-size:18px">military_tech</span>
+  </div>
+</div>
+
+<!-- Bottom vertical accent -->
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-t from-gold to-transparent opacity-30 z-10"></div>
+</body>
+</html>
