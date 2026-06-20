@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Punjab Polo Club — My Sessions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ivory:'#F9F5EE','ivory-dim':'#EFE9DF',cream:'#FEFCF9',
+        gold:'#B8935A','gold-light':'#F5EAD5','gold-muted':'#C9A96E','gold-dark':'#7A5C20',
+        navy:'#1B3068',charcoal:'#1C1610','warm-gray':'#7A6E65',
+        mist:'#C4BAB0',sand:'#E5DDD0',sage:'#5A6B5B',blush:'#F5EDE8',
+      },
+      fontFamily: { serif:['Cormorant Garamond','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
+    }
+  }
+}
+</script>
+<style>
+  * { -webkit-font-smoothing:antialiased; }
+  .material-symbols-outlined {
+    font-family:'Material Symbols Outlined'; font-style:normal; font-size:24px; line-height:1;
+    letter-spacing:normal; text-transform:none; display:inline-block; white-space:nowrap;
+    font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;
+  }
+  body { background-color:#F9F5EE; }
+
+  .tab { flex:1; text-align:center; padding:12px 16px; border-bottom:2px solid transparent;
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
+    letter-spacing:.1em; text-transform:uppercase; color:#C4BAB0; cursor:pointer; transition:all .2s; }
+  .tab.active { color:#B8935A; border-bottom-color:#B8935A; }
+
+  .booking-card {
+    background:#FEFCF9; border-radius:16px;
+    border:1px solid #E5DDD0; overflow:hidden;
+    box-shadow:0 2px 14px rgba(0,0,0,0.04);
+    transition:box-shadow .2s ease;
+  }
+  .booking-card:hover { box-shadow:0 6px 28px rgba(0,0,0,0.08); }
+  .booking-card.past { opacity:0.72; }
+
+  .date-block {
+    min-width:72px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:20px 12px;
+    background:linear-gradient(160deg,#B8935A,#C9A96E);
+  }
+  .date-block.sage { background:linear-gradient(160deg,#5A6B5B,#7D8F7E); }
+  .date-block.muted { background:linear-gradient(160deg,#C4BAB0,#D6CFCA); }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:4px;
+    border-radius:999px; padding:4px 10px;
+    font-family:'Inter',sans-serif; font-size:10px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase;
+  }
+  .badge.confirmed { background:#F5EAD5; border:1px solid #B8935A; color:#7A5C20; }
+  .badge.completed { background:#EFF3EF; border:1px solid #5A6B5B; color:#3D5C3E; }
+  .badge.registered { background:#EEF1FA; border:1px solid #1B3068; color:#1B3068; }
+  .badge.cancelled { background:#FEF2F2; border:1px solid #C4BAB0; color:#7A6E65; }
+
+  .action-btn {
+    padding:8px 16px; border-radius:8px; border:1px solid #E5DDD0;
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
+    color:#7A6E65; background:#F9F5EE; cursor:pointer; transition:all .2s;
+  }
+  .action-btn:hover { border-color:#B8935A; color:#B8935A; background:#F5EAD5; }
+  .action-btn.primary { background:#1B3068; border-color:#1B3068; color:white; }
+  .action-btn.primary:hover { background:#2B4FA4; }
+
+  .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 0; flex:1; color:#C4BAB0; transition:color .2s; cursor:pointer; }
+  .nav-item.active { color:#B8935A; }
+  .nav-item span.label { font-family:'Inter',sans-serif; font-size:10px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; }
+
+  .empty-state { text-align:center; padding:48px 24px; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  .a1{animation:fadeUp .5s ease-out both}
+  .a2{animation:fadeUp .5s ease-out .08s both}
+  .a3{animation:fadeUp .5s ease-out .16s both}
+  .a4{animation:fadeUp .5s ease-out .24s both}
+  .a5{animation:fadeUp .5s ease-out .32s both}
+
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+</style>
+</head>
+<body class="font-sans min-h-screen pb-24">
+
+<!-- Top Bar -->
+<header class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-sm border-b border-sand/60">
+  <div class="flex items-center gap-3 px-5 pt-4 pb-0">
+    <a href="home.html" class="w-8 h-8 flex items-center justify-center rounded-full text-warm-gray hover:bg-sand transition-colors mb-3">
+      <span class="material-symbols-outlined" style="font-size:20px">arrow_back</span>
+    </a>
+    <div class="flex-1 text-center mb-3">
+      <h1 class="font-serif font-medium text-charcoal" style="font-size:1.15rem">My Sessions</h1>
+    </div>
+    <a href="book.html" class="mb-3 flex items-center gap-1.5 text-gold font-sans font-medium" style="font-size:12px">
+      <span class="material-symbols-outlined" style="font-size:16px">add</span>
+      New
+    </a>
+  </div>
+  <!-- Tabs -->
+  <div class="flex border-t border-sand/60">
+    <button class="tab active" onclick="switchTab('upcoming', this)">Upcoming</button>
+    <button class="tab" onclick="switchTab('past', this)">Past Sessions</button>
+  </div>
+</header>
+
+<main class="px-5 pt-5 max-w-md mx-auto">
+
+  <!-- Upcoming Tab -->
+  <div class="tab-panel active a1" id="tab-upcoming">
+    <p class="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">2 Upcoming</p>
+
+    <div class="space-y-4">
+      <!-- Booking 1: Polo Lesson -->
+      <div class="booking-card">
+        <div class="flex">
+          <div class="date-block">
+            <p class="font-sans font-semibold text-white/70 leading-none" style="font-size:9px;letter-spacing:.12em">OCT</p>
+            <p class="font-serif font-light text-white leading-none mt-1" style="font-size:2.2rem">24</p>
+            <p class="font-sans font-semibold text-white/70 leading-none mt-1" style="font-size:9px;letter-spacing:.08em">TUE</p>
+          </div>
+          <div class="flex-1 p-4">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <p class="font-sans font-semibold text-charcoal" style="font-size:14px">Polo Lesson</p>
+                <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">09:30 AM · 60 min · Court 3</p>
+              </div>
+              <span class="badge confirmed">Confirmed</span>
+            </div>
+            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-sand">
+              <div class="flex items-center gap-1.5 flex-1">
+                <span class="material-symbols-outlined text-mist" style="font-size:14px">person</span>
+                <span class="font-sans text-warm-gray" style="font-size:11px">Senior HPA Coach</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-mist" style="font-size:14px">payments</span>
+                <span class="font-sans text-warm-gray" style="font-size:11px">$250</span>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-3">
+              <a href="confirmation.html" class="action-btn primary flex-1 text-center">View Details</a>
+              <button class="action-btn" onclick="showCancelConfirm()">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <!-- Reference -->
+        <div class="px-4 pb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-mist" style="font-size:12px">tag</span>
+          <span class="font-sans text-mist" style="font-size:10px;letter-spacing:.06em">REF: PPC-2023-1024</span>
+        </div>
+      </div>
+
+      <!-- Booking 2: Match Play -->
+      <div class="booking-card a2">
+        <div class="flex">
+          <div class="date-block sage">
+            <p class="font-sans font-semibold text-white/70 leading-none" style="font-size:9px;letter-spacing:.12em">OCT</p>
+            <p class="font-serif font-light text-white leading-none mt-1" style="font-size:2.2rem">25</p>
+            <p class="font-sans font-semibold text-white/70 leading-none mt-1" style="font-size:9px;letter-spacing:.08em">WED</p>
+          </div>
+          <div class="flex-1 p-4">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <p class="font-sans font-semibold text-charcoal" style="font-size:14px">Match Play</p>
+                <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">02:00 PM · 90 min · Turf A</p>
+              </div>
+              <span class="badge registered">Registered</span>
+            </div>
+            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-sand">
+              <div class="flex items-center gap-1.5 flex-1">
+                <span class="material-symbols-outlined text-mist" style="font-size:14px">groups</span>
+                <span class="font-sans text-warm-gray" style="font-size:11px">4 players confirmed</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-mist" style="font-size:14px">payments</span>
+                <span class="font-sans text-warm-gray" style="font-size:11px">$180</span>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-3">
+              <button class="action-btn primary flex-1">View Match Info</button>
+              <button class="action-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <div class="px-4 pb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-mist" style="font-size:12px">tag</span>
+          <span class="font-sans text-mist" style="font-size:10px;letter-spacing:.06em">REF: PPC-2023-1025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Book more CTA -->
+    <a href="book.html" class="a3 mt-6 flex items-center justify-center gap-3 py-4 rounded-2xl border border-dashed border-sand hover:border-gold transition-colors group">
+      <span class="material-symbols-outlined text-mist group-hover:text-gold transition-colors" style="font-size:20px">add_circle</span>
+      <span class="font-sans font-medium text-mist group-hover:text-gold transition-colors" style="font-size:13px;letter-spacing:.04em">Book Another Session</span>
+    </a>
+  </div>
+
+  <!-- Past Tab -->
+  <div class="tab-panel" id="tab-past">
+    <p class="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">14 Sessions Completed</p>
+
+    <div class="space-y-3">
+      <!-- Past 1 -->
+      <div class="booking-card past">
+        <div class="flex">
+          <div class="date-block muted">
+            <p class="font-sans font-semibold text-white/70 leading-none" style="font-size:9px;letter-spacing:.12em">OCT</p>
+            <p class="font-serif font-light text-white leading-none mt-1" style="font-size:2rem">18</p>
+            <p class="font-sans font-semibold text-white/70 leading-none mt-1" style="font-size:9px;letter-spacing:.08em">WED</p>
+          </div>
+          <div class="flex-1 p-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="font-sans font-medium text-charcoal" style="font-size:13px">Polo Lesson</p>
+                <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">09:30 AM · Court 3</p>
+              </div>
+              <span class="badge completed">Completed</span>
+            </div>
+            <div class="flex items-center gap-2 mt-3">
+              <div class="flex items-center gap-1 text-gold">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+              </div>
+              <span class="font-sans text-mist" style="font-size:11px">Your rating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Past 2 -->
+      <div class="booking-card past">
+        <div class="flex">
+          <div class="date-block muted">
+            <p class="font-sans font-semibold text-white/70 leading-none" style="font-size:9px;letter-spacing:.12em">OCT</p>
+            <p class="font-serif font-light text-white leading-none mt-1" style="font-size:2rem">11</p>
+            <p class="font-sans font-semibold text-white/70 leading-none mt-1" style="font-size:9px;letter-spacing:.08em">WED</p>
+          </div>
+          <div class="flex-1 p-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="font-sans font-medium text-charcoal" style="font-size:13px">Match Play</p>
+                <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">02:00 PM · Turf A</p>
+              </div>
+              <span class="badge completed">Completed</span>
+            </div>
+            <div class="flex items-center gap-2 mt-3">
+              <div class="flex items-center gap-1 text-gold">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+                <span class="material-symbols-outlined text-sand" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">star</span>
+              </div>
+              <span class="font-sans text-mist" style="font-size:11px">Your rating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Past 3 -->
+      <div class="booking-card past">
+        <div class="flex">
+          <div class="date-block muted">
+            <p class="font-sans font-semibold text-white/70 leading-none" style="font-size:9px;letter-spacing:.12em">SEP</p>
+            <p class="font-serif font-light text-white leading-none mt-1" style="font-size:2rem">28</p>
+            <p class="font-sans font-semibold text-white/70 leading-none mt-1" style="font-size:9px;letter-spacing:.08em">THU</p>
+          </div>
+          <div class="flex-1 p-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="font-sans font-medium text-charcoal" style="font-size:13px">Training Session</p>
+                <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">07:00 AM · Practice Turf</p>
+              </div>
+              <span class="badge completed">Completed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="font-sans text-center text-mist mt-6" style="font-size:12px">Showing 3 of 14 past sessions</p>
+    <button class="w-full mt-3 py-3 text-center font-sans font-medium text-warm-gray border border-sand rounded-xl hover:border-gold hover:text-gold transition-colors" style="font-size:12px;letter-spacing:.06em">
+      Load More
+    </button>
+  </div>
+
+</main>
+
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 bg-cream/95 backdrop-blur-md border-t border-sand z-50">
+  <div class="flex max-w-md mx-auto">
+    <a href="home.html" class="nav-item">
+      <span class="material-symbols-outlined" style="font-size:22px">home</span>
+      <span class="label">Home</span>
+    </a>
+    <a href="book.html" class="nav-item">
+      <span class="material-symbols-outlined" style="font-size:22px">calendar_add_on</span>
+      <span class="label">Book</span>
+    </a>
+    <a href="bookings.html" class="nav-item active">
+      <span class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24">event_note</span>
+      <span class="label">Sessions</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+      <span class="material-symbols-outlined" style="font-size:22px">person</span>
+      <span class="label">Profile</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+function showCancelConfirm() {
+  if (confirm('Cancel this session?\nA full refund will be processed within 3-5 business days.')) {
+    alert('Session cancelled. Refund initiated.');
+  }
+}
+</script>
+</body>
+</html>

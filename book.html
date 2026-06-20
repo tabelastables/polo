@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Punjab Polo Club — Book a Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ivory:'#F9F5EE','ivory-dim':'#EFE9DF',cream:'#FEFCF9',
+        gold:'#B8935A','gold-light':'#F5EAD5','gold-muted':'#C9A96E','gold-dark':'#7A5C20',
+        navy:'#1B3068',charcoal:'#1C1610','warm-gray':'#7A6E65',
+        mist:'#C4BAB0',sand:'#E5DDD0',sage:'#5A6B5B',blush:'#F5EDE8',
+      },
+      fontFamily: { serif:['Cormorant Garamond','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
+    }
+  }
+}
+</script>
+<style>
+  * { -webkit-font-smoothing:antialiased; }
+  .material-symbols-outlined {
+    font-family:'Material Symbols Outlined'; font-style:normal; font-size:24px; line-height:1;
+    letter-spacing:normal; text-transform:none; display:inline-block; white-space:nowrap;
+    font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;
+  }
+  body { background-color:#F9F5EE; }
+  .card { background:#FEFCF9; border-radius:16px; box-shadow:0 2px 16px rgba(0,0,0,0.04); border:1px solid #E5DDD0; }
+  .gold-divider { height:1px; background:linear-gradient(90deg, transparent, #B8935A 30%, #B8935A 70%, transparent); opacity:0.35; }
+
+  .exp-pill {
+    padding: 9px 18px; border-radius:999px; border:1px solid #E5DDD0;
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
+    letter-spacing:.06em; color:#7A6E65; background:#FEFCF9;
+    cursor:pointer; transition: all .2s ease; white-space:nowrap;
+  }
+  .exp-pill.active, .exp-pill:hover {
+    background:#B8935A; border-color:#B8935A; color:white;
+    box-shadow:0 4px 14px rgba(184,147,90,0.28);
+  }
+
+  .day-cell {
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    padding:10px 6px; border-radius:12px; cursor:pointer;
+    transition:all .2s ease; flex:1; min-width:0;
+  }
+  .day-cell .day-name { font-family:'Inter',sans-serif; font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:#C4BAB0; }
+  .day-cell .day-num { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:400; color:#1C1610; line-height:1; }
+  .day-cell:hover { background:#F5EAD5; }
+  .day-cell.active { background:#1B3068; }
+  .day-cell.active .day-name { color:rgba(255,255,255,0.6); }
+  .day-cell.active .day-num { color:white; }
+  .day-cell.today .day-num { color:#B8935A; }
+
+  .time-pill {
+    padding:12px; border-radius:12px; border:1px solid #E5DDD0;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:500;
+    color:#1C1610; background:#FEFCF9; cursor:pointer; text-align:center;
+    transition:all .2s ease;
+  }
+  .time-pill:hover { border-color:#B8935A; background:#F5EAD5; }
+  .time-pill.active { background:#1B3068; border-color:#1B3068; color:white; box-shadow:0 4px 14px rgba(27,48,104,0.2); }
+  .time-pill.disabled { opacity:0.38; cursor:not-allowed; background:#F9F5EE; }
+
+  .feature-row { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid #E5DDD0; }
+  .feature-row:last-child { border-bottom:none; }
+  .feature-icon { width:36px; height:36px; border-radius:10px; background:#F5EAD5; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+  .btn-gold {
+    background:linear-gradient(135deg,#B8935A 0%,#C9A96E 50%,#B8935A 100%);
+    background-size:200% auto;
+    transition:background-position .5s ease, transform .15s ease, box-shadow .3s ease;
+  }
+  .btn-gold:hover { background-position:right center; box-shadow:0 8px 28px rgba(184,147,90,0.28); transform:translateY(-1px); }
+  .btn-gold:active { transform:translateY(0) scale(0.98); }
+
+  .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 0; flex:1; color:#C4BAB0; transition:color .2s; cursor:pointer; }
+  .nav-item.active { color:#B8935A; }
+  .nav-item span.label { font-family:'Inter',sans-serif; font-size:10px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  .a1{animation:fadeUp .5s ease-out both}
+  .a2{animation:fadeUp .5s ease-out .08s both}
+  .a3{animation:fadeUp .5s ease-out .16s both}
+  .a4{animation:fadeUp .5s ease-out .24s both}
+  .a5{animation:fadeUp .5s ease-out .32s both}
+</style>
+</head>
+<body class="font-sans min-h-screen pb-40">
+
+<!-- Top Bar -->
+<header class="sticky top-0 z-50 bg-ivory/90 backdrop-blur-sm border-b border-sand/60">
+  <div class="flex items-center gap-3 px-5 py-4">
+    <a href="home.html" class="w-8 h-8 flex items-center justify-center rounded-full text-warm-gray hover:bg-sand transition-colors">
+      <span class="material-symbols-outlined" style="font-size:20px">arrow_back</span>
+    </a>
+    <div class="flex-1 text-center">
+      <h1 class="font-serif font-medium text-charcoal" style="font-size:1.15rem">Book a Session</h1>
+    </div>
+    <div class="w-8"></div>
+  </div>
+</header>
+
+<main class="px-5 pt-5 pb-4 max-w-md mx-auto space-y-6">
+
+  <!-- Experience Type -->
+  <section class="a1">
+    <p class="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-3">Experience</p>
+    <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" style="scrollbar-width:none">
+      <button class="exp-pill active flex-shrink-0" onclick="selectExp(this)">Polo Lesson</button>
+      <button class="exp-pill flex-shrink-0" onclick="selectExp(this)">Match Play</button>
+      <button class="exp-pill flex-shrink-0" onclick="selectExp(this)">Training</button>
+      <button class="exp-pill flex-shrink-0" onclick="selectExp(this)">Arena Hire</button>
+    </div>
+  </section>
+
+  <!-- Experience Header -->
+  <section class="a2">
+    <div class="flex items-start gap-3">
+      <span class="badge-label" style="display:inline-block;background:#F5EAD5;border:1px solid #B8935A;border-radius:999px;padding:4px 12px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7A5C20">Premium Experience</span>
+    </div>
+    <h2 class="font-serif font-light text-charcoal mt-3 leading-tight" style="font-size:1.85rem">Private Polo<br/><em style="font-style:italic;font-weight:500">Lesson</em></h2>
+    <p class="font-sans text-warm-gray mt-2 leading-relaxed" style="font-size:13px">Refine your handicap with one-on-one instruction from our senior club professionals on our pristine championship turf.</p>
+  </section>
+
+  <!-- Date Selection -->
+  <section class="a3">
+    <div class="flex items-center justify-between mb-3">
+      <p class="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-gold">Select Date</p>
+      <p class="font-serif font-medium text-charcoal" style="font-size:1rem">October 2023</p>
+    </div>
+    <div class="card p-4">
+      <div class="flex gap-1">
+        <div class="day-cell today" onclick="selectDay(this)">
+          <span class="day-name">Mon</span>
+          <span class="day-num">23</span>
+        </div>
+        <div class="day-cell active" onclick="selectDay(this)">
+          <span class="day-name">Tue</span>
+          <span class="day-num">24</span>
+        </div>
+        <div class="day-cell" onclick="selectDay(this)">
+          <span class="day-name">Wed</span>
+          <span class="day-num">25</span>
+        </div>
+        <div class="day-cell" onclick="selectDay(this)">
+          <span class="day-name">Thu</span>
+          <span class="day-num">26</span>
+        </div>
+        <div class="day-cell" onclick="selectDay(this)">
+          <span class="day-name">Fri</span>
+          <span class="day-num">27</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Available Slots -->
+  <section class="a4">
+    <p class="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-3">Available Slots</p>
+    <div class="grid grid-cols-2 gap-2">
+      <button class="time-pill" onclick="selectTime(this)">08:00 AM</button>
+      <button class="time-pill active" onclick="selectTime(this)">09:30 AM</button>
+      <button class="time-pill" onclick="selectTime(this)">11:00 AM</button>
+      <button class="time-pill disabled" disabled>01:00 PM</button>
+      <button class="time-pill" onclick="selectTime(this)">02:30 PM</button>
+      <button class="time-pill" onclick="selectTime(this)">04:00 PM</button>
+      <button class="time-pill" onclick="selectTime(this)">05:30 PM</button>
+      <button class="time-pill disabled" disabled>07:00 PM</button>
+    </div>
+    <p class="font-sans text-mist mt-2" style="font-size:11px">Greyed slots are fully booked</p>
+  </section>
+
+  <!-- Experience Details Card -->
+  <section class="a5">
+    <div class="card p-5" style="border-top:2px solid #B8935A">
+      <h3 class="font-serif font-medium text-charcoal mb-4" style="font-size:1.15rem">Session Details</h3>
+      <div>
+        <div class="feature-row">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined text-gold" style="font-size:18px">schedule</span>
+          </div>
+          <div>
+            <p class="font-sans font-medium text-charcoal" style="font-size:13px">60 Minute Session</p>
+            <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">Includes warm-up, technical drills, and match-play practice</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined text-gold" style="font-size:18px">military_tech</span>
+          </div>
+          <div>
+            <p class="font-sans font-medium text-charcoal" style="font-size:13px">Professional Instructor</p>
+            <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">Assigned senior HPA certified coach</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined text-gold" style="font-size:18px">sports</span>
+          </div>
+          <div>
+            <p class="font-sans font-medium text-charcoal" style="font-size:13px">Equipment Provided</p>
+            <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">Professional grade mallets and safety gear included</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined text-gold" style="font-size:18px">eco</span>
+          </div>
+          <div>
+            <p class="font-sans font-medium text-charcoal" style="font-size:13px">Championship Turf · Court 3</p>
+            <p class="font-sans text-warm-gray mt-0.5" style="font-size:12px">Premier playing surface maintained to international standards</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gold-divider my-4"></div>
+
+      <!-- Pricing -->
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-sans text-mist" style="font-size:10px;letter-spacing:.12em;text-transform:uppercase">Member Price</p>
+          <div class="flex items-baseline gap-1 mt-1">
+            <span class="font-serif font-light text-charcoal" style="font-size:2.4rem;line-height:1">$250</span>
+            <span class="font-sans text-mist" style="font-size:12px">per session</span>
+          </div>
+          <p class="font-serif italic text-warm-gray mt-1" style="font-size:12px">"The sport of kings, mastered at your own pace."</p>
+        </div>
+        <div class="text-right">
+          <div class="flex items-center gap-1 text-sage">
+            <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1,'wght' 400">check_circle</span>
+            <span class="font-sans font-medium" style="font-size:11px">Members save 20%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sticky Booking Bar -->
+<div class="fixed bottom-16 left-0 right-0 z-40 px-5 pb-3 pt-3 bg-ivory/95 backdrop-blur-md border-t border-sand">
+  <div class="max-w-md mx-auto flex items-center gap-4">
+    <div class="flex-1">
+      <p class="font-sans text-mist" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase">Selected</p>
+      <p class="font-sans font-medium text-charcoal" style="font-size:13px">Tue, 24 Oct · 09:30 AM</p>
+    </div>
+    <div class="text-right mr-2">
+      <p class="font-serif font-light text-charcoal" style="font-size:1.3rem">$250</p>
+    </div>
+    <a href="confirmation.html" class="btn-gold flex-shrink-0 rounded-xl px-6 py-3">
+      <span class="font-sans font-semibold text-white" style="font-size:13px;letter-spacing:.08em">Book Now</span>
+    </a>
+  </div>
+</div>
+
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 bg-cream/95 backdrop-blur-md border-t border-sand z-50">
+  <div class="flex max-w-md mx-auto">
+    <a href="home.html" class="nav-item">
+      <span class="material-symbols-outlined" style="font-size:22px">home</span>
+      <span class="label">Home</span>
+    </a>
+    <a href="book.html" class="nav-item active">
+      <span class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24">calendar_add_on</span>
+      <span class="label">Book</span>
+    </a>
+    <a href="bookings.html" class="nav-item">
+      <span class="material-symbols-outlined" style="font-size:22px">event_note</span>
+      <span class="label">Sessions</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+      <span class="material-symbols-outlined" style="font-size:22px">person</span>
+      <span class="label">Profile</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+function selectExp(btn) {
+  document.querySelectorAll('.exp-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function selectDay(cell) {
+  document.querySelectorAll('.day-cell').forEach(d => d.classList.remove('active'));
+  cell.classList.add('active');
+}
+function selectTime(btn) {
+  if (btn.disabled) return;
+  document.querySelectorAll('.time-pill:not(.disabled)').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Update sticky bar
+  const timeText = btn.textContent.trim();
+  const activeDay = document.querySelector('.day-cell.active .day-num')?.textContent;
+  const days = ['Mon','Tue','Wed','Thu','Fri'];
+  const cells = document.querySelectorAll('.day-cell');
+  let dayName = '';
+  cells.forEach((c,i) => { if(c.classList.contains('active')) dayName = days[i] || ''; });
+  document.querySelector('.fixed.bottom-16 .font-medium.text-charcoal').textContent = `${dayName}, ${activeDay} Oct · ${timeText}`;
+}
+</script>
+</body>
+</html>

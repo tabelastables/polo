@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Punjab Polo Club — Booking Confirmed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ivory:'#F9F5EE','ivory-dim':'#EFE9DF',cream:'#FEFCF9',
+        gold:'#B8935A','gold-light':'#F5EAD5','gold-muted':'#C9A96E','gold-dark':'#7A5C20',
+        navy:'#1B3068',charcoal:'#1C1610','warm-gray':'#7A6E65',
+        mist:'#C4BAB0',sand:'#E5DDD0',sage:'#5A6B5B',blush:'#F5EDE8',
+      },
+      fontFamily: { serif:['Cormorant Garamond','Georgia','serif'], sans:['Inter','system-ui','sans-serif'] },
+    }
+  }
+}
+</script>
+<style>
+  * { -webkit-font-smoothing:antialiased; }
+  .material-symbols-outlined {
+    font-family:'Material Symbols Outlined'; font-style:normal; font-size:24px; line-height:1;
+    letter-spacing:normal; text-transform:none; display:inline-block; white-space:nowrap;
+    font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;
+  }
+  body {
+    background-color:#F9F5EE;
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(184,147,90,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(27,48,104,0.04) 0%, transparent 60%);
+    min-height:100vh;
+  }
+
+  .success-ring {
+    width:88px; height:88px; border-radius:50%;
+    border:1.5px solid rgba(184,147,90,0.4);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    box-shadow: 0 0 0 16px rgba(184,147,90,0.06), 0 0 0 32px rgba(184,147,90,0.03);
+  }
+  .success-ring::before {
+    content:'';
+    position:absolute; inset:-12px; border-radius:50%;
+    border:1px solid rgba(184,147,90,0.15);
+  }
+
+  @keyframes checkDraw {
+    from { stroke-dashoffset: 60; }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes ringPop {
+    0% { transform:scale(0.8); opacity:0; }
+    60% { transform:scale(1.05); }
+    100% { transform:scale(1); opacity:1; }
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes confettiDrop {
+    0% { transform:translateY(-20px) rotate(0deg); opacity:0; }
+    20% { opacity:1; }
+    100% { transform:translateY(40px) rotate(180deg); opacity:0; }
+  }
+
+  .ring-anim { animation:ringPop 0.7s cubic-bezier(.34,1.56,.64,1) 0.2s both; }
+  .check-path { stroke-dasharray:60; animation:checkDraw 0.5s ease-out 0.7s both; }
+  .a1{animation:fadeUp .6s ease-out .9s both}
+  .a2{animation:fadeUp .6s ease-out 1.05s both}
+  .a3{animation:fadeUp .6s ease-out 1.2s both}
+  .a4{animation:fadeUp .6s ease-out 1.35s both}
+  .a5{animation:fadeUp .6s ease-out 1.5s both}
+
+  .detail-row {
+    display:flex; align-items:flex-start; justify-content:space-between;
+    padding:13px 0; border-bottom:1px solid #E5DDD0;
+  }
+  .detail-row:last-child { border-bottom:none; }
+
+  .btn-gold {
+    background:linear-gradient(135deg,#B8935A 0%,#C9A96E 50%,#B8935A 100%);
+    background-size:200% auto;
+    transition:background-position .5s ease, transform .15s ease, box-shadow .3s ease;
+    display:block; width:100%; border-radius:12px; padding:17px;
+    text-align:center;
+  }
+  .btn-gold:hover { background-position:right center; box-shadow:0 8px 28px rgba(184,147,90,0.28); transform:translateY(-1px); }
+  .btn-gold:active { transform:translateY(0) scale(0.98); }
+
+  .btn-outline {
+    display:block; width:100%; border-radius:12px; padding:15px;
+    text-align:center; border:1.5px solid #E5DDD0; background:transparent;
+    transition:all .2s;
+  }
+  .btn-outline:hover { border-color:#B8935A; background:#F5EAD5; }
+
+  .qr-pattern {
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(27,48,104,0.08) 4px, rgba(27,48,104,0.08) 5px),
+      repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(27,48,104,0.08) 4px, rgba(27,48,104,0.08) 5px);
+    border-radius:8px;
+  }
+</style>
+</head>
+<body class="font-sans min-h-screen">
+
+<!-- Top Bar -->
+<header class="flex items-center gap-3 px-5 py-4">
+  <a href="book.html" class="w-8 h-8 flex items-center justify-center rounded-full text-warm-gray hover:bg-sand transition-colors">
+    <span class="material-symbols-outlined" style="font-size:20px">close</span>
+  </a>
+  <div class="flex-1 text-center">
+    <p class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-mist">Booking Summary</p>
+  </div>
+  <div class="w-8"></div>
+</header>
+
+<main class="px-5 pt-4 pb-12 max-w-md mx-auto flex flex-col items-center">
+
+  <!-- Success Animation -->
+  <div class="ring-anim mb-6">
+    <div class="success-ring">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <path class="check-path" d="M8 18 L15 25 L28 11" stroke="#B8935A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Confirmation Heading -->
+  <div class="a1 text-center mb-6">
+    <h1 class="font-serif font-light text-charcoal leading-tight" style="font-size:2.2rem">Booking<br/><em style="font-style:italic;font-weight:500">Confirmed</em></h1>
+    <p class="font-sans text-warm-gray mt-2" style="font-size:13px">Your session has been reserved successfully.</p>
+    <div class="flex items-center justify-center gap-2 mt-3">
+      <span class="material-symbols-outlined text-mist" style="font-size:14px">tag</span>
+      <span class="font-sans font-medium text-navy tracking-widest" style="font-size:12px;letter-spacing:.15em">PPC-2023-1024</span>
+    </div>
+  </div>
+
+  <!-- Summary Card -->
+  <div class="a2 w-full bg-cream rounded-2xl border border-sand overflow-hidden mb-5"
+       style="box-shadow:0 4px 24px rgba(0,0,0,0.05)">
+    <!-- Card Top Banner -->
+    <div class="px-6 py-5" style="background:linear-gradient(135deg,#1B3068,#2B4FA4);position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% -20%, rgba(184,147,90,0.18) 0%, transparent 60%)"></div>
+      <div class="relative">
+        <p class="font-sans text-white/50 leading-none mb-1" style="font-size:9px;letter-spacing:.18em;text-transform:uppercase">Punjab Polo Club · Jaipur</p>
+        <h2 class="font-serif font-light text-white leading-tight" style="font-size:1.5rem">Private Polo <em>Lesson</em></h2>
+        <div class="flex items-center gap-4 mt-3">
+          <div>
+            <p class="font-sans text-white/50 leading-none" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase">Date</p>
+            <p class="font-sans font-medium text-white mt-0.5" style="font-size:13px">Tue, 24 Oct 2023</p>
+          </div>
+          <div class="w-px h-8 bg-white/20"></div>
+          <div>
+            <p class="font-sans text-white/50 leading-none" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase">Time</p>
+            <p class="font-sans font-medium text-white mt-0.5" style="font-size:13px">09:30 AM</p>
+          </div>
+          <div class="w-px h-8 bg-white/20"></div>
+          <div>
+            <p class="font-sans text-white/50 leading-none" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase">Duration</p>
+            <p class="font-sans font-medium text-white mt-0.5" style="font-size:13px">60 min</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Details -->
+    <div class="px-6 py-4">
+      <div class="detail-row">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-gold" style="font-size:18px">person</span>
+          <span class="font-sans text-warm-gray" style="font-size:13px">Instructor</span>
+        </div>
+        <span class="font-sans font-medium text-charcoal" style="font-size:13px">Senior HPA Coach</span>
+      </div>
+      <div class="detail-row">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-gold" style="font-size:18px">location_on</span>
+          <span class="font-sans text-warm-gray" style="font-size:13px">Location</span>
+        </div>
+        <span class="font-sans font-medium text-charcoal" style="font-size:13px">Court 3 · Championship Turf</span>
+      </div>
+      <div class="detail-row">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-gold" style="font-size:18px">sports</span>
+          <span class="font-sans text-warm-gray" style="font-size:13px">Equipment</span>
+        </div>
+        <span class="font-sans font-medium text-charcoal" style="font-size:13px">Provided</span>
+      </div>
+      <div class="detail-row" style="border-bottom:none;padding-bottom:0">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-gold" style="font-size:18px">payments</span>
+          <span class="font-sans text-warm-gray" style="font-size:13px">Amount Paid</span>
+        </div>
+        <span class="font-serif font-medium text-charcoal" style="font-size:1.1rem">$250</span>
+      </div>
+    </div>
+
+    <!-- Decorative divider with polo motif -->
+    <div class="px-6 py-4 border-t border-sand flex items-center gap-4">
+      <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,#E5DDD0)"></div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="opacity-20" width="20" height="20">
+        <line x1="5" y1="28" x2="15" y2="4" stroke="#1B3068" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="25" y1="28" x2="15" y2="4" stroke="#1B3068" stroke-width="2.5" stroke-linecap="round"/>
+        <rect x="2" y="25" width="8" height="4" rx="1" fill="#1B3068"/>
+        <rect x="20" y="25" width="8" height="4" rx="1" fill="#1B3068"/>
+      </svg>
+      <div style="flex:1;height:1px;background:linear-gradient(90deg,#E5DDD0,transparent)"></div>
+    </div>
+
+    <!-- QR Code Area -->
+    <div class="px-6 pb-6 flex items-center gap-4">
+      <div class="qr-pattern w-16 h-16 flex-shrink-0 relative">
+        <!-- Stylized QR -->
+        <div class="absolute inset-1" style="display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);gap:1px">
+          <!-- Corner squares -->
+          <div style="grid-column:1/4;grid-row:1/4;background:rgba(27,48,104,0.9);border-radius:2px"></div>
+          <div style="grid-column:5/8;grid-row:1/4;background:rgba(27,48,104,0.9);border-radius:2px"></div>
+          <div style="grid-column:1/4;grid-row:5/8;background:rgba(27,48,104,0.9);border-radius:2px"></div>
+        </div>
+      </div>
+      <div>
+        <p class="font-sans font-medium text-charcoal leading-snug" style="font-size:12px">Show at reception</p>
+        <p class="font-sans text-mist mt-1 leading-relaxed" style="font-size:11px">Scan or quote your reference number when you arrive at the club.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What's Next -->
+  <div class="a3 w-full mb-5">
+    <p class="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-3">What's Next</p>
+    <div class="space-y-3">
+      <div class="flex items-center gap-4 bg-cream rounded-xl p-4 border border-sand">
+        <div class="w-9 h-9 rounded-full bg-gold-light flex items-center justify-center flex-shrink-0">
+          <span class="font-sans font-semibold text-gold" style="font-size:13px">1</span>
+        </div>
+        <p class="font-sans text-charcoal leading-snug" style="font-size:13px">Arrive 15 minutes early to collect your equipment from Stable Block B</p>
+      </div>
+      <div class="flex items-center gap-4 bg-cream rounded-xl p-4 border border-sand">
+        <div class="w-9 h-9 rounded-full bg-gold-light flex items-center justify-center flex-shrink-0">
+          <span class="font-sans font-semibold text-gold" style="font-size:13px">2</span>
+        </div>
+        <p class="font-sans text-charcoal leading-snug" style="font-size:13px">Meet your instructor at Court 3 entrance for a warm-up briefing</p>
+      </div>
+      <div class="flex items-center gap-4 bg-cream rounded-xl p-4 border border-sand">
+        <div class="w-9 h-9 rounded-full bg-gold-light flex items-center justify-center flex-shrink-0">
+          <span class="font-sans font-semibold text-gold" style="font-size:13px">3</span>
+        </div>
+        <p class="font-sans text-charcoal leading-snug" style="font-size:13px">Post-session review with your coach and handicap progress notes</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email note -->
+  <p class="a4 font-sans text-mist text-center mb-6" style="font-size:12px;line-height:1.6">
+    A confirmation has been sent to your registered email.<br/>
+    <span class="text-warm-gray">arjun.rathore@email.com</span>
+  </p>
+
+  <!-- Actions -->
+  <div class="a5 w-full space-y-3">
+    <button class="btn-outline font-sans font-medium text-warm-gray" style="font-size:13px;letter-spacing:.05em">
+      <span class="flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined" style="font-size:18px">calendar_add_on</span>
+        Add to Calendar
+      </span>
+    </button>
+    <a href="home.html" class="btn-gold">
+      <span class="font-sans font-semibold text-white" style="font-size:13px;letter-spacing:.1em;text-transform:uppercase">Return to Home</span>
+    </a>
+  </div>
+
+</main>
+</body>
+</html>
