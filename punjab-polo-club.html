@@ -1,890 +1,1003 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Punjab Polo Club</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Tabela & Punjab Polo Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:#0A1540}
 :root{
-  --ivory:#F8F9FF;
-  --ivory-dim:#EEEFFE;
-  --cream:#FFFFFF;
-  --blue:#2B44DF;
-  --blue-light:#EEF0FF;
-  --blue-mid:#4A62F0;
-  --blue-dark:#1B2FA0;
-  --navy:#0F1E52;
-  --charcoal:#13152E;
-  --warm-gray:#5E6480;
-  --mist:#B0B4CC;
-  --sand:#DDE1F0;
-  --sage:#3D6B55;
+  --bg:#FAFAF8;--white:#FFFFFF;--charcoal:#1A1718;--gray:#706870;--mist:#C8C0CC;--sand:#E8E0D8;
+  --ppc:#2B44DF;--ppc-lt:#EEF0FF;--ppc-mid:#4A62F0;--ppc-dk:#1B2FA0;--ppc-navy:#0A1540;
+  --tab:#3D2010;--tab-mid:#5C3D1E;--tab-warm:#8B6914;--tab-gold:#C8A96E;--tab-cream:#F5EAD5;--tab-lt:#FBF5E8;
 }
-body{
-  background:var(--ivory);
-  font-family:'Inter',system-ui,sans-serif;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
+#app{position:fixed;inset:0;display:flex;justify-content:center;background:#0A1540}
+.screen{display:none;width:100%;max-width:430px;height:100%;flex-direction:column;background:var(--bg);overflow:hidden}
+.screen.active{display:flex}
+.scrollbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.scrollbody::-webkit-scrollbar{display:none}
 
-/* ── SCREEN SYSTEM ── */
-.app{width:100%;max-width:430px;min-height:100vh;position:relative;overflow:hidden;background:var(--ivory);}
-.screen{display:none;flex-direction:column;min-height:100vh;background:var(--ivory);animation:fadeUp .35s ease both;}
-.screen.active{display:flex;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes zoomIn{from{opacity:0;transform:scale(0.72)}to{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:.9}}
+@keyframes ringPop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes checkIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
 
-/* ── ICONS ── */
-.icon{
-  font-family:'Material Symbols Outlined';font-style:normal;font-size:22px;line-height:1;
-  letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;
-  font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;
-}
-.icon.fill{font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24;}
+/* SPLASH */
+#screen-splash{background:var(--ppc-navy);align-items:center;justify-content:center}
+.sp-inner{display:flex;flex-direction:column;align-items:center;gap:28px;animation:fadeUp 1.2s ease both;cursor:pointer}
+.sp-logos{display:flex;align-items:center;gap:22px}
+.sp-logo{display:flex;flex-direction:column;align-items:center;gap:10px;animation:zoomIn 1.4s cubic-bezier(.34,1.38,.64,1) both}
+.sp-logo:nth-child(3){animation-delay:.18s}
+.sp-logo-name{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.48);text-align:center;line-height:1.6}
+.sp-div{width:1px;height:72px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.22),transparent)}
+.sp-tagline{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.42);text-align:center}
+.sp-tap{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.32);letter-spacing:1px;animation:pulse 2.2s infinite}
 
-/* ── TYPE ── */
-.serif{font-family:'Cormorant Garamond',Georgia,serif;}
+/* TOP BAR */
+.topbar{padding:50px 18px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(250,250,248,.92);border-bottom:1px solid rgba(0,0,0,.06)}
+.topbar-title{flex:1;font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--charcoal)}
+.topbar-sub{font-family:'Inter',sans-serif;font-size:10px;color:var(--gray);letter-spacing:.4px}
+.tb-btn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.05);border:none;cursor:pointer}
+.tb-btn .material-symbols-outlined{font-size:19px;color:var(--charcoal);font-variation-settings:'FILL' 0,'wght' 200}
 
-/* ── SHARED COMPONENTS ── */
-.topbar{
-  position:sticky;top:0;z-index:50;
-  background:rgba(248,249,255,.93);backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(221,225,240,.7);
-  display:flex;align-items:center;padding:14px 20px;gap:12px;
-}
-.topbar-title{flex:1;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--charcoal);}
-.back-btn{width:32px;height:32px;border-radius:50%;border:none;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--warm-gray);}
-.back-btn:hover{background:var(--blue-light);}
-.icon-btn{width:34px;height:34px;border-radius:50%;border:none;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--warm-gray);}
-.icon-btn:hover{background:var(--blue-light);}
-.scrollbody{flex:1;overflow-y:auto;padding:20px 20px 100px;display:flex;flex-direction:column;gap:22px;}
+/* BOTTOM NAV */
+.bottom-nav{display:flex;background:var(--white);border-top:1px solid rgba(0,0,0,.07);padding:6px 0 22px;position:sticky;bottom:0;z-index:10}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;cursor:pointer;border:none;background:none}
+.nav-item .material-symbols-outlined{font-size:21px;font-variation-settings:'FILL' 0,'wght' 200;color:var(--mist);transition:color .18s}
+.nav-item .nav-lbl{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:500;color:var(--mist);transition:color .18s}
+.nav-item.n-active .material-symbols-outlined,.nav-item.n-active .nav-lbl{color:var(--ppc)}
+.nav-item.n-tab .material-symbols-outlined,.nav-item.n-tab .nav-lbl{color:var(--tab-warm)}
 
-/* Bottom Nav */
-.bottom-nav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:430px;z-index:100;
-  background:rgba(255,255,255,.97);backdrop-filter:blur(18px);
-  border-top:1px solid var(--sand);display:flex;
-}
-.nav-tab{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  padding:10px 0 12px;gap:4px;cursor:pointer;
-  color:var(--mist);border:none;background:transparent;transition:color .2s;
-  font-family:'Inter',sans-serif;font-size:10px;font-weight:500;
-  letter-spacing:.06em;text-transform:uppercase;
-}
-.nav-tab.active{color:var(--blue);}
-.nav-tab .icon{font-size:22px;}
+/* HOME */
+.home-topbar{padding:52px 18px 16px;background:var(--white);border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between}
+.home-brand{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--gray)}
+.home-bell{width:36px;height:36px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.home-bell .material-symbols-outlined{font-size:19px;color:var(--gray);font-variation-settings:'FILL' 0,'wght' 200}
+.home-greet{padding:20px 18px 4px}
+.home-greet-time{font-family:'Inter',sans-serif;font-size:11px;font-weight:400;color:var(--gray);letter-spacing:.5px}
+.home-greet-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal);line-height:1.15;margin-top:2px}
+.home-cards{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.sec-card{border-radius:22px;overflow:hidden;cursor:pointer;position:relative;min-height:186px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;transition:transform .15s;box-shadow:0 4px 24px rgba(0,0,0,.13)}
+.sec-card:active{transform:scale(.975)}
+.sc-ppc{background:linear-gradient(148deg,#070E2E 0%,#1B2FA0 55%,#2B44DF 100%)}
+.sc-tab{background:linear-gradient(148deg,#160800 0%,#3D2010 50%,#8B6914 100%)}
+.sc-wm{position:absolute;top:16px;right:18px;opacity:.1}
+.sc-arr{position:absolute;top:22px;right:22px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
+.sc-arr .material-symbols-outlined{font-size:16px;color:rgba(255,255,255,.8);font-variation-settings:'FILL' 0,'wght' 200}
+.sc-tag{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:4px}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:700;color:#fff;line-height:1.1}
+.sc-desc{font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,.58);margin-top:5px;line-height:1.5}
+.sc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.sc-chip{padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.12);font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:rgba(255,255,255,.78)}
+.home-info{display:flex;gap:10px;padding:0 18px 18px}
+.info-pill{flex:1;background:var(--white);border-radius:14px;border:1px solid rgba(0,0,0,.07);padding:14px 12px;text-align:center}
+.ip-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--charcoal)}
+.ip-lbl{font-family:'Inter',sans-serif;font-size:10px;color:var(--gray);margin-top:2px}
 
-/* Cards */
-.card{background:var(--cream);border-radius:16px;border:1px solid var(--sand);box-shadow:0 2px 16px rgba(43,68,223,.04);}
-.card-blue-top{border-top:2px solid var(--blue);}
+/* SECTION HEADINGS */
+.sec-head{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--charcoal);padding:18px 18px 10px}
+.sec-head-sm{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);padding:16px 18px 10px}
 
-/* Badge */
-.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:4px 11px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
-.badge-blue{background:var(--blue-light);border:1px solid rgba(43,68,223,.3);color:var(--blue-dark);}
-.badge-blue-solid{background:var(--blue);border:1px solid var(--blue);color:white;}
-.badge-navy{background:#E8EAF6;border:1px solid var(--navy);color:var(--navy);}
-.badge-sage{background:#EFF3EF;border:1px solid var(--sage);color:#2A5040;}
-.badge-muted{background:#F0F1F6;border:1px solid var(--mist);color:var(--warm-gray);}
+/* HERO SECTIONS */
+.hero-section{padding:50px 22px 28px;position:relative;overflow:hidden}
+.hero-ppc{background:linear-gradient(148deg,#070E2E,#1B2FA0,#2B44DF)}
+.hero-tab{background:linear-gradient(148deg,#160800,#3D2010,#6B4420)}
+.hero-section::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-back{display:flex;align-items:center;gap:5px;margin-bottom:16px;cursor:pointer;position:relative;z-index:1}
+.hero-back .material-symbols-outlined{font-size:17px;color:rgba(255,255,255,.58);font-variation-settings:'FILL' 0,'wght' 200}
+.hero-back span.hb-txt{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.58)}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#fff;line-height:1.1;position:relative;z-index:1}
+.hero-sub{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.58);margin-top:6px;line-height:1.55;position:relative;z-index:1}
+.hero-stats{display:flex;gap:20px;margin-top:18px;position:relative;z-index:1}
+.hs-item{text-align:center}
+.hs-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff}
+.hs-lbl{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.48)}
 
-/* Divider */
-.blue-divider{height:1px;background:linear-gradient(90deg,transparent,var(--blue) 30%,var(--blue) 70%,transparent);opacity:.18;}
+/* TABELA FACILITIES */
+.fac-row{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 12px}
+.fac-pill{display:flex;align-items:center;gap:5px;background:var(--tab-lt);border:1px solid var(--tab-cream);border-radius:20px;padding:6px 11px}
+.fac-pill .material-symbols-outlined{font-size:13px;color:var(--tab-warm);font-variation-settings:'FILL' 0,'wght' 200}
+.fac-pill .fp-txt{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:500;color:var(--tab-mid)}
 
-/* Buttons */
-.btn{display:block;width:100%;border-radius:12px;padding:17px;text-align:center;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;transition:all .25s;}
-.btn-blue{background:var(--blue);color:white;}
-.btn-blue:hover{background:var(--blue-mid);box-shadow:0 8px 28px rgba(43,68,223,.28);transform:translateY(-1px);}
-.btn-blue:active{transform:scale(.98);}
-.btn-outline{background:transparent;border:1.5px solid var(--sand);color:var(--warm-gray);}
-.btn-outline:hover{border-color:var(--blue);background:var(--blue-light);color:var(--blue-dark);}
+/* STABLE SCROLL */
+.stable-scroll{display:flex;gap:10px;padding:0 18px 4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.stable-scroll::-webkit-scrollbar{display:none}
+.stable-card{flex:0 0 128px;background:var(--white);border-radius:14px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.sct{height:82px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.sct-1{background:linear-gradient(135deg,#f5e8d4,#e8c894)}
+.sct-2{background:linear-gradient(135deg,#d4e8f5,#a8ccec)}
+.sct-3{background:linear-gradient(135deg,#d4f0d4,#a8dca8)}
+.sct-4{background:linear-gradient(135deg,#f5d4e8,#e8a8c8)}
+.sc-sinfo{padding:9px 10px 11px}
+.sc-sname{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--charcoal)}
+.sc-sdet{font-family:'Inter',sans-serif;font-size:10px;color:var(--gray);margin-top:1px}
 
-/* Stat tile */
-.stat-tile{background:var(--cream);border-radius:14px;border:1px solid var(--sand);box-shadow:0 2px 10px rgba(43,68,223,.03);padding:16px 12px;text-align:center;flex:1;}
+/* EVENT CARDS */
+.event-list{display:flex;flex-direction:column;gap:10px;padding:0 18px 20px}
+.ev-card{background:var(--white);border:1px solid rgba(0,0,0,.07);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .15s}
+.ev-card:active{transform:scale(.975)}
+.ev-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ev-icon .material-symbols-outlined{font-size:22px;font-variation-settings:'FILL' 0,'wght' 200}
+.ei-k{background:#FFF3E8}.ei-k .material-symbols-outlined{color:#E67E22}
+.ei-b{background:#FFF0F5}.ei-b .material-symbols-outlined{color:#D81B7B}
+.ei-c{background:var(--ppc-lt)}.ei-c .material-symbols-outlined{color:var(--ppc)}
+.ev-body{flex:1}
+.ev-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--charcoal)}
+.ev-desc{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray);margin-top:2px;line-height:1.45}
+.ev-cta{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:600;color:var(--tab-warm);margin-top:5px}
+.ev-chev .material-symbols-outlined{font-size:18px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200}
 
-/* ═══════════════════════════════════
-   SCREEN 1 — SPLASH
-═══════════════════════════════════ */
-#screen-splash{
-  justify-content:space-between;align-items:center;
-  background:var(--ivory);
-  background-image:
-    radial-gradient(ellipse at 30% 0%,rgba(43,68,223,.06) 0%,transparent 55%),
-    radial-gradient(ellipse at 70% 100%,rgba(43,68,223,.04) 0%,transparent 55%);
-}
-.splash-grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");background-size:300px;}
-.corner{position:fixed;width:28px;height:28px;border-color:var(--blue);border-style:solid;opacity:.2;}
-.c-tl{top:20px;left:20px;border-width:1px 0 0 1px;}
-.c-tr{top:20px;right:20px;border-width:1px 1px 0 0;}
-.c-bl{bottom:20px;left:20px;border-width:0 0 1px 1px;}
-.c-br{bottom:20px;right:20px;border-width:0 1px 1px 0;}
+/* SERVICE CARDS */
+.svc-list{display:flex;flex-direction:column;gap:10px;padding:0 18px 20px}
+.svc-card{background:var(--white);border:1px solid rgba(0,0,0,.07);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .15s}
+.svc-card:active{transform:scale(.975)}
+.svc-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.svc-icon .material-symbols-outlined{font-size:22px;font-variation-settings:'FILL' 0,'wght' 200}
+.si-r{background:var(--ppc-lt)}.si-r .material-symbols-outlined{color:var(--ppc)}
+.si-t{background:linear-gradient(135deg,#e0e8ff,#c8d6ff)}.si-t .material-symbols-outlined{color:var(--ppc-dk)}
+.si-c{background:linear-gradient(135deg,#0A1540,#1B2FA0)}.si-c .material-symbols-outlined{color:#fff}
+.svc-body{flex:1}
+.svc-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--charcoal)}
+.svc-desc{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray);margin-top:2px;line-height:1.45}
+.svc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.svc-tag{background:var(--ppc-lt);color:var(--ppc-dk);font-family:'Inter',sans-serif;font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:5px}
+.svc-chev .material-symbols-outlined{font-size:18px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200}
 
-.splash-logo-ring{
-  width:164px;height:164px;border-radius:50%;background:white;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 32px rgba(43,68,223,.14),0 0 0 1px rgba(43,68,223,.1);
-  position:relative;
-}
-.splash-logo-ring::before{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(43,68,223,.1);}
-.splash-logo-ring::after{content:'';position:absolute;inset:-28px;border-radius:50%;border:1px solid rgba(43,68,223,.05);}
+/* ABOUT STRIP */
+.about-strip{margin:0 18px 22px;background:linear-gradient(135deg,var(--ppc-lt),#E0E8FF);border-radius:16px;padding:18px;border:1px solid rgba(43,68,223,.1)}
+.ab-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--ppc-dk);margin-bottom:6px}
+.ab-text{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--gray);line-height:1.6}
 
-.splash-divider{display:flex;align-items:center;gap:10px;justify-content:center;}
-.splash-divider span{display:block;height:1px;width:40px;}
-.splash-divider span:first-child{background:linear-gradient(90deg,transparent,var(--blue));}
-.splash-divider span:last-child{background:linear-gradient(90deg,var(--blue),transparent);}
+/* FORMS */
+.form-wrap{padding:14px 18px 30px;display:flex;flex-direction:column;gap:13px}
+.form-card{background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.fc-head{padding:13px 16px;border-bottom:1px solid rgba(0,0,0,.05);display:flex;align-items:center;gap:8px}
+.fc-head .material-symbols-outlined{font-size:17px;color:var(--gray);font-variation-settings:'FILL' 0,'wght' 200}
+.fc-head-txt{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--charcoal)}
+.fc-row{padding:11px 16px;border-bottom:1px solid rgba(0,0,0,.04)}
+.fc-row:last-child{border-bottom:none}
+.fc-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:var(--gray);letter-spacing:.3px;margin-bottom:5px}
+.fc-input{width:100%;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:var(--charcoal);background:transparent}
+.fc-textarea{width:100%;border:none;outline:none;font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal);background:transparent;resize:none;line-height:1.5}
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 16px}
+.type-btn{padding:13px 8px;border-radius:11px;border:1.5px solid var(--sand);background:none;cursor:pointer;text-align:center;transition:all .15s}
+.type-btn.sel-ppc{border-color:var(--ppc);background:var(--ppc-lt)}
+.type-btn.sel-tab{border-color:var(--tab-warm);background:var(--tab-lt)}
+.tb-icon .material-symbols-outlined{font-size:20px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200;display:block;margin-bottom:4px}
+.type-btn.sel-ppc .tb-icon .material-symbols-outlined{color:var(--ppc)}
+.type-btn.sel-tab .tb-icon .material-symbols-outlined{color:var(--tab-warm)}
+.tb-lbl{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray)}
+.type-btn.sel-ppc .tb-lbl{color:var(--ppc)}
+.type-btn.sel-tab .tb-lbl{color:var(--tab-warm)}
+.skill-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;padding:12px 16px}
+.date-strip{display:flex;gap:7px;padding:12px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.date-strip::-webkit-scrollbar{display:none}
+.d-cell{flex:0 0 46px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;border-radius:11px;border:1.5px solid var(--sand);cursor:pointer;transition:all .15s}
+.d-cell.sel-ppc{background:var(--ppc);border-color:var(--ppc)}
+.d-cell.sel-tab{background:var(--tab-warm);border-color:var(--tab-warm)}
+.dc-day{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;color:var(--gray)}
+.dc-num{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--charcoal)}
+.d-cell.sel-ppc .dc-day,.d-cell.sel-ppc .dc-num,.d-cell.sel-tab .dc-day,.d-cell.sel-tab .dc-num{color:#fff}
+.time-grid{display:flex;flex-wrap:wrap;gap:7px;padding:12px 16px}
+.t-pill{padding:8px 14px;border-radius:20px;border:1.5px solid var(--sand);background:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray);transition:all .15s}
+.t-pill.sel-ppc{background:var(--ppc-lt);border-color:var(--ppc);color:var(--ppc)}
+.t-pill.sel-tab{background:var(--tab-lt);border-color:var(--tab-warm);color:var(--tab-warm)}
+.t-pill.na{opacity:.3;pointer-events:none;text-decoration:line-through}
+.cta-wrap{padding:14px 18px 32px}
+.btn-cta{width:100%;padding:16px;border-radius:14px;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:.5px;transition:transform .15s}
+.btn-cta:active{transform:scale(.97)}
+.cta-ppc{background:linear-gradient(135deg,var(--ppc-dk),var(--ppc));color:#fff;box-shadow:0 4px 20px rgba(43,68,223,.32)}
+.cta-tab{background:linear-gradient(135deg,var(--tab),var(--tab-warm));color:#fff;box-shadow:0 4px 20px rgba(139,105,20,.3)}
 
-@keyframes splashFadeIn{from{opacity:0}to{opacity:1}}
-@keyframes splashRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.s-a1{animation:splashFadeIn 1.4s ease both;}
-.s-a2{animation:splashRise 1s ease .4s both;}
-.s-a3{animation:splashRise 1s ease .75s both;}
-.s-a4{animation:splashRise 1s ease 1.05s both;}
+/* GALLERY */
+.gal-filter{display:flex;gap:8px;padding:14px 18px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gal-filter::-webkit-scrollbar{display:none}
+.gf-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--sand);background:none;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.gf-btn.gf-on{background:var(--ppc);border-color:var(--ppc);color:#fff}
+.gal-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding-bottom:100px}
+.gi{aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer}
+.gi.tall{grid-row:span 2;aspect-ratio:unset}
+.gi-lbl{position:absolute;bottom:8px;left:8px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:rgba(255,255,255,.92);background:rgba(0,0,0,.38);padding:3px 8px;border-radius:6px;backdrop-filter:blur(4px)}
+.gi-ico{font-size:32px;opacity:.7}
+.ga{background:linear-gradient(135deg,#070E2E,#2B44DF)}
+.gb{background:linear-gradient(135deg,#3D2010,#8B6914)}
+.gc{background:linear-gradient(135deg,#1B3068,#4A62F0)}
+.gd{background:linear-gradient(135deg,#5C3D1E,#C8A96E)}
+.ge{background:linear-gradient(135deg,#0F1E52,#2B44DF)}
+.gf2{background:linear-gradient(135deg,#3D2010,#6B4420)}
+.gg{background:linear-gradient(135deg,#1A2052,#3D55E0)}
+.gh{background:linear-gradient(135deg,#4A2A12,#A07830)}
+.gi2{background:linear-gradient(135deg,#0A1540,#1B2FA0)}
+.gj{background:linear-gradient(135deg,#6B3D10,#C8A96E)}
 
-/* ═══════════════════════════════════
-   SCREEN 2 — HOME
-═══════════════════════════════════ */
-.hero-card{
-  border-radius:20px;overflow:hidden;position:relative;
-  background:linear-gradient(160deg,#0A1540 0%,#1B3068 45%,#2B44DF 100%);
-  padding:24px;
-}
-.hero-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 15%,rgba(255,255,255,.07) 0%,transparent 60%);}
-.hero-card::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;opacity:.02;}
-.hero-inner{position:relative;z-index:1;}
-.schedule-card{background:var(--cream);border-radius:14px;border:1px solid var(--sand);box-shadow:0 2px 10px rgba(43,68,223,.03);display:flex;align-items:stretch;overflow:hidden;}
-.sched-date{min-width:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 0;}
-.announce-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--sand);}
-.announce-item:last-child{border-bottom:none;}
-.announce-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);margin-top:6px;flex-shrink:0;}
-.home-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(248,249,255,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(221,225,240,.7);position:sticky;top:0;z-index:50;}
+/* BOOKINGS */
+.bk-tabs{display:flex;padding:14px 18px 10px;gap:8px}
+.bk-tab{padding:7px 18px;border-radius:20px;border:1.5px solid var(--sand);background:none;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;color:var(--gray);cursor:pointer;transition:all .15s}
+.bk-tab.bk-on{background:var(--ppc);border-color:var(--ppc);color:#fff}
+.bk-item{background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);margin:0 18px 10px;overflow:hidden}
+.bk-top{padding:13px 15px;display:flex;align-items:center;gap:11px}
+.bk-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bk-ico.bp{background:var(--ppc-lt)}.bk-ico.bp .material-symbols-outlined{color:var(--ppc);font-size:20px;font-variation-settings:'FILL' 0,'wght' 200}
+.bk-ico.bt{background:var(--tab-lt)}.bk-ico.bt .material-symbols-outlined{color:var(--tab-warm);font-size:20px;font-variation-settings:'FILL' 0,'wght' 200}
+.bk-info{flex:1}
+.bk-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--charcoal)}
+.bk-date{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray);margin-top:1px}
+.bk-status{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:3px 9px;border-radius:6px}
+.bs-c{background:#E8F5E9;color:#2E7D32}
+.bs-p{background:#FFF8E1;color:#F57F17}
+.bk-foot{padding:9px 15px 13px;border-top:1px solid rgba(0,0,0,.05);display:flex;gap:16px}
+.bkf{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray)}
+.bkf strong{color:var(--charcoal);font-weight:500}
 
-/* ═══════════════════════════════════
-   SCREEN 3 — BOOK
-═══════════════════════════════════ */
-.exp-pill{padding:9px 18px;border-radius:999px;border:1px solid var(--sand);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--warm-gray);background:var(--cream);cursor:pointer;transition:all .2s ease;white-space:nowrap;}
-.exp-pill.active{background:var(--blue);border-color:var(--blue);color:white;box-shadow:0 4px 14px rgba(43,68,223,.28);}
-.day-strip{display:flex;gap:4px;}
-.day-cell{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:12px;cursor:pointer;transition:all .2s ease;flex:1;}
-.day-cell .dn{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);}
-.day-cell .dd{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--charcoal);line-height:1;}
-.day-cell:hover{background:var(--blue-light);}
-.day-cell.active{background:var(--blue);}
-.day-cell.active .dn{color:rgba(255,255,255,.65);}
-.day-cell.active .dd{color:white;}
-.day-cell.today .dd{color:var(--blue);}
-.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.time-pill{padding:13px;border-radius:12px;border:1px solid var(--sand);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal);background:var(--cream);cursor:pointer;text-align:center;transition:all .2s;}
-.time-pill:hover{border-color:var(--blue);background:var(--blue-light);}
-.time-pill.active{background:var(--blue);border-color:var(--blue);color:white;box-shadow:0 4px 14px rgba(43,68,223,.25);}
-.time-pill.off{opacity:.38;cursor:not-allowed;background:var(--ivory);}
-.feat-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--sand);}
-.feat-row:last-child{border-bottom:none;}
-.feat-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.book-sticky{position:fixed;bottom:64px;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:90;background:rgba(248,249,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--sand);padding:12px 20px;display:flex;align-items:center;gap:12px;}
+/* PROFILE */
+.prof-hero{background:linear-gradient(148deg,#070E2E,#1B2FA0);padding:52px 20px 28px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.prof-av{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.13);border:2px solid rgba(255,255,255,.26);display:flex;align-items:center;justify-content:center}
+.prof-av .material-symbols-outlined{font-size:34px;color:rgba(255,255,255,.78);font-variation-settings:'FILL' 0,'wght' 200}
+.prof-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff}
+.prof-email{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.52)}
+.mem-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);padding:6px 14px;border-radius:20px}
+.mc-dot{width:7px;height:7px;border-radius:50%;background:var(--tab-gold)}
+.mc-txt{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,.78)}
+.prof-sec{margin:14px 18px 0;background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.ps-hd{padding:10px 15px;border-bottom:1px solid rgba(0,0,0,.05);font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.ps-row{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer}
+.ps-row:last-child{border-bottom:none}
+.ps-row .material-symbols-outlined{font-size:19px;color:var(--mist);font-variation-settings:'FILL' 0,'wght' 200}
+.ps-lbl{flex:1;font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal)}
+.ps-val{font-family:'Inter',sans-serif;font-size:12px;color:var(--gray)}
+.ps-chv .material-symbols-outlined{font-size:15px;color:var(--mist)}
+.ps-row.danger .ps-lbl{color:#D32F2F}
+.ps-row.danger .material-symbols-outlined{color:#D32F2F}
 
-/* ═══════════════════════════════════
-   SCREEN 4 — BOOKINGS
-═══════════════════════════════════ */
-.tab-row{display:flex;border-bottom:1px solid rgba(221,225,240,.7);}
-.tab-btn{flex:1;text-align:center;padding:13px 16px;border:none;background:transparent;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);cursor:pointer;transition:all .2s;}
-.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue);}
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
-.b-card{background:var(--cream);border-radius:16px;border:1px solid var(--sand);overflow:hidden;box-shadow:0 2px 14px rgba(43,68,223,.04);transition:box-shadow .2s;margin-bottom:14px;}
-.b-card:hover{box-shadow:0 6px 28px rgba(43,68,223,.09);}
-.b-date{min-width:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 10px;background:linear-gradient(160deg,var(--blue),var(--blue-mid));}
-.b-date.sage-g{background:linear-gradient(160deg,#3D6B55,#5A8B74);}
-.b-date.muted-g{background:linear-gradient(160deg,#B0B4CC,#C8CCDD);}
-.action-btn{padding:9px 16px;border-radius:8px;border:1px solid var(--sand);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--warm-gray);background:var(--ivory);cursor:pointer;transition:all .2s;}
-.action-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light);}
-.action-btn.primary{background:var(--blue);border-color:var(--blue);color:white;}
-.action-btn.primary:hover{background:var(--blue-mid);}
+/* CONTACT */
+.map-block{height:210px;background:linear-gradient(135deg,#C8DFC8,#A8C4A8);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.map-grid{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.04) 0,rgba(0,0,0,.04) 1px,transparent 1px,transparent 36px),repeating-linear-gradient(90deg,rgba(0,0,0,.04) 0,rgba(0,0,0,.04) 1px,transparent 1px,transparent 36px)}
+.map-pin{width:42px;height:42px;border-radius:50%;background:var(--ppc);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(43,68,223,.4);z-index:1}
+.map-pin .material-symbols-outlined{font-size:21px;color:#fff}
+.map-tag{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--charcoal);background:rgba(255,255,255,.9);padding:4px 12px;border-radius:8px;z-index:1}
+.ct-actions{display:flex;gap:10px;padding:14px 18px}
+.ct-btn{flex:1;padding:13px 8px;border-radius:13px;display:flex;align-items:center;justify-content:center;gap:7px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;transition:transform .15s}
+.ct-btn:active{transform:scale(.97)}
+.ct-btn .material-symbols-outlined{font-size:17px;font-variation-settings:'FILL' 0,'wght' 200}
+.cb-call{background:var(--ppc);color:#fff}
+.cb-wa{background:#25D366;color:#fff}
+.cb-dir{background:var(--white);color:var(--charcoal);border:1px solid var(--sand)}
+.ct-info{margin:0 18px 24px;background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);overflow:hidden}
+.ct-row{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-bottom:1px solid rgba(0,0,0,.04)}
+.ct-row:last-child{border-bottom:none}
+.ct-row .material-symbols-outlined{font-size:18px;color:var(--ppc);font-variation-settings:'FILL' 0,'wght' 200;margin-top:1px}
+.ct-lbl{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--gray);margin-bottom:2px}
+.ct-val{font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal);line-height:1.5}
 
-/* ═══════════════════════════════════
-   SCREEN 5 — CONFIRMATION
-═══════════════════════════════════ */
-#screen-confirm{
-  background:var(--ivory);
-  background-image:radial-gradient(ellipse at 50% 0%,rgba(43,68,223,.06) 0%,transparent 60%);
-}
-.success-ring{width:88px;height:88px;border-radius:50%;border:1.5px solid rgba(43,68,223,.35);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 16px rgba(43,68,223,.05),0 0 0 32px rgba(43,68,223,.025);position:relative;}
-.success-ring::before{content:'';position:absolute;inset:-12px;border-radius:50%;border:1px solid rgba(43,68,223,.12);}
-@keyframes ringPop{0%{transform:scale(.8);opacity:0}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
-@keyframes checkDraw{from{stroke-dashoffset:60}to{stroke-dashoffset:0}}
-.ring-pop{animation:ringPop .7s cubic-bezier(.34,1.56,.64,1) .2s both;}
-.check-path{stroke-dasharray:60;animation:checkDraw .5s ease-out .7s both;}
-.booking-banner{border-radius:16px 16px 0 0;padding:22px;background:linear-gradient(135deg,#0A1540,#1B3068 50%,#2B44DF);position:relative;overflow:hidden;}
-.booking-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% -20%,rgba(255,255,255,.07) 0%,transparent 60%);}
-.detail-row{display:flex;align-items:flex-start;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--sand);}
-.detail-row:last-child{border-bottom:none;}
-.next-step{display:flex;align-items:center;gap:14px;background:var(--cream);border-radius:12px;padding:14px;border:1px solid var(--sand);margin-bottom:10px;}
-.step-num{width:34px;height:34px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--blue);}
-
-/* ═══════════════════════════════════
-   SCREEN 6 — PROFILE
-═══════════════════════════════════ */
-.membership-card{border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(135deg,#0A1540 0%,#1B3068 45%,#2B44DF 100%);box-shadow:0 8px 40px rgba(10,21,64,.28);padding:24px;min-height:180px;}
-.membership-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 90% 10%,rgba(255,255,255,.1) 0%,transparent 50%),radial-gradient(ellipse at 10% 90%,rgba(255,255,255,.04) 0%,transparent 40%);}
-.membership-card::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;opacity:.02;}
-.card-inner{position:relative;z-index:1;}
-.settings-group{margin-bottom:22px;}
-.sg-title{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);padding:0 4px;margin-bottom:10px;}
-.sg-card{background:var(--cream);border-radius:16px;border:1px solid var(--sand);overflow:hidden;}
-.sg-row{display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid var(--sand);cursor:pointer;transition:background .15s;}
-.sg-row:last-child{border-bottom:none;}
-.sg-row:hover{background:var(--blue-light);}
-.sg-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.sg-icon.red{background:#FEF2F2;}
+/* CONFIRMATION */
+#screen-confirm{background:var(--bg)}
+.conf-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;gap:20px;text-align:center}
+.conf-ring{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:ringPop .6s cubic-bezier(.34,1.56,.64,1) both}
+.conf-ring.cr-ppc{background:var(--ppc-lt)}
+.conf-ring.cr-tab{background:var(--tab-lt)}
+.conf-check{font-size:38px;animation:checkIn .4s ease .42s both;opacity:0;font-variation-settings:'FILL' 0,'wght' 200}
+.conf-ring.cr-ppc .conf-check{color:var(--ppc)}
+.conf-ring.cr-tab .conf-check{color:var(--tab-warm)}
+.conf-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--charcoal)}
+.conf-sub{font-family:'Inter',sans-serif;font-size:13px;color:var(--gray);line-height:1.65;max-width:280px}
+.conf-card{background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.07);padding:16px 18px;width:100%;text-align:left;display:flex;flex-direction:column;gap:11px}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+.cc-row:last-child{padding-bottom:0;border-bottom:none}
+.cc-lbl{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--gray)}
+.cc-val{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--charcoal)}
+.conf-ref{font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);letter-spacing:.5px}
 </style>
 </head>
 <body>
-<div class="app">
+<div id="app">
 
-<!-- ══════════════════════════════════════════
-     SCREEN 1 — SPLASH
-══════════════════════════════════════════ -->
-<div class="screen active" id="screen-splash">
-  <div class="splash-grain"></div>
-  <div class="corner c-tl"></div><div class="corner c-tr"></div>
-  <div class="corner c-bl"></div><div class="corner c-br"></div>
+<!-- ═══════════════ SPLASH ═══════════════ -->
+<div class="screen" id="screen-splash">
+<div class="sp-inner" onclick="goTo('home')">
+  <div class="sp-logos">
 
-  <div style="width:1px;height:60px;background:linear-gradient(to bottom,var(--blue),transparent);opacity:.3;margin:0 auto"></div>
-
-  <!-- Logo -->
-  <div style="display:flex;flex-direction:column;align-items:center;" class="s-a1">
-    <div class="splash-logo-ring">
-      <!-- Punjab Polo Club Crest SVG — faithful to official logo -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="130" height="150">
-        <!-- CROSSED MALLETS -->
-        <!-- Left mallet shaft -->
-        <line x1="38" y1="28" x2="108" y2="195" stroke="#2B44DF" stroke-width="7" stroke-linecap="round"/>
-        <!-- Left grip loop -->
-        <ellipse cx="30" cy="20" rx="10" ry="14" fill="none" stroke="#2B44DF" stroke-width="5" transform="rotate(-28 30 20)"/>
-        <!-- Left mallet head -->
-        <rect x="94" y="190" width="32" height="11" rx="3" fill="#2B44DF" transform="rotate(-55 110 196)"/>
-        <!-- Right mallet shaft -->
-        <line x1="162" y1="28" x2="92" y2="195" stroke="#2B44DF" stroke-width="7" stroke-linecap="round"/>
-        <!-- Right grip loop -->
-        <ellipse cx="170" cy="20" rx="10" ry="14" fill="none" stroke="#2B44DF" stroke-width="5" transform="rotate(28 170 20)"/>
-        <!-- Right mallet head -->
-        <rect x="74" y="190" width="32" height="11" rx="3" fill="#2B44DF" transform="rotate(55 90 196)"/>
-
-        <!-- LAUREL WREATH LEFT -->
-        <g fill="#2B44DF">
-          <ellipse cx="32" cy="125" rx="9" ry="5" transform="rotate(-45 32 125)"/>
-          <ellipse cx="26" cy="111" rx="9" ry="5" transform="rotate(-40 26 111)"/>
-          <ellipse cx="23" cy="97"  rx="9" ry="5" transform="rotate(-35 23 97)"/>
-          <ellipse cx="23" cy="83"  rx="9" ry="5" transform="rotate(-30 23 83)"/>
-          <ellipse cx="27" cy="70"  rx="9" ry="5" transform="rotate(-25 27 70)"/>
-          <ellipse cx="33" cy="58"  rx="8" ry="4" transform="rotate(-20 33 58)"/>
-          <ellipse cx="42" cy="48"  rx="7" ry="4" transform="rotate(-15 42 48)"/>
+    <!-- Tabela Sheesh Mahal Logo -->
+    <div class="sp-logo">
+      <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="54" cy="54" r="50" fill="white"/>
+        <circle cx="54" cy="54" r="50" stroke="#3D2010" stroke-width="2.5" fill="none"/>
+        <circle cx="54" cy="54" r="44" stroke="#C8A96E" stroke-width="0.8" fill="none"/>
+        <path d="M12 48 A42 42 0 0 1 96 48" stroke="#C8A96E" stroke-width="2" fill="none"/>
+        <path d="M12 62 A42 42 0 0 0 96 62" stroke="#C8A96E" stroke-width="2" fill="none"/>
+        <!-- Sunburst rays -->
+        <g stroke="#E8C87A" stroke-width="0.9" opacity="0.5">
+          <line x1="54" y1="54" x2="54" y2="16"/><line x1="54" y1="54" x2="81" y2="24"/>
+          <line x1="54" y1="54" x2="92" y2="46"/><line x1="54" y1="54" x2="90" y2="66"/>
+          <line x1="54" y1="54" x2="76" y2="86"/><line x1="54" y1="54" x2="54" y2="92"/>
+          <line x1="54" y1="54" x2="28" y2="84"/><line x1="54" y1="54" x2="16" y2="64"/>
+          <line x1="54" y1="54" x2="18" y2="44"/><line x1="54" y1="54" x2="30" y2="24"/>
+          <line x1="54" y1="54" x2="67" y2="18"/><line x1="54" y1="54" x2="87" y2="54"/>
+          <line x1="54" y1="54" x2="67" y2="90"/><line x1="54" y1="54" x2="41" y2="90"/>
+          <line x1="54" y1="54" x2="21" y2="54"/><line x1="54" y1="54" x2="41" y2="18"/>
         </g>
-        <!-- LAUREL WREATH RIGHT -->
-        <g fill="#2B44DF">
-          <ellipse cx="168" cy="125" rx="9" ry="5" transform="rotate(45 168 125)"/>
-          <ellipse cx="174" cy="111" rx="9" ry="5" transform="rotate(40 174 111)"/>
-          <ellipse cx="177" cy="97"  rx="9" ry="5" transform="rotate(35 177 97)"/>
-          <ellipse cx="177" cy="83"  rx="9" ry="5" transform="rotate(30 177 83)"/>
-          <ellipse cx="173" cy="70"  rx="9" ry="5" transform="rotate(25 173 70)"/>
-          <ellipse cx="167" cy="58"  rx="8" ry="4" transform="rotate(20 167 58)"/>
-          <ellipse cx="158" cy="48"  rx="7" ry="4" transform="rotate(15 158 48)"/>
-        </g>
-
-        <!-- SHIELD -->
-        <path d="M58 38 L142 38 L142 108 Q142 148 100 164 Q58 148 58 108 Z" fill="white" stroke="#2B44DF" stroke-width="3"/>
-        <!-- Inner shield border -->
-        <path d="M64 44 L136 44 L136 108 Q136 142 100 156 Q64 142 64 108 Z" fill="none" stroke="#2B44DF" stroke-width="1.2"/>
-
-        <!-- TWO REARING HORSES -->
-        <!-- Left horse rearing right -->
-        <g fill="#2B44DF">
-          <path d="M72 148 Q68 132 76 122 Q80 115 86 118 Q84 126 87 133 Q93 124 99 128 Q96 138 90 145 Q85 148 80 150 Z"/>
-          <!-- Horse front legs up -->
-          <path d="M85 118 Q82 112 84 106 Q86 102 89 104 Q88 110 90 116 Z"/>
-          <path d="M91 120 Q90 114 93 109 Q95 105 98 107 Q96 113 97 118 Z"/>
-        </g>
-        <!-- Right horse rearing left (mirrored) -->
-        <g fill="#2B44DF">
-          <path d="M128 148 Q132 132 124 122 Q120 115 114 118 Q116 126 113 133 Q107 124 101 128 Q104 138 110 145 Q115 148 120 150 Z"/>
-          <path d="M115 118 Q118 112 116 106 Q114 102 111 104 Q112 110 110 116 Z"/>
-          <path d="M109 120 Q110 114 107 109 Q105 105 102 107 Q104 113 103 118 Z"/>
-        </g>
-
-        <!-- CROWN above shield -->
-        <!-- Crown base -->
-        <path d="M76 36 L124 36 L120 26 L113 33 L100 20 L87 33 L80 26 Z" fill="#2B44DF"/>
-        <!-- Crown top orb -->
-        <circle cx="100" cy="17" r="3.5" fill="#2B44DF"/>
-        <line x1="100" y1="13" x2="100" y2="9" stroke="#2B44DF" stroke-width="2"/>
-        <circle cx="100" cy="7" r="2.5" fill="#2B44DF"/>
-        <!-- Crown detail lines -->
-        <line x1="88" y1="30" x2="88" y2="36" stroke="#2B44DF" stroke-width="1.5"/>
-        <line x1="100" y1="26" x2="100" y2="36" stroke="#2B44DF" stroke-width="1.5"/>
-        <line x1="112" y1="30" x2="112" y2="36" stroke="#2B44DF" stroke-width="1.5"/>
-        <!-- Crown base band -->
-        <rect x="76" y="34" width="48" height="5" rx="1" fill="#2B44DF"/>
-
-        <!-- RIBBON / BANNER -->
-        <!-- Main ribbon body -->
-        <path d="M42 160 Q100 172 158 160 L154 178 Q100 188 46 178 Z" fill="#2B44DF"/>
-        <!-- Left tail curl -->
-        <path d="M42 160 L32 165 L36 178 L46 178 Z" fill="#2B44DF"/>
-        <!-- Right tail curl -->
-        <path d="M158 160 L168 165 L164 178 L154 178 Z" fill="#2B44DF"/>
-        <!-- PUNJAB text -->
-        <text x="100" y="173" text-anchor="middle" font-family="'Inter',Arial,sans-serif" font-size="14" font-weight="800" fill="white" letter-spacing="2">PUNJAB</text>
-
-        <!-- POLO CLUB text below -->
-        <text x="100" y="200" text-anchor="middle" font-family="'Inter',Arial,sans-serif" font-size="10" font-weight="600" fill="#2B44DF" letter-spacing="3">POLO CLUB</text>
+        <!-- Rearing horse -->
+        <line x1="36" y1="70" x2="32" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+        <line x1="46" y1="72" x2="46" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+        <ellipse cx="40" cy="64" rx="13" ry="11" fill="#3D2010"/>
+        <path d="M40,56 Q50,46 62,42 Q68,42 68,50 Q64,60 48,68 Z" fill="#3D2010"/>
+        <ellipse cx="64" cy="48" rx="9" ry="11" fill="#3D2010"/>
+        <path d="M60,42 Q52,34 48,24" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <path d="M68,42 Q74,34 78,26" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <path d="M66,38 Q70,26 68,16" stroke="#3D2010" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <ellipse cx="66" cy="14" rx="9" ry="7" transform="rotate(-10 66 14)" fill="#3D2010"/>
+        <path d="M61,9 Q58,3 62,5" stroke="#3D2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M30,62 Q18,55 16,42" stroke="#3D2010" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="40" cy="90" rx="18" ry="3.5" fill="#3D2010" opacity="0.12"/>
+        <!-- Text -->
+        <defs>
+          <path id="t-top" d="M 10 54 A 44 44 0 0 1 98 54"/>
+          <path id="t-bot" d="M 7 57 A 47 47 0 0 0 101 57"/>
+        </defs>
+        <text font-family="Georgia,serif" font-size="11" font-weight="bold" fill="#3D2010" letter-spacing="4">
+          <textPath href="#t-top" startOffset="16%">TABELA</textPath>
+        </text>
+        <text font-family="Georgia,serif" font-size="8.5" font-weight="bold" fill="#3D2010" letter-spacing="1.5">
+          <textPath href="#t-bot" startOffset="6%">SHEESH MAHAL</textPath>
+        </text>
+        <text x="54" y="98" font-family="Georgia,serif" font-size="7.5" font-style="italic" fill="#C8A96E" text-anchor="middle" letter-spacing="1">Est. 2018</text>
       </svg>
+      <div class="sp-logo-name">Tabela<br>Sheesh Mahal</div>
+    </div>
+
+    <div class="sp-div"></div>
+
+    <!-- Punjab Polo Club Logo -->
+    <div class="sp-logo">
+      <svg width="100" height="110" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="30" y1="200" x2="170" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+        <line x1="170" y1="200" x2="30" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+        <rect x="4" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(-45 19 195)"/>
+        <rect x="166" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(45 181 195)"/>
+        <ellipse cx="28" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+        <ellipse cx="172" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+        <path d="M82,24 L88,8 L100,18 L112,8 L118,24 L126,14 L122,26 L78,26 L74,14 Z" fill="#2B44DF"/>
+        <circle cx="100" cy="4" r="5" fill="#2B44DF"/>
+        <g stroke="#2B44DF" stroke-width="2.5" fill="none">
+          <ellipse cx="34" cy="72" rx="9" ry="5" transform="rotate(-50 34 72)"/>
+          <ellipse cx="26" cy="84" rx="9" ry="5" transform="rotate(-35 26 84)"/>
+          <ellipse cx="22" cy="98" rx="9" ry="5" transform="rotate(-15 22 98)"/>
+          <ellipse cx="23" cy="112" rx="9" ry="5" transform="rotate(10 23 112)"/>
+          <ellipse cx="30" cy="124" rx="9" ry="5" transform="rotate(28 30 124)"/>
+          <ellipse cx="42" cy="133" rx="9" ry="5" transform="rotate(45 42 133)"/>
+        </g>
+        <g stroke="#2B44DF" stroke-width="2.5" fill="none">
+          <ellipse cx="166" cy="72" rx="9" ry="5" transform="rotate(50 166 72)"/>
+          <ellipse cx="174" cy="84" rx="9" ry="5" transform="rotate(35 174 84)"/>
+          <ellipse cx="178" cy="98" rx="9" ry="5" transform="rotate(15 178 98)"/>
+          <ellipse cx="177" cy="112" rx="9" ry="5" transform="rotate(-10 177 112)"/>
+          <ellipse cx="170" cy="124" rx="9" ry="5" transform="rotate(-28 170 124)"/>
+          <ellipse cx="158" cy="133" rx="9" ry="5" transform="rotate(-45 158 133)"/>
+        </g>
+        <path d="M62,32 L138,32 L138,110 Q100,138 62,110 Z" fill="none" stroke="#2B44DF" stroke-width="5"/>
+        <line x1="100" y1="32" x2="100" y2="122" stroke="#2B44DF" stroke-width="1.5" opacity="0.35"/>
+        <!-- Left horse -->
+        <g fill="#2B44DF">
+          <ellipse cx="80" cy="100" rx="10" ry="7" transform="rotate(-25 80 100)"/>
+          <ellipse cx="74" cy="94" rx="6" ry="8"/>
+          <path d="M82,88 Q84,78 82,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <ellipse cx="80" cy="67" rx="6" ry="5" transform="rotate(10 80 67)"/>
+          <path d="M76,94 Q70,88 68,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M82,96 Q80,104 78,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M88,98 Q88,106 86,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Right horse -->
+        <g fill="#2B44DF">
+          <ellipse cx="120" cy="100" rx="10" ry="7" transform="rotate(25 120 100)"/>
+          <ellipse cx="126" cy="94" rx="6" ry="8"/>
+          <path d="M118,88 Q116,78 118,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <ellipse cx="120" cy="67" rx="6" ry="5" transform="rotate(-10 120 67)"/>
+          <path d="M124,94 Q130,88 132,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M118,96 Q120,104 122,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M112,98 Q112,106 114,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Banner -->
+        <path d="M42,146 Q44,138 100,138 Q156,138 158,146 L152,162 Q100,157 48,162 Z" fill="#2B44DF"/>
+        <path d="M42,146 L38,162 L48,162 Z" fill="#1B2FA0"/>
+        <path d="M158,146 L162,162 L152,162 Z" fill="#1B2FA0"/>
+        <text x="100" y="155" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="2">PUNJAB</text>
+        <text x="100" y="176" font-family="Arial,sans-serif" font-size="11" font-weight="600" fill="#2B44DF" text-anchor="middle" letter-spacing="3">POLO CLUB</text>
+      </svg>
+      <div class="sp-logo-name">Punjab<br>Polo Club</div>
     </div>
   </div>
-
-  <!-- Text -->
-  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 32px 0;" class="s-a2">
-    <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);margin-bottom:18px;opacity:.7">Est. 1904 · Jaipur Chapter</p>
-    <h1 class="serif" style="font-weight:300;font-size:3rem;color:var(--charcoal);line-height:1.05;letter-spacing:-.01em">Punjab<br/><em style="font-style:italic;font-weight:500">Polo Club</em></h1>
-    <div style="height:28px"></div>
-    <div class="splash-divider">
-      <span></span>
-      <svg width="8" height="8" viewBox="0 0 8 8"><path d="M4 0L5 3H8L5.5 5L6.5 8L4 6L1.5 8L2.5 5L0 3H3Z" fill="#2B44DF" opacity=".6"/></svg>
-      <span></span>
-    </div>
-    <p class="serif" style="font-size:1.2rem;font-weight:300;font-style:italic;color:var(--warm-gray);margin-top:18px;line-height:1.6;max-width:260px">"Where Heritage Meets the Field"</p>
-  </div>
-
-  <!-- CTA -->
-  <div style="padding:36px 32px 52px;width:100%;display:flex;flex-direction:column;align-items:center;gap:20px;" class="s-a3">
-    <button class="btn btn-blue" onclick="goTo('home')" style="letter-spacing:.28em">Enter The Club</button>
-    <div style="display:flex;align-items:center;gap:16px;opacity:.2">
-      <span class="icon" style="color:var(--charcoal);font-size:18px">shield</span>
-      <div style="width:1px;height:14px;background:var(--sand)"></div>
-      <span class="icon" style="color:var(--charcoal);font-size:18px">emoji_events</span>
-      <div style="width:1px;height:14px;background:var(--sand)"></div>
-      <span class="icon" style="color:var(--charcoal);font-size:18px">military_tech</span>
-    </div>
-  </div>
-
-  <div style="width:1px;height:44px;background:linear-gradient(to top,var(--blue),transparent);opacity:.2;margin:0 auto"></div>
+  <div class="sp-tagline">Lahore's Premier Equestrian Destination</div>
+  <div class="sp-tap">Tap to enter</div>
+</div>
 </div>
 
-
-<!-- ══════════════════════════════════════════
-     SCREEN 2 — HOME
-══════════════════════════════════════════ -->
+<!-- ═══════════════ HOME ═══════════════ -->
 <div class="screen" id="screen-home">
-  <div class="home-header">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div style="width:34px;height:34px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--sand);overflow:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="26" height="30">
-          <path d="M58 38 L142 38 L142 108 Q142 148 100 164 Q58 148 58 108 Z" fill="white" stroke="#2B44DF" stroke-width="3"/>
-          <path d="M72 148 Q68 132 76 122 Q80 115 86 118 Q84 126 87 133 Q93 124 99 128 Q96 138 90 145 Q85 148 80 150 Z" fill="#2B44DF"/>
-          <path d="M128 148 Q132 132 124 122 Q120 115 114 118 Q116 126 113 133 Q107 124 101 128 Q104 138 110 145 Q115 148 120 150 Z" fill="#2B44DF"/>
-          <path d="M76 36 L124 36 L120 26 L113 33 L100 20 L87 33 L80 26 Z" fill="#2B44DF"/>
-          <circle cx="100" cy="17" r="3.5" fill="#2B44DF"/>
-          <path d="M42 160 Q100 172 158 160 L154 178 Q100 188 46 178 Z" fill="#2B44DF"/>
-          <path d="M42 160 L32 165 L36 178 L46 178 Z" fill="#2B44DF"/>
-          <path d="M158 160 L168 165 L164 178 L154 178 Z" fill="#2B44DF"/>
-          <text x="100" y="173" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="800" fill="white" letter-spacing="2">PUNJAB</text>
-        </svg>
+<div class="home-topbar">
+  <span class="home-brand">Tabela &nbsp;·&nbsp; Punjab Polo Club</span>
+  <button class="home-bell" onclick="goTo('contact')">
+    <span class="material-symbols-outlined">location_on</span>
+  </button>
+</div>
+<div class="scrollbody">
+  <div class="home-greet">
+    <div class="home-greet-time" id="greet-time">Good Morning</div>
+    <div class="home-greet-name">Where would you<br>like to go today?</div>
+  </div>
+  <div class="home-cards">
+    <div class="sec-card sc-ppc" onclick="goTo('ppc')">
+      <div class="sc-wm">
+        <svg width="70" height="70" viewBox="0 0 200 220" fill="none"><line x1="30" y1="200" x2="170" y2="30" stroke="white" stroke-width="10" stroke-linecap="round"/><line x1="170" y1="200" x2="30" y2="30" stroke="white" stroke-width="10" stroke-linecap="round"/><path d="M62,32 L138,32 L138,110 Q100,138 62,110 Z" fill="none" stroke="white" stroke-width="5"/><path d="M82,24 L100,18 L118,24 L78,24 Z" fill="white"/></svg>
       </div>
-      <div>
-        <p class="serif" style="font-weight:600;color:var(--navy);font-size:14px;line-height:1">Punjab Polo Club</p>
-        <p style="font-family:'Inter',sans-serif;color:var(--mist);font-size:9px;letter-spacing:.08em;text-transform:uppercase;margin-top:2px">Jaipur Chapter</p>
-      </div>
+      <div class="sc-arr"><span class="material-symbols-outlined">arrow_forward</span></div>
+      <div class="sc-tag">Polo · Riding · Training</div>
+      <div class="sc-title">Punjab<br>Polo Club</div>
+      <div class="sc-desc">Horse riding, polo training &amp; full chukkers on our professional ground</div>
+      <div class="sc-chips"><span class="sc-chip">Horse Riding</span><span class="sc-chip">Polo Training</span><span class="sc-chip">Chukkers</span></div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <button class="icon-btn" style="position:relative">
-        <span class="icon" style="font-size:20px">notifications</span>
-        <span style="position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--blue);border-radius:50%;border:2px solid var(--ivory)"></span>
-      </button>
-      <button class="icon-btn" onclick="goTo('profile')" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--blue));border:2px solid var(--sand)">
-        <span class="serif" style="color:white;font-size:15px;font-weight:500">A</span>
-      </button>
+    <div class="sec-card sc-tab" onclick="goTo('tabela')">
+      <div class="sc-wm">
+        <svg width="68" height="68" viewBox="0 0 108 108" fill="none"><circle cx="54" cy="54" r="50" stroke="white" stroke-width="2" fill="none"/><g stroke="white" stroke-width="0.8" opacity="0.5"><line x1="54" y1="54" x2="54" y2="16"/><line x1="54" y1="54" x2="80" y2="24"/><line x1="54" y1="54" x2="92" y2="46"/><line x1="54" y1="54" x2="90" y2="66"/><line x1="54" y1="54" x2="54" y2="92"/><line x1="54" y1="54" x2="28" y2="84"/><line x1="54" y1="54" x2="18" y2="44"/><line x1="54" y1="54" x2="30" y2="24"/></g><ellipse cx="40" cy="64" rx="13" ry="11" fill="white" opacity="0.4"/></svg>
+      </div>
+      <div class="sc-arr"><span class="material-symbols-outlined">arrow_forward</span></div>
+      <div class="sc-tag">Stables · Events · Parties</div>
+      <div class="sc-title">Tabela<br>Sheesh Mahal</div>
+      <div class="sc-desc">13 premium stables &amp; event venue — kitty parties, birthdays &amp; corporate events</div>
+      <div class="sc-chips"><span class="sc-chip">13 Stables</span><span class="sc-chip">Events</span><span class="sc-chip">Est. 2018</span></div>
     </div>
   </div>
-
-  <div class="scrollbody">
-    <!-- Greeting -->
-    <div>
-      <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;opacity:.8">Good Morning</p>
-      <h1 class="serif" style="font-weight:300;font-size:2.2rem;color:var(--charcoal);line-height:1.15">Arjun Singh<br/><em style="font-style:italic;font-weight:500">Rathore</em></h1>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
-        <span class="badge badge-blue-solid">Gold Member</span>
-        <span style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist)">· Jaipur Chapter</span>
-      </div>
-    </div>
-
-    <!-- Hero card -->
-    <div class="hero-card">
-      <div class="hero-inner">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
-          <span style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:4px 12px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9)">
-            <span class="icon" style="font-size:11px;color:rgba(255,255,255,.8)">schedule</span> Next Session
-          </span>
-          <p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45)">Mon · Court 3</p>
-        </div>
-        <h2 class="serif" style="font-weight:300;color:white;font-size:1.85rem;line-height:1.2">Private Polo<br/><em>Lesson</em></h2>
-        <div style="display:flex;align-items:center;gap:12px;margin-top:16px">
-          <div style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.65)">
-            <span class="icon" style="font-size:14px">calendar_today</span>
-            <span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500">23 October 2023</span>
-          </div>
-          <div style="width:1px;height:12px;background:rgba(255,255,255,.18)"></div>
-          <div style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.65)">
-            <span class="icon" style="font-size:14px">schedule</span>
-            <span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500">09:30 AM · 60 min</span>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center">
-              <span class="icon" style="font-size:14px;color:rgba(255,255,255,.7)">person</span>
-            </div>
-            <span style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.6)">Senior HPA Coach</span>
-          </div>
-          <button onclick="goTo('confirm')" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 14px;cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-            <span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:white">View Details</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div style="display:flex;gap:12px">
-      <div class="stat-tile"><p class="serif" style="font-size:2rem;font-weight:300;color:var(--blue);line-height:1">14</p><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);margin-top:4px">Matches</p></div>
-      <div class="stat-tile"><p class="serif" style="font-size:2rem;font-weight:300;color:var(--blue);line-height:1">4.5</p><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);margin-top:4px">Handicap</p></div>
-      <div class="stat-tile"><p class="serif" style="font-size:1.1rem;font-weight:600;font-style:italic;color:var(--blue);margin-top:4px">Elite</p><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);margin-top:4px">Ranking</p></div>
-    </div>
-
-    <!-- Schedule -->
-    <div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-        <h2 class="serif" style="font-size:1.25rem;font-weight:500;color:var(--charcoal)">Schedule This Week</h2>
-        <button onclick="goTo('bookings')" style="background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--blue)">View All</button>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div class="schedule-card">
-          <div class="sched-date" style="background:linear-gradient(160deg,var(--blue),var(--blue-mid))">
-            <p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.12em;text-transform:uppercase">MON</p>
-            <p class="serif" style="font-size:2rem;font-weight:300;color:white;line-height:1;margin-top:4px">23</p>
-          </div>
-          <div style="flex:1;padding:14px 16px">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--charcoal)">Polo Lesson</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">09:30 AM · Court 3</p></div><span class="badge badge-blue" style="font-size:9px;padding:3px 8px">Confirmed</span></div>
-            <div style="display:flex;align-items:center;gap:6px;margin-top:10px"><span class="icon" style="font-size:13px;color:var(--mist)">person</span><span style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist)">Senior HPA Coach</span></div>
-          </div>
-        </div>
-        <div class="schedule-card">
-          <div class="sched-date" style="background:linear-gradient(160deg,#3D6B55,#5A8B74)">
-            <p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.12em;text-transform:uppercase">WED</p>
-            <p class="serif" style="font-size:2rem;font-weight:300;color:white;line-height:1;margin-top:4px">25</p>
-          </div>
-          <div style="flex:1;padding:14px 16px">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--charcoal)">Match Play</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">02:00 PM · Turf A</p></div><span class="badge badge-sage" style="font-size:9px;padding:3px 8px">Registered</span></div>
-            <div style="display:flex;align-items:center;gap:6px;margin-top:10px"><span class="icon" style="font-size:13px;color:var(--mist)">groups</span><span style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist)">4 players confirmed</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick book -->
-    <button onclick="goTo('book')" style="display:flex;align-items:center;justify-content:space-between;padding:20px;border-radius:18px;width:100%;border:1px solid var(--sand);background:linear-gradient(135deg,var(--ivory),var(--blue-light));cursor:pointer;text-align:left">
-      <div>
-        <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;opacity:.8">Book a Session</p>
-        <p class="serif" style="font-size:1.2rem;font-weight:300;color:var(--charcoal)">Reserve your <em>next lesson</em></p>
-      </div>
-      <div style="width:40px;height:40px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(43,68,223,.3);flex-shrink:0">
-        <span class="icon" style="color:white;font-size:20px">arrow_forward</span>
-      </div>
-    </button>
-
-    <!-- Announcements -->
-    <div>
-      <h2 class="serif" style="font-size:1.25rem;font-weight:500;color:var(--charcoal);margin-bottom:8px">Club Announcements</h2>
-      <div class="blue-divider" style="margin-bottom:6px"></div>
-      <div class="announce-item"><div class="announce-dot"></div><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Inter-Club Championship — Registrations Open</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:4px;line-height:1.5">Annual championship begins 5 November. Elite members receive early access seating.</p><p style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.06em;color:var(--mist);margin-top:4px">2 DAYS AGO</p></div></div>
-      <div class="announce-item"><div class="announce-dot" style="background:var(--sage)"></div><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">New Polo Ponies at Stable Block C</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:4px;line-height:1.5">Six Argentine thoroughbreds have joined the roster, available from 28 October.</p><p style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.06em;color:var(--mist);margin-top:4px">4 DAYS AGO</p></div></div>
-    </div>
-  </div>
-
-  <div class="bottom-nav">
-    <button class="nav-tab active" onclick="goTo('home')"><span class="icon fill">home</span>Home</button>
-    <button class="nav-tab" onclick="goTo('book')"><span class="icon">calendar_add_on</span>Book</button>
-    <button class="nav-tab" onclick="goTo('bookings')"><span class="icon">event_note</span>Sessions</button>
-    <button class="nav-tab" onclick="goTo('profile')"><span class="icon">person</span>Profile</button>
+  <div class="home-info">
+    <div class="info-pill"><div class="ip-val">13</div><div class="ip-lbl">Premium Stables</div></div>
+    <div class="info-pill"><div class="ip-val">1</div><div class="ip-lbl">Polo Ground</div></div>
+    <div class="info-pill"><div class="ip-val">2018</div><div class="ip-lbl">Established</div></div>
   </div>
 </div>
-
-
-<!-- ══════════════════════════════════════════
-     SCREEN 3 — BOOK
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-book">
-  <div class="topbar">
-    <button class="back-btn" onclick="goTo('home')"><span class="icon" style="font-size:20px">arrow_back</span></button>
-    <div class="topbar-title">Book a Session</div>
-    <div style="width:32px"></div>
-  </div>
-
-  <div class="scrollbody">
-    <div>
-      <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;opacity:.8">Experience</p>
-      <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px">
-        <button class="exp-pill active" onclick="selExp(this)">Polo Lesson</button>
-        <button class="exp-pill" onclick="selExp(this)">Match Play</button>
-        <button class="exp-pill" onclick="selExp(this)">Training</button>
-        <button class="exp-pill" onclick="selExp(this)">Arena Hire</button>
-      </div>
-    </div>
-
-    <div>
-      <span class="badge badge-blue" style="margin-bottom:12px">Premium Experience</span>
-      <h2 class="serif" style="font-weight:300;font-size:1.85rem;color:var(--charcoal);line-height:1.2;margin-top:8px">Private Polo<br/><em style="font-style:italic;font-weight:500">Lesson</em></h2>
-      <p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--warm-gray);margin-top:8px;line-height:1.6">Refine your handicap with one-on-one instruction from our senior club professionals.</p>
-    </div>
-
-    <div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);opacity:.8">Select Date</p>
-        <p class="serif" style="font-size:1rem;font-weight:500;color:var(--charcoal)">October 2023</p>
-      </div>
-      <div class="card" style="padding:14px">
-        <div class="day-strip">
-          <div class="day-cell today" onclick="selDay(this)"><span class="dn">Mon</span><span class="dd">23</span></div>
-          <div class="day-cell active" onclick="selDay(this)"><span class="dn">Tue</span><span class="dd">24</span></div>
-          <div class="day-cell" onclick="selDay(this)"><span class="dn">Wed</span><span class="dd">25</span></div>
-          <div class="day-cell" onclick="selDay(this)"><span class="dn">Thu</span><span class="dd">26</span></div>
-          <div class="day-cell" onclick="selDay(this)"><span class="dn">Fri</span><span class="dd">27</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;opacity:.8">Available Slots</p>
-      <div class="time-grid">
-        <button class="time-pill" onclick="selTime(this,'08:00 AM')">08:00 AM</button>
-        <button class="time-pill active" onclick="selTime(this,'09:30 AM')">09:30 AM</button>
-        <button class="time-pill" onclick="selTime(this,'11:00 AM')">11:00 AM</button>
-        <button class="time-pill off" disabled>01:00 PM</button>
-        <button class="time-pill" onclick="selTime(this,'02:30 PM')">02:30 PM</button>
-        <button class="time-pill" onclick="selTime(this,'04:00 PM')">04:00 PM</button>
-        <button class="time-pill" onclick="selTime(this,'05:30 PM')">05:30 PM</button>
-        <button class="time-pill off" disabled>07:00 PM</button>
-      </div>
-    </div>
-
-    <div class="card card-blue-top" style="padding:20px">
-      <h3 class="serif" style="font-size:1.15rem;font-weight:500;color:var(--charcoal);margin-bottom:16px">Session Details</h3>
-      <div class="feat-row"><div class="feat-icon"><span class="icon" style="font-size:18px;color:var(--blue)">schedule</span></div><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">60 Minute Session</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">Warm-up, technical drills, match-play practice</p></div></div>
-      <div class="feat-row"><div class="feat-icon"><span class="icon" style="font-size:18px;color:var(--blue)">military_tech</span></div><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Professional Instructor</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">Assigned senior HPA certified coach</p></div></div>
-      <div class="feat-row"><div class="feat-icon"><span class="icon" style="font-size:18px;color:var(--blue)">sports</span></div><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Equipment Provided</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">Professional grade mallets and safety gear</p></div></div>
-      <div class="feat-row"><div class="feat-icon"><span class="icon" style="font-size:18px;color:var(--blue)">eco</span></div><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Championship Turf · Court 3</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">Premier playing surface, international standard</p></div></div>
-      <div class="blue-divider" style="margin:16px 0"></div>
-      <div style="display:flex;align-items:flex-end;justify-content:space-between">
-        <div>
-          <p style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist)">Member Price</p>
-          <p class="serif" style="font-size:2.4rem;font-weight:300;color:var(--charcoal);line-height:1;margin-top:4px">$250</p>
-          <p class="serif" style="font-size:12px;font-style:italic;color:var(--warm-gray);margin-top:4px">"The sport of kings."</p>
-        </div>
-        <div style="display:flex;align-items:center;gap:4px;color:var(--sage)">
-          <span class="icon fill" style="font-size:14px">check_circle</span>
-          <span style="font-family:'Inter',sans-serif;font-size:11px;font-weight:500">Members save 20%</span>
-        </div>
-      </div>
-    </div>
-    <div style="height:80px"></div>
-  </div>
-
-  <div class="book-sticky">
-    <div style="flex:1">
-      <p style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)">Selected</p>
-      <p id="book-sel" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal);margin-top:2px">Tue, 24 Oct · 09:30 AM</p>
-    </div>
-    <p class="serif" style="font-size:1.3rem;font-weight:300;color:var(--charcoal)">$250</p>
-    <button class="btn btn-blue" onclick="goTo('confirm')" style="width:auto;padding:12px 22px;letter-spacing:.06em;font-size:13px">Book Now</button>
-  </div>
-
-  <div class="bottom-nav">
-    <button class="nav-tab" onclick="goTo('home')"><span class="icon">home</span>Home</button>
-    <button class="nav-tab active" onclick="goTo('book')"><span class="icon fill">calendar_add_on</span>Book</button>
-    <button class="nav-tab" onclick="goTo('bookings')"><span class="icon">event_note</span>Sessions</button>
-    <button class="nav-tab" onclick="goTo('profile')"><span class="icon">person</span>Profile</button>
-  </div>
+<div class="bottom-nav">
+  <button class="nav-item n-active" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
 </div>
 
+<!-- ═══════════════ TABELA HOME ═══════════════ -->
+<div class="screen" id="screen-tabela">
+<div class="scrollbody">
+  <div class="hero-section hero-tab">
+    <div class="hero-back" onclick="goTo('home')">
+      <span class="material-symbols-outlined">arrow_back</span><span class="hb-txt">Home</span>
+    </div>
+    <div class="hero-title">Tabela<br>Sheesh Mahal</div>
+    <div class="hero-sub">Lahore's finest equestrian stable &amp; event venue — where every occasion becomes a memory.</div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-val">13</div><div class="hs-lbl">Stables</div></div>
+      <div class="hs-item"><div class="hs-val">CCTV</div><div class="hs-lbl">Secured</div></div>
+      <div class="hs-item"><div class="hs-val">24/7</div><div class="hs-lbl">Care</div></div>
+      <div class="hs-item"><div class="hs-val">2018</div><div class="hs-lbl">Est.</div></div>
+    </div>
+  </div>
 
-<!-- ══════════════════════════════════════════
-     SCREEN 4 — BOOKINGS
-══════════════════════════════════════════ -->
+  <div class="sec-head-sm">Facilities</div>
+  <div class="fac-row">
+    <div class="fac-pill"><span class="material-symbols-outlined">videocam</span><span class="fp-txt">CCTV</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">air</span><span class="fp-txt">Ventilation</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">mode_fan</span><span class="fp-txt">Ceiling Fans</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">bed</span><span class="fp-txt">Proper Rooms</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">water_drop</span><span class="fp-txt">Water System</span></div>
+    <div class="fac-pill"><span class="material-symbols-outlined">grass</span><span class="fp-txt">Premium Fodder</span></div>
+  </div>
+
+  <div class="sec-head">Our Stables</div>
+  <div class="stable-scroll">
+    <div class="stable-card"><div class="sct sct-1">🐴</div><div class="sc-sinfo"><div class="sc-sname">Block A</div><div class="sc-sdet">Stalls 1–4 · Premium</div></div></div>
+    <div class="stable-card"><div class="sct sct-2">🏇</div><div class="sc-sinfo"><div class="sc-sname">Block B</div><div class="sc-sdet">Stalls 5–8 · Standard</div></div></div>
+    <div class="stable-card"><div class="sct sct-3">🌿</div><div class="sc-sinfo"><div class="sc-sname">Block C</div><div class="sc-sdet">Stalls 9–11 · Garden</div></div></div>
+    <div class="stable-card"><div class="sct sct-4">⭐</div><div class="sc-sinfo"><div class="sc-sname">VIP Block</div><div class="sc-sdet">Stalls 12–13 · VIP</div></div></div>
+  </div>
+
+  <div class="sec-head">Book an Event</div>
+  <div class="event-list">
+    <div class="ev-card" onclick="bookEvent('Kitty Party')">
+      <div class="ev-icon ei-k"><span class="material-symbols-outlined">groups</span></div>
+      <div class="ev-body">
+        <div class="ev-title">Kitty Party</div>
+        <div class="ev-desc">Intimate gatherings with stunning polo ground views &amp; live match experience</div>
+        <div class="ev-cta">Book Now →</div>
+      </div>
+      <div class="ev-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="ev-card" onclick="bookEvent('Birthday Party')">
+      <div class="ev-icon ei-b"><span class="material-symbols-outlined">cake</span></div>
+      <div class="ev-body">
+        <div class="ev-title">Birthday Party</div>
+        <div class="ev-desc">Celebrate with horse experiences, polo demos &amp; premium event setup on the ground</div>
+        <div class="ev-cta">Book Now →</div>
+      </div>
+      <div class="ev-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="ev-card" onclick="bookEvent('Corporate Event')">
+      <div class="ev-icon ei-c"><span class="material-symbols-outlined">business_center</span></div>
+      <div class="ev-body">
+        <div class="ev-title">Corporate Event</div>
+        <div class="ev-desc">Team building, client entertainment &amp; corporate polo matches — tailored for business</div>
+        <div class="ev-cta">Book Now →</div>
+      </div>
+      <div class="ev-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item n-tab" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ TABELA BOOKING ═══════════════ -->
+<div class="screen" id="screen-tbook">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('tabela')"><span class="material-symbols-outlined">arrow_back</span></button>
+  <div><div class="topbar-title">Book Event</div><div class="topbar-sub">Tabela Sheesh Mahal</div></div>
+</div>
+<div class="scrollbody">
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">celebration</span><span class="fc-head-txt">Event Type</span></div>
+    <div class="type-grid" id="tg1">
+      <button class="type-btn" onclick="selType(this,'Kitty Party','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">groups</span></div><div class="tb-lbl">Kitty Party</div></button>
+      <button class="type-btn" onclick="selType(this,'Birthday Party','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">cake</span></div><div class="tb-lbl">Birthday</div></button>
+      <button class="type-btn" onclick="selType(this,'Corporate Event','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">business_center</span></div><div class="tb-lbl">Corporate</div></button>
+      <button class="type-btn" onclick="selType(this,'Custom Event','tab','tg1')"><div class="tb-icon"><span class="material-symbols-outlined">star</span></div><div class="tb-lbl">Custom</div></button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">calendar_today</span><span class="fc-head-txt">Select Date</span></div>
+    <div class="date-strip" id="tbl-dates"></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">schedule</span><span class="fc-head-txt">Preferred Time</span></div>
+    <div class="time-grid" id="tbl-times">
+      <button class="t-pill" onclick="selTime(this,'10:00 AM','tab','tbl-times')">10:00 AM</button>
+      <button class="t-pill" onclick="selTime(this,'12:00 PM','tab','tbl-times')">12:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'2:00 PM','tab','tbl-times')">2:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'4:00 PM','tab','tbl-times')">4:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'6:00 PM','tab','tbl-times')">6:00 PM</button>
+      <button class="t-pill na">8:00 PM</button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">person</span><span class="fc-head-txt">Guest Details</span></div>
+    <div class="fc-row"><div class="fc-label">Full Name</div><input class="fc-input" type="text" placeholder="Your full name"/></div>
+    <div class="fc-row"><div class="fc-label">Phone Number</div><input class="fc-input" type="tel" placeholder="+92 300 0000000"/></div>
+    <div class="fc-row"><div class="fc-label">Number of Guests</div><input class="fc-input" type="number" placeholder="e.g. 25" min="1"/></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">note_alt</span><span class="fc-head-txt">Special Requests</span></div>
+    <div class="fc-row"><div class="fc-label">Notes (optional)</div><textarea class="fc-textarea" rows="3" placeholder="Decoration preferences, polo match viewing, dietary requirements..."></textarea></div>
+  </div>
+</div>
+</div>
+<div class="cta-wrap"><button class="btn-cta cta-tab" onclick="confirmBook('tab')">Confirm Booking</button></div>
+</div>
+
+<!-- ═══════════════ PPC HOME ═══════════════ -->
+<div class="screen" id="screen-ppc">
+<div class="scrollbody">
+  <div class="hero-section hero-ppc">
+    <div class="hero-back" onclick="goTo('home')">
+      <span class="material-symbols-outlined">arrow_back</span><span class="hb-txt">Home</span>
+    </div>
+    <div class="hero-title">Punjab<br>Polo Club</div>
+    <div class="hero-sub">Professional polo training, horse riding &amp; full chukkers on our championship-grade ground.</div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-val">Pro</div><div class="hs-lbl">Ground</div></div>
+      <div class="hs-item"><div class="hs-val">All</div><div class="hs-lbl">Levels</div></div>
+      <div class="hs-item"><div class="hs-val">Full</div><div class="hs-lbl">Chukkers</div></div>
+    </div>
+  </div>
+
+  <div class="sec-head">Our Services</div>
+  <div class="svc-list">
+    <div class="svc-card" onclick="bookSession('Horse Riding')">
+      <div class="svc-icon si-r"><span class="material-symbols-outlined">sports_motorsports</span></div>
+      <div class="svc-body">
+        <div class="svc-title">Horse Riding</div>
+        <div class="svc-desc">Guided riding sessions for all experience levels — from first-timers to seasoned riders</div>
+        <div class="svc-tags"><span class="svc-tag">Beginners</span><span class="svc-tag">Intermediate</span><span class="svc-tag">Advanced</span></div>
+      </div>
+      <div class="svc-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="svc-card" onclick="bookSession('Polo Training')">
+      <div class="svc-icon si-t"><span class="material-symbols-outlined">sports_handball</span></div>
+      <div class="svc-body">
+        <div class="svc-title">Polo Training</div>
+        <div class="svc-desc">Professional coaching — stick &amp; ball, team drills &amp; tactical sessions with our coaches</div>
+        <div class="svc-tags"><span class="svc-tag">Private</span><span class="svc-tag">Group</span><span class="svc-tag">Intensive</span></div>
+      </div>
+      <div class="svc-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+    <div class="svc-card" onclick="bookSession('Full Chukker')">
+      <div class="svc-icon si-c"><span class="material-symbols-outlined">sports</span></div>
+      <div class="svc-body">
+        <div class="svc-title">Full Chukkers</div>
+        <div class="svc-desc">Book a complete polo match — 4 to 6 chukkers on our professional ground with referees</div>
+        <div class="svc-tags"><span class="svc-tag">4 Chukkers</span><span class="svc-tag">6 Chukkers</span></div>
+      </div>
+      <div class="svc-chev"><span class="material-symbols-outlined">chevron_right</span></div>
+    </div>
+  </div>
+
+  <div class="about-strip">
+    <div class="ab-title">About the Club</div>
+    <div class="ab-text">Punjab Polo Club operates on the same grounds as Tabela Sheesh Mahal, offering a complete equestrian experience. Our professional polo ground hosts general riding, structured training, and competitive full chukker matches — open to members and guests alike.</div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item n-active" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ PPC BOOKING ═══════════════ -->
+<div class="screen" id="screen-pbook">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('ppc')"><span class="material-symbols-outlined">arrow_back</span></button>
+  <div><div class="topbar-title">Book Session</div><div class="topbar-sub">Punjab Polo Club</div></div>
+</div>
+<div class="scrollbody">
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">sports</span><span class="fc-head-txt">Session Type</span></div>
+    <div class="type-grid" id="pg1">
+      <button class="type-btn" onclick="selType(this,'Horse Riding','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">sports_motorsports</span></div><div class="tb-lbl">Horse Riding</div></button>
+      <button class="type-btn" onclick="selType(this,'Polo Training','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">sports_handball</span></div><div class="tb-lbl">Polo Training</div></button>
+      <button class="type-btn" onclick="selType(this,'Full Chukker','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">sports</span></div><div class="tb-lbl">Full Chukker</div></button>
+      <button class="type-btn" onclick="selType(this,'General Riding','ppc','pg1')"><div class="tb-icon"><span class="material-symbols-outlined">directions_run</span></div><div class="tb-lbl">General</div></button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">bar_chart</span><span class="fc-head-txt">Skill Level</span></div>
+    <div class="skill-row" id="pg2">
+      <button class="type-btn" onclick="selType(this,'Beginner','ppc','pg2')"><div class="tb-lbl">Beginner</div></button>
+      <button class="type-btn" onclick="selType(this,'Intermediate','ppc','pg2')"><div class="tb-lbl">Intermediate</div></button>
+      <button class="type-btn" onclick="selType(this,'Advanced','ppc','pg2')"><div class="tb-lbl">Advanced</div></button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">calendar_today</span><span class="fc-head-txt">Select Date</span></div>
+    <div class="date-strip" id="ppc-dates"></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">schedule</span><span class="fc-head-txt">Preferred Time</span></div>
+    <div class="time-grid" id="ppc-times">
+      <button class="t-pill" onclick="selTime(this,'6:00 AM','ppc','ppc-times')">6:00 AM</button>
+      <button class="t-pill" onclick="selTime(this,'8:00 AM','ppc','ppc-times')">8:00 AM</button>
+      <button class="t-pill" onclick="selTime(this,'10:00 AM','ppc','ppc-times')">10:00 AM</button>
+      <button class="t-pill na">12:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'3:00 PM','ppc','ppc-times')">3:00 PM</button>
+      <button class="t-pill" onclick="selTime(this,'5:00 PM','ppc','ppc-times')">5:00 PM</button>
+    </div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">person</span><span class="fc-head-txt">Rider Details</span></div>
+    <div class="fc-row"><div class="fc-label">Full Name</div><input class="fc-input" type="text" placeholder="Your full name"/></div>
+    <div class="fc-row"><div class="fc-label">Phone Number</div><input class="fc-input" type="tel" placeholder="+92 300 0000000"/></div>
+    <div class="fc-row"><div class="fc-label">Number of Riders</div><input class="fc-input" type="number" placeholder="e.g. 2" min="1"/></div>
+  </div>
+  <div class="form-card">
+    <div class="fc-head"><span class="material-symbols-outlined">note_alt</span><span class="fc-head-txt">Additional Notes</span></div>
+    <div class="fc-row"><div class="fc-label">Notes (optional)</div><textarea class="fc-textarea" rows="3" placeholder="Horse preferences, experience details, special requirements..."></textarea></div>
+  </div>
+</div>
+</div>
+<div class="cta-wrap"><button class="btn-cta cta-ppc" onclick="confirmBook('ppc')">Confirm Session</button></div>
+</div>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<div class="screen" id="screen-gallery">
+<div class="topbar"><div class="topbar-title">Gallery</div></div>
+<div class="scrollbody">
+  <div class="gal-filter">
+    <button class="gf-btn gf-on" onclick="setFilter(this)">All</button>
+    <button class="gf-btn" onclick="setFilter(this)">Polo Club</button>
+    <button class="gf-btn" onclick="setFilter(this)">Tabela</button>
+    <button class="gf-btn" onclick="setFilter(this)">Events</button>
+    <button class="gf-btn" onclick="setFilter(this)">Stables</button>
+  </div>
+  <div class="gal-grid">
+    <div class="gi tall ga"><span class="gi-ico">🏇</span><span class="gi-lbl">Polo Match</span></div>
+    <div class="gi gb"><span class="gi-ico">🐴</span><span class="gi-lbl">Stables Block A</span></div>
+    <div class="gi gc"><span class="gi-ico">⚡</span><span class="gi-lbl">Training Session</span></div>
+    <div class="gi gd"><span class="gi-ico">🎂</span><span class="gi-lbl">Birthday Event</span></div>
+    <div class="gi tall ge"><span class="gi-ico">🏆</span><span class="gi-lbl">Championship</span></div>
+    <div class="gi gf2"><span class="gi-ico">🐎</span><span class="gi-lbl">Morning Ride</span></div>
+    <div class="gi gg"><span class="gi-ico">🌅</span><span class="gi-lbl">Sunset Polo</span></div>
+    <div class="gi gh"><span class="gi-ico">🌿</span><span class="gi-lbl">Block C Garden</span></div>
+    <div class="gi gi2"><span class="gi-ico">👑</span><span class="gi-lbl">VIP Stables</span></div>
+    <div class="gi gj"><span class="gi-ico">🎉</span><span class="gi-lbl">Corporate Event</span></div>
+  </div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item n-active"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
+
+<!-- ═══════════════ MY BOOKINGS ═══════════════ -->
 <div class="screen" id="screen-bookings">
-  <div style="position:sticky;top:0;z-index:50;background:rgba(248,249,255,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(221,225,240,.7)">
-    <div style="display:flex;align-items:center;gap:12px;padding:14px 20px">
-      <button class="back-btn" onclick="goTo('home')"><span class="icon" style="font-size:20px">arrow_back</span></button>
-      <div class="topbar-title">My Sessions</div>
-      <button onclick="goTo('book')" style="display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--blue)"><span class="icon" style="font-size:16px">add</span>New</button>
+<div class="topbar"><div class="topbar-title">My Bookings</div></div>
+<div class="scrollbody">
+  <div class="bk-tabs">
+    <button class="bk-tab bk-on">Upcoming</button>
+    <button class="bk-tab">Past</button>
+    <button class="bk-tab">Cancelled</button>
+  </div>
+  <div class="bk-item">
+    <div class="bk-top">
+      <div class="bk-ico bp"><span class="material-symbols-outlined">sports</span></div>
+      <div class="bk-info"><div class="bk-title">Polo Training Session</div><div class="bk-date">Punjab Polo Club · Tomorrow, 8:00 AM</div></div>
+      <span class="bk-status bs-c">Confirmed</span>
     </div>
-    <div class="tab-row">
-      <button class="tab-btn active" onclick="switchTab('up',this)">Upcoming</button>
-      <button class="tab-btn" onclick="switchTab('past',this)">Past Sessions</button>
+    <div class="bk-foot">
+      <span class="bkf"><strong>Riders:</strong> 2</span>
+      <span class="bkf"><strong>Level:</strong> Intermediate</span>
+      <span class="bkf"><strong>Ref:</strong> PPC-001</span>
     </div>
   </div>
-
-  <div class="scrollbody">
-    <div class="tab-panel active" id="tab-up">
-      <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;opacity:.8">2 Upcoming</p>
-      <div class="b-card">
-        <div style="display:flex">
-          <div class="b-date"><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.12em;text-transform:uppercase">OCT</p><p class="serif" style="font-size:2.2rem;font-weight:300;color:white;line-height:1;margin-top:4px">24</p><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.08em;margin-top:4px">TUE</p></div>
-          <div style="flex:1;padding:16px">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><p style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--charcoal)">Polo Lesson</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">09:30 AM · 60 min · Court 3</p></div><span class="badge badge-blue" style="font-size:9px;padding:3px 8px">Confirmed</span></div>
-            <div style="display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--sand);justify-content:space-between"><div style="display:flex;align-items:center;gap:5px"><span class="icon" style="font-size:13px;color:var(--mist)">person</span><span style="font-family:'Inter',sans-serif;font-size:11px;color:var(--warm-gray)">Senior HPA Coach</span></div><span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--charcoal)">$250</span></div>
-            <div style="display:flex;gap:8px;margin-top:10px"><button class="action-btn primary" onclick="goTo('confirm')" style="flex:1">View Details</button><button class="action-btn">Cancel</button></div>
-          </div>
-        </div>
-        <div style="padding:8px 16px 10px;display:flex;align-items:center;gap:6px"><span class="icon" style="font-size:12px;color:var(--mist)">tag</span><span style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.06em;color:var(--mist)">REF: PPC-2023-1024</span></div>
-      </div>
-      <div class="b-card">
-        <div style="display:flex">
-          <div class="b-date sage-g"><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.12em;text-transform:uppercase">OCT</p><p class="serif" style="font-size:2.2rem;font-weight:300;color:white;line-height:1;margin-top:4px">25</p><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.08em;margin-top:4px">WED</p></div>
-          <div style="flex:1;padding:16px">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><p style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--charcoal)">Match Play</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">02:00 PM · 90 min · Turf A</p></div><span class="badge badge-sage" style="font-size:9px;padding:3px 8px">Registered</span></div>
-            <div style="display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--sand);justify-content:space-between"><div style="display:flex;align-items:center;gap:5px"><span class="icon" style="font-size:13px;color:var(--mist)">groups</span><span style="font-family:'Inter',sans-serif;font-size:11px;color:var(--warm-gray)">4 players confirmed</span></div><span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--charcoal)">$180</span></div>
-            <div style="display:flex;gap:8px;margin-top:10px"><button class="action-btn primary" style="flex:1">Match Info</button><button class="action-btn">Cancel</button></div>
-          </div>
-        </div>
-      </div>
-      <button onclick="goTo('book')" style="width:100%;margin-top:4px;padding:16px;border-radius:16px;border:1px dashed var(--sand);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--mist);transition:all .2s" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--sand)';this.style.color='var(--mist)'">
-        <span class="icon" style="font-size:18px">add_circle</span> Book Another Session
-      </button>
+  <div class="bk-item">
+    <div class="bk-top">
+      <div class="bk-ico bt"><span class="material-symbols-outlined">cake</span></div>
+      <div class="bk-info"><div class="bk-title">Birthday Party</div><div class="bk-date">Tabela Sheesh Mahal · Jun 28, 4:00 PM</div></div>
+      <span class="bk-status bs-p">Pending</span>
     </div>
-
-    <div class="tab-panel" id="tab-past">
-      <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;opacity:.8">14 Completed</p>
-      <div class="b-card" style="opacity:.72"><div style="display:flex"><div class="b-date muted-g"><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.12em;text-transform:uppercase">OCT</p><p class="serif" style="font-size:2rem;font-weight:300;color:white;line-height:1;margin-top:4px">18</p><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.08em;margin-top:4px">WED</p></div><div style="flex:1;padding:16px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Polo Lesson</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">09:30 AM · Court 3</p></div><span class="badge badge-sage" style="font-size:9px;padding:3px 8px">Completed</span></div><div style="display:flex;align-items:center;gap:3px;margin-top:10px"><span class="icon fill" style="font-size:13px;color:var(--blue)">star</span><span class="icon fill" style="font-size:13px;color:var(--blue)">star</span><span class="icon fill" style="font-size:13px;color:var(--blue)">star</span><span class="icon fill" style="font-size:13px;color:var(--blue)">star</span><span class="icon fill" style="font-size:13px;color:var(--blue)">star</span><span style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-left:6px">Your rating</span></div></div></div></div>
-      <div class="b-card" style="opacity:.72"><div style="display:flex"><div class="b-date muted-g"><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.12em;text-transform:uppercase">OCT</p><p class="serif" style="font-size:2rem;font-weight:300;color:white;line-height:1;margin-top:4px">11</p><p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.08em;margin-top:4px">WED</p></div><div style="flex:1;padding:16px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Match Play</p><p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--warm-gray);margin-top:2px">02:00 PM · Turf A</p></div><span class="badge badge-sage" style="font-size:9px;padding:3px 8px">Completed</span></div></div></div></div>
+    <div class="bk-foot">
+      <span class="bkf"><strong>Guests:</strong> 35</span>
+      <span class="bkf"><strong>Type:</strong> Outdoor</span>
+      <span class="bkf"><strong>Ref:</strong> TAB-002</span>
     </div>
   </div>
-
-  <div class="bottom-nav">
-    <button class="nav-tab" onclick="goTo('home')"><span class="icon">home</span>Home</button>
-    <button class="nav-tab" onclick="goTo('book')"><span class="icon">calendar_add_on</span>Book</button>
-    <button class="nav-tab active" onclick="goTo('bookings')"><span class="icon fill">event_note</span>Sessions</button>
-    <button class="nav-tab" onclick="goTo('profile')"><span class="icon">person</span>Profile</button>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════
-     SCREEN 5 — CONFIRMATION
-══════════════════════════════════════════ -->
-<div class="screen" id="screen-confirm">
-  <div class="topbar">
-    <button class="back-btn" onclick="goTo('book')"><span class="icon" style="font-size:20px">close</span></button>
-    <div style="flex:1;text-align:center"><p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--mist)">Booking Summary</p></div>
-    <div style="width:32px"></div>
-  </div>
-
-  <div style="flex:1;overflow-y:auto;padding:24px 20px 40px;display:flex;flex-direction:column;align-items:center">
-    <div class="success-ring ring-pop" style="margin-bottom:24px">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <path class="check-path" d="M8 18 L15 25 L28 11" stroke="#2B44DF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
+  <div class="bk-item">
+    <div class="bk-top">
+      <div class="bk-ico bp"><span class="material-symbols-outlined">sports_motorsports</span></div>
+      <div class="bk-info"><div class="bk-title">Horse Riding</div><div class="bk-date">Punjab Polo Club · Jul 2, 6:00 AM</div></div>
+      <span class="bk-status bs-c">Confirmed</span>
     </div>
-
-    <div style="text-align:center;margin-bottom:24px">
-      <h1 class="serif" style="font-weight:300;font-size:2.2rem;color:var(--charcoal);line-height:1.15">Booking<br/><em style="font-style:italic;font-weight:500">Confirmed</em></h1>
-      <p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--warm-gray);margin-top:8px">Your session has been reserved successfully.</p>
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px"><span class="icon" style="font-size:14px;color:var(--mist)">tag</span><span style="font-family:'Inter',sans-serif;font-weight:500;color:var(--blue);font-size:12px;letter-spacing:.15em">PPC-2023-1024</span></div>
-    </div>
-
-    <div style="width:100%;background:var(--cream);border-radius:20px;border:1px solid var(--sand);overflow:hidden;box-shadow:0 4px 24px rgba(43,68,223,.07);margin-bottom:20px">
-      <div class="booking-banner">
-        <div style="position:relative;z-index:1">
-          <p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:6px">Punjab Polo Club · Jaipur</p>
-          <h2 class="serif" style="font-weight:300;color:white;font-size:1.5rem">Private Polo <em>Lesson</em></h2>
-          <div style="display:flex;align-items:center;gap:16px;margin-top:14px">
-            <div><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">Date</p><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:white;margin-top:3px">Tue, 24 Oct 2023</p></div>
-            <div style="width:1px;height:28px;background:rgba(255,255,255,.18)"></div>
-            <div><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">Time</p><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:white;margin-top:3px">09:30 AM</p></div>
-            <div style="width:1px;height:28px;background:rgba(255,255,255,.18)"></div>
-            <div><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">Duration</p><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:white;margin-top:3px">60 min</p></div>
-          </div>
-        </div>
-      </div>
-      <div style="padding:4px 20px 0">
-        <div class="detail-row"><div style="display:flex;align-items:center;gap:10px"><span class="icon" style="font-size:18px;color:var(--blue)">person</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:var(--warm-gray)">Instructor</span></div><span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Senior HPA Coach</span></div>
-        <div class="detail-row"><div style="display:flex;align-items:center;gap:10px"><span class="icon" style="font-size:18px;color:var(--blue)">location_on</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:var(--warm-gray)">Location</span></div><span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Court 3 · Championship Turf</span></div>
-        <div class="detail-row"><div style="display:flex;align-items:center;gap:10px"><span class="icon" style="font-size:18px;color:var(--blue)">sports</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:var(--warm-gray)">Equipment</span></div><span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Provided</span></div>
-        <div class="detail-row" style="border-bottom:none"><div style="display:flex;align-items:center;gap:10px"><span class="icon" style="font-size:18px;color:var(--blue)">payments</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:var(--warm-gray)">Amount Paid</span></div><span class="serif" style="font-size:1.1rem;font-weight:500;color:var(--charcoal)">$250</span></div>
-      </div>
-    </div>
-
-    <div style="width:100%;margin-bottom:20px">
-      <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;opacity:.8">What's Next</p>
-      <div class="next-step"><div class="step-num">1</div><p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal);line-height:1.5">Arrive 15 minutes early to collect equipment from Stable Block B</p></div>
-      <div class="next-step"><div class="step-num">2</div><p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal);line-height:1.5">Meet your instructor at Court 3 entrance for a warm-up briefing</p></div>
-      <div class="next-step"><div class="step-num">3</div><p style="font-family:'Inter',sans-serif;font-size:13px;color:var(--charcoal);line-height:1.5">Post-session review with your coach and handicap progress notes</p></div>
-    </div>
-
-    <p style="font-family:'Inter',sans-serif;font-size:12px;color:var(--mist);text-align:center;line-height:1.7;margin-bottom:24px">Confirmation sent to your registered email.<br/><span style="color:var(--warm-gray)">arjun.rathore@email.com</span></p>
-
-    <div style="width:100%;display:flex;flex-direction:column;gap:10px">
-      <button class="btn btn-outline" style="display:flex;align-items:center;justify-content:center;gap:8px"><span class="icon" style="font-size:18px">calendar_add_on</span> Add to Calendar</button>
-      <button class="btn btn-blue" onclick="goTo('home')" style="letter-spacing:.08em">Return to Home</button>
+    <div class="bk-foot">
+      <span class="bkf"><strong>Riders:</strong> 1</span>
+      <span class="bkf"><strong>Level:</strong> Beginner</span>
+      <span class="bkf"><strong>Ref:</strong> PPC-003</span>
     </div>
   </div>
 </div>
+<div class="bottom-nav">
+  <button class="nav-item" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item n-active"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item" onclick="goTo('profile')"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
+</div>
 
-
-<!-- ══════════════════════════════════════════
-     SCREEN 6 — PROFILE
-══════════════════════════════════════════ -->
+<!-- ═══════════════ PROFILE ═══════════════ -->
 <div class="screen" id="screen-profile">
-  <div class="topbar">
-    <div style="width:32px"></div>
-    <div class="topbar-title">My Profile</div>
-    <button class="icon-btn"><span class="icon" style="font-size:20px">settings</span></button>
+<div class="scrollbody">
+  <div class="prof-hero">
+    <div class="prof-av"><span class="material-symbols-outlined">person</span></div>
+    <div class="prof-name">Ranbir Ohmyr</div>
+    <div class="prof-email">ohmyr@tabelastables.com</div>
+    <div class="mem-chip"><div class="mc-dot"></div><span class="mc-txt">Premium Member · Since 2022</span></div>
   </div>
-
-  <div class="scrollbody">
-    <!-- Avatar -->
-    <div style="display:flex;align-items:center;gap:14px">
-      <div style="position:relative">
-        <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--sand);overflow:hidden;box-shadow:0 4px 16px rgba(43,68,223,.14);background:linear-gradient(135deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center">
-          <span class="serif" style="font-size:1.5rem;font-weight:500;color:white">A</span>
-        </div>
-        <div style="position:absolute;bottom:-2px;right:-2px;width:20px;height:20px;border-radius:50%;background:var(--sage);border:2px solid var(--ivory);display:flex;align-items:center;justify-content:center">
-          <span class="icon fill" style="font-size:11px;color:white">check</span>
-        </div>
-      </div>
-      <div style="flex:1">
-        <h2 class="serif" style="font-weight:500;font-size:1.35rem;color:var(--charcoal);line-height:1.2">Arjun Singh<br/>Rathore</h2>
-        <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-          <span class="badge badge-blue-solid">Gold Member</span>
-          <span style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist)">Since Sep 2021</span>
-        </div>
-      </div>
-      <button style="width:36px;height:36px;border-radius:50%;border:1px solid var(--sand);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--warm-gray);transition:all .2s" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--sand)';this.style.color='var(--warm-gray)'">
-        <span class="icon" style="font-size:18px">edit</span>
-      </button>
-    </div>
-
-    <!-- Membership card -->
-    <div class="membership-card">
-      <div class="card-inner">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px">
-          <div>
-            <p style="font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)">Punjab Polo Club</p>
-            <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:6px">Gold Member</p>
-          </div>
-          <!-- Mini crest on card -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" width="28" height="32" style="opacity:.35">
-            <path d="M58 38 L142 38 L142 108 Q142 148 100 164 Q58 148 58 108 Z" fill="none" stroke="white" stroke-width="3"/>
-            <path d="M72 148 Q68 132 76 122 Q80 115 86 118 Q84 126 87 133 Q93 124 99 128 Q96 138 90 145 Z" fill="white"/>
-            <path d="M128 148 Q132 132 124 122 Q120 115 114 118 Q116 126 113 133 Q107 124 101 128 Q104 138 110 145 Z" fill="white"/>
-            <path d="M76 36 L124 36 L120 26 L113 33 L100 20 L87 33 L80 26 Z" fill="white"/>
-            <circle cx="100" cy="17" r="3.5" fill="white"/>
-            <path d="M42 160 Q100 172 158 160 L154 178 Q100 188 46 178 Z" fill="white"/>
-            <path d="M42 160 L32 165 L36 178 L46 178 Z" fill="white"/>
-            <path d="M158 160 L168 165 L164 178 L154 178 Z" fill="white"/>
-          </svg>
-        </div>
-        <h3 class="serif" style="font-weight:300;color:white;font-size:1.5rem;line-height:1">Arjun Singh Rathore</h3>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:18px">
-          <div><p style="font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)">Member No.</p><p style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,.75);letter-spacing:.1em;margin-top:4px">#PPC-4471</p></div>
-          <div style="text-align:right"><p style="font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)">Chapter</p><p style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,.75);margin-top:4px">Jaipur</p></div>
-        </div>
-      </div>
-      <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent)"></div>
-    </div>
-
-    <!-- Stats -->
-    <div style="display:flex;gap:12px">
-      <div class="stat-tile"><p class="serif" style="font-size:2rem;font-weight:300;color:var(--blue);line-height:1">14</p><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);margin-top:4px">Matches</p></div>
-      <div class="stat-tile"><p class="serif" style="font-size:2rem;font-weight:300;color:var(--blue);line-height:1">4.5</p><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);margin-top:4px">Handicap</p></div>
-      <div class="stat-tile"><p class="serif" style="font-size:1.1rem;font-weight:600;font-style:italic;color:var(--blue);margin-top:4px">Elite</p><p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);margin-top:4px">Ranking</p></div>
-    </div>
-
-    <!-- Settings -->
-    <div class="settings-group">
-      <p class="sg-title">Account</p>
-      <div class="sg-card">
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">credit_card</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Payment Methods</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Manage billing and cards</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">notifications</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Notifications</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Alerts and club updates</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">lock</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Privacy & Security</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Password and data settings</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-      </div>
-    </div>
-    <div class="settings-group">
-      <p class="sg-title">Club</p>
-      <div class="sg-card">
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">sports</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Match History</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">14 matches · Full record</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">military_tech</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Certificates & Awards</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Download HPA certificates</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">eco</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Stable & Horse Registry</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Your assigned polo ponies</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-      </div>
-    </div>
-    <div class="settings-group">
-      <p class="sg-title">Support</p>
-      <div class="sg-card">
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">help</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">Help & Concierge</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Concierge and technical assistance</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-        <div class="sg-row"><div class="sg-icon"><span class="icon" style="font-size:18px;color:var(--blue)">info</span></div><div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--charcoal)">About Punjab Polo Club</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Est. 1904 · App version 2.0</p></div><span class="icon" style="font-size:18px;color:var(--mist)">chevron_right</span></div>
-      </div>
-    </div>
-    <div class="settings-group">
-      <div class="sg-card">
-        <div class="sg-row" onclick="if(confirm('Sign out of Punjab Polo Club?'))goTo('splash')">
-          <div class="sg-icon red"><span class="icon" style="font-size:18px;color:#9B2335">logout</span></div>
-          <div style="flex:1"><p style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#9B2335">Sign Out</p><p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--mist);margin-top:2px">Securely exit your account</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div style="text-align:center;padding:4px 0 16px">
-      <p style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist)">Punjab Polo Club · Est. 1904</p>
-    </div>
+  <div class="prof-sec">
+    <div class="ps-hd">Membership</div>
+    <div class="ps-row"><span class="material-symbols-outlined">verified</span><span class="ps-lbl">Member Type</span><span class="ps-val">Premium</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">card_membership</span><span class="ps-lbl">Member ID</span><span class="ps-val">TBL-2022-047</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">event_available</span><span class="ps-lbl">Sessions This Month</span><span class="ps-val">5</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
   </div>
-
-  <div class="bottom-nav">
-    <button class="nav-tab" onclick="goTo('home')"><span class="icon">home</span>Home</button>
-    <button class="nav-tab" onclick="goTo('book')"><span class="icon">calendar_add_on</span>Book</button>
-    <button class="nav-tab" onclick="goTo('bookings')"><span class="icon">event_note</span>Sessions</button>
-    <button class="nav-tab active" onclick="goTo('profile')"><span class="icon fill">person</span>Profile</button>
+  <div class="prof-sec">
+    <div class="ps-hd">Account</div>
+    <div class="ps-row"><span class="material-symbols-outlined">person</span><span class="ps-lbl">Edit Profile</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">notifications</span><span class="ps-lbl">Notifications</span><span class="ps-val">On</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">lock</span><span class="ps-lbl">Change Password</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
   </div>
+  <div class="prof-sec">
+    <div class="ps-hd">Support</div>
+    <div class="ps-row" onclick="goTo('contact')"><span class="material-symbols-outlined">location_on</span><span class="ps-lbl">Contact &amp; Location</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">help</span><span class="ps-lbl">Help &amp; FAQ</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+    <div class="ps-row"><span class="material-symbols-outlined">share</span><span class="ps-lbl">Share App</span><div class="ps-chv"><span class="material-symbols-outlined">chevron_right</span></div></div>
+  </div>
+  <div class="prof-sec" style="margin-bottom:0">
+    <div class="ps-row danger"><span class="material-symbols-outlined">logout</span><span class="ps-lbl">Sign Out</span></div>
+  </div>
+  <div style="height:100px"></div>
+</div>
+<div class="bottom-nav">
+  <button class="nav-item" onclick="goTo('home')"><span class="material-symbols-outlined">home</span><span class="nav-lbl">Home</span></button>
+  <button class="nav-item" onclick="goTo('bookings')"><span class="material-symbols-outlined">calendar_month</span><span class="nav-lbl">Bookings</span></button>
+  <button class="nav-item" onclick="goTo('gallery')"><span class="material-symbols-outlined">photo_library</span><span class="nav-lbl">Gallery</span></button>
+  <button class="nav-item n-active"><span class="material-symbols-outlined">person</span><span class="nav-lbl">Profile</span></button>
+</div>
 </div>
 
-</div><!-- /app -->
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<div class="screen" id="screen-contact">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('home')"><span class="material-symbols-outlined">arrow_back</span></button>
+  <div class="topbar-title">Contact &amp; Location</div>
+</div>
+<div class="scrollbody">
+  <div class="map-block">
+    <div class="map-grid"></div>
+    <div class="map-pin"><span class="material-symbols-outlined">location_on</span></div>
+    <div class="map-tag">Tabela Sheesh Mahal, Lahore</div>
+  </div>
+  <div class="ct-actions">
+    <button class="ct-btn cb-call"><span class="material-symbols-outlined">call</span>Call</button>
+    <button class="ct-btn cb-wa"><span class="material-symbols-outlined">chat</span>WhatsApp</button>
+    <button class="ct-btn cb-dir"><span class="material-symbols-outlined">directions</span>Directions</button>
+  </div>
+  <div class="ct-info">
+    <div class="ct-row">
+      <span class="material-symbols-outlined">location_on</span>
+      <div><div class="ct-lbl">Address</div><div class="ct-val">Tabela Sheesh Mahal &amp; Punjab Polo Club<br>Lahore, Punjab, Pakistan</div></div>
+    </div>
+    <div class="ct-row">
+      <span class="material-symbols-outlined">schedule</span>
+      <div><div class="ct-lbl">Hours</div><div class="ct-val">Daily: 6:00 AM – 8:00 PM<br>Events by appointment</div></div>
+    </div>
+    <div class="ct-row">
+      <span class="material-symbols-outlined">call</span>
+      <div><div class="ct-lbl">Phone</div><div class="ct-val">+92 300 000 0000</div></div>
+    </div>
+    <div class="ct-row">
+      <span class="material-symbols-outlined">mail</span>
+      <div><div class="ct-lbl">Email</div><div class="ct-val">info@tabelastables.com</div></div>
+    </div>
+  </div>
+  <div style="height:30px"></div>
+</div>
+</div>
 
+<!-- ═══════════════ CONFIRMATION ═══════════════ -->
+<div class="screen" id="screen-confirm">
+<div class="topbar">
+  <button class="tb-btn" onclick="goTo('home')"><span class="material-symbols-outlined">close</span></button>
+  <div class="topbar-title">Booking Confirmed</div>
+</div>
+<div class="conf-inner">
+  <div class="conf-ring cr-ppc" id="conf-ring">
+    <span class="material-symbols-outlined conf-check">check_circle</span>
+  </div>
+  <div class="conf-title">You're all set!</div>
+  <div class="conf-sub">Your booking has been received. Our team will confirm within 2 hours via WhatsApp.</div>
+  <div class="conf-card">
+    <div class="cc-row"><span class="cc-lbl">Venue</span><span class="cc-val" id="conf-org">Punjab Polo Club</span></div>
+    <div class="cc-row"><span class="cc-lbl">Booking Type</span><span class="cc-val" id="conf-type">—</span></div>
+    <div class="cc-row"><span class="cc-lbl">Date</span><span class="cc-val" id="conf-date">—</span></div>
+    <div class="cc-row"><span class="cc-lbl">Time</span><span class="cc-val" id="conf-time">—</span></div>
+  </div>
+  <div class="conf-ref" id="conf-ref">Reference: —</div>
+</div>
+<div class="cta-wrap">
+  <button class="btn-cta cta-ppc" id="conf-btn" onclick="goTo('bookings')">View My Bookings</button>
+</div>
+</div>
+
+</div><!-- /#app -->
 <script>
-const screens={splash:'screen-splash',home:'screen-home',book:'screen-book',bookings:'screen-bookings',confirm:'screen-confirm',profile:'screen-profile'};
+let selTypeVal='', selDateVal='', selTimeVal='';
+
 function goTo(name){
-  Object.values(screens).forEach(id=>{document.getElementById(id).classList.remove('active');});
-  const t=document.getElementById(screens[name]);
-  t.classList.add('active');
-  const sb=t.querySelector('.scrollbody');
-  if(sb)sb.scrollTop=0;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('screen-'+name);
+  if(el){el.classList.add('active');const sb=el.querySelector('.scrollbody');if(sb)sb.scrollTop=0;}
 }
-function selExp(btn){document.querySelectorAll('.exp-pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
-function selDay(cell){document.querySelectorAll('.day-cell').forEach(d=>d.classList.remove('active'));cell.classList.add('active');updateBar();}
-function selTime(btn,time){document.querySelectorAll('.time-pill:not(.off)').forEach(b=>b.classList.remove('active'));btn.classList.add('active');updateBar();}
-function updateBar(){
-  const days=['Mon','Tue','Wed','Thu','Fri'],nums=['23','24','25','26','27'];
-  let dn='Tue',num='24';
-  document.querySelectorAll('.day-cell').forEach((c,i)=>{if(c.classList.contains('active')){dn=days[i];num=nums[i];}});
-  let t='09:30 AM';
-  document.querySelectorAll('.time-pill.active').forEach(b=>{t=b.textContent.trim();});
-  const el=document.getElementById('book-sel');
-  if(el)el.textContent=`${dn}, ${num} Oct · ${t}`;
+
+function setGreeting(){
+  const h=new Date().getHours();
+  const el=document.getElementById('greet-time');
+  if(el)el.textContent=h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening';
 }
-function switchTab(tab,btn){
-  document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-'+tab).classList.add('active');
+
+function buildDates(id,theme){
+  const strip=document.getElementById(id);
+  if(!strip)return;
+  strip.innerHTML='';
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const today=new Date();
+  for(let i=1;i<=10;i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    const cell=document.createElement('div');
+    cell.className='d-cell';
+    cell.innerHTML='<div class="dc-day">'+days[d.getDay()]+'</div><div class="dc-num">'+d.getDate()+'</div>';
+    const ds=days[d.getDay()]+' '+d.getDate();
+    cell.onclick=function(){strip.querySelectorAll('.d-cell').forEach(c=>c.classList.remove('sel-ppc','sel-tab'));this.classList.add('sel-'+theme);selDateVal=ds;};
+    strip.appendChild(cell);
+  }
 }
+
+function selType(btn,val,theme,gridId){
+  const g=document.getElementById(gridId);
+  if(g)g.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('sel-ppc','sel-tab'));
+  btn.classList.add('sel-'+theme);selTypeVal=val;
+}
+
+function selTime(btn,val,theme,gridId){
+  const g=document.getElementById(gridId);
+  if(g)g.querySelectorAll('.t-pill:not(.na)').forEach(b=>b.classList.remove('sel-ppc','sel-tab'));
+  btn.classList.add('sel-'+theme);selTimeVal=val;
+}
+
+function setFilter(btn){
+  document.querySelectorAll('.gf-btn').forEach(b=>b.classList.remove('gf-on'));
+  btn.classList.add('gf-on');
+}
+
+function bookEvent(type){
+  selTypeVal=type;goTo('tbook');
+  setTimeout(()=>{
+    const g=document.getElementById('tg1');
+    if(g)g.querySelectorAll('.type-btn').forEach(b=>{
+      const l=b.querySelector('.tb-lbl');
+      if(l&&type.includes(l.textContent.trim()))b.classList.add('sel-tab');
+    });
+  },60);
+}
+
+function bookSession(type){
+  selTypeVal=type;goTo('pbook');
+  setTimeout(()=>{
+    const g=document.getElementById('pg1');
+    if(g)g.querySelectorAll('.type-btn').forEach(b=>{
+      const l=b.querySelector('.tb-lbl');
+      if(l&&type.includes(l.textContent.trim()))b.classList.add('sel-ppc');
+    });
+  },60);
+}
+
+function confirmBook(origin){
+  const ring=document.getElementById('conf-ring');
+  const orgEl=document.getElementById('conf-org');
+  const typeEl=document.getElementById('conf-type');
+  const dateEl=document.getElementById('conf-date');
+  const timeEl=document.getElementById('conf-time');
+  const refEl=document.getElementById('conf-ref');
+  const btn=document.getElementById('conf-btn');
+  if(origin==='tab'){
+    ring.className='conf-ring cr-tab';
+    ring.querySelector('.conf-check').style.color='var(--tab-warm)';
+    if(orgEl)orgEl.textContent='Tabela Sheesh Mahal';
+    if(btn)btn.className='btn-cta cta-tab';
+  }else{
+    ring.className='conf-ring cr-ppc';
+    ring.querySelector('.conf-check').style.color='var(--ppc)';
+    if(orgEl)orgEl.textContent='Punjab Polo Club';
+    if(btn)btn.className='btn-cta cta-ppc';
+  }
+  if(typeEl)typeEl.textContent=selTypeVal||'General Booking';
+  if(dateEl)dateEl.textContent=selDateVal||'To be confirmed';
+  if(timeEl)timeEl.textContent=selTimeVal||'To be confirmed';
+  const pfx=origin==='tab'?'TAB':'PPC';
+  if(refEl)refEl.textContent='Reference: '+pfx+'-'+Date.now().toString().slice(-5);
+  ring.style.animation='none';ring.offsetHeight;ring.style.animation='';
+  goTo('confirm');
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  setGreeting();
+  buildDates('tbl-dates','tab');
+  buildDates('ppc-dates','ppc');
+  goTo('splash');
+  setTimeout(()=>goTo('home'),3200);
+});
 </script>
 </body>
 </html>
