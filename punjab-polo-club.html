@@ -34,8 +34,9 @@ html,body{height:100%;overflow:hidden;background:#0A1540}
 .sp-logos{display:flex;align-items:center;gap:22px}
 .sp-logo{display:flex;flex-direction:column;align-items:center;gap:10px;animation:zoomIn 1.4s cubic-bezier(.34,1.38,.64,1) both}
 .sp-logo:nth-child(3){animation-delay:.18s}
-.sp-logo-name{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.48);text-align:center;line-height:1.6}
-.sp-div{width:1px;height:72px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.22),transparent)}
+.sp-logo-name{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.75);text-align:center;line-height:1.6}
+.sp-div{width:1px;height:72px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.35),transparent)}
+.sp-logo svg{filter:drop-shadow(0 4px 24px rgba(255,255,255,.12))}
 .sp-tagline{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.42);text-align:center}
 .sp-tap{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.32);letter-spacing:1px;animation:pulse 2.2s infinite}
 
@@ -55,8 +56,12 @@ html,body{height:100%;overflow:hidden;background:#0A1540}
 .nav-item.n-tab .material-symbols-outlined,.nav-item.n-tab .nav-lbl{color:var(--tab-warm)}
 
 /* HOME */
-.home-topbar{padding:52px 18px 16px;background:var(--white);border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between}
+.home-topbar{padding:52px 18px 14px;background:var(--white);border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between}
 .home-brand{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--gray)}
+.home-logo-row{display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 18px 12px;background:var(--white);border-bottom:1px solid rgba(0,0,0,.05)}
+.hlr-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.hlr-name{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:500;color:var(--gray);letter-spacing:.8px;text-transform:uppercase}
+.hlr-div{width:1px;height:48px;background:var(--sand)}
 .home-bell{width:36px;height:36px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .home-bell .material-symbols-outlined{font-size:19px;color:var(--gray);font-variation-settings:'FILL' 0,'wght' 200}
 .home-greet{padding:20px 18px 4px}
@@ -67,7 +72,7 @@ html,body{height:100%;overflow:hidden;background:#0A1540}
 .sec-card:active{transform:scale(.975)}
 .sc-ppc{background:linear-gradient(148deg,#070E2E 0%,#1B2FA0 55%,#2B44DF 100%)}
 .sc-tab{background:linear-gradient(148deg,#160800 0%,#3D2010 50%,#8B6914 100%)}
-.sc-wm{position:absolute;top:16px;right:18px;opacity:.1}
+.sc-wm{position:absolute;top:10px;right:14px;opacity:.22}
 .sc-arr{position:absolute;top:22px;right:22px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
 .sc-arr .material-symbols-outlined{font-size:16px;color:rgba(255,255,255,.8);font-variation-settings:'FILL' 0,'wght' 200}
 .sc-tag{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:4px}
@@ -304,7 +309,7 @@ html,body{height:100%;overflow:hidden;background:#0A1540}
 
     <!-- Tabela Sheesh Mahal Logo -->
     <div class="sp-logo">
-      <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="130" height="130" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="54" cy="54" r="50" fill="white"/>
         <circle cx="54" cy="54" r="50" stroke="#3D2010" stroke-width="2.5" fill="none"/>
         <circle cx="54" cy="54" r="44" stroke="#C8A96E" stroke-width="0.8" fill="none"/>
@@ -354,7 +359,7 @@ html,body{height:100%;overflow:hidden;background:#0A1540}
 
     <!-- Punjab Polo Club Logo -->
     <div class="sp-logo">
-      <svg width="100" height="110" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="118" height="130" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="30" y1="200" x2="170" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
         <line x1="170" y1="200" x2="30" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
         <rect x="4" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(-45 19 195)"/>
@@ -423,6 +428,58 @@ html,body{height:100%;overflow:hidden;background:#0A1540}
   <button class="home-bell" onclick="goTo('contact')">
     <span class="material-symbols-outlined">location_on</span>
   </button>
+</div>
+<!-- Dual logo strip -->
+<div class="home-logo-row">
+  <div class="hlr-item" onclick="goTo('tabela')">
+    <svg width="54" height="54" viewBox="0 0 108 108" fill="none">
+      <circle cx="54" cy="54" r="50" fill="white"/>
+      <circle cx="54" cy="54" r="50" stroke="#3D2010" stroke-width="2.5" fill="none"/>
+      <circle cx="54" cy="54" r="44" stroke="#C8A96E" stroke-width="0.8" fill="none"/>
+      <path d="M12 48 A42 42 0 0 1 96 48" stroke="#C8A96E" stroke-width="2" fill="none"/>
+      <path d="M12 62 A42 42 0 0 0 96 62" stroke="#C8A96E" stroke-width="2" fill="none"/>
+      <g stroke="#E8C87A" stroke-width="0.9" opacity="0.5"><line x1="54" y1="54" x2="54" y2="16"/><line x1="54" y1="54" x2="81" y2="24"/><line x1="54" y1="54" x2="92" y2="46"/><line x1="54" y1="54" x2="90" y2="66"/><line x1="54" y1="54" x2="76" y2="86"/><line x1="54" y1="54" x2="54" y2="92"/><line x1="54" y1="54" x2="28" y2="84"/><line x1="54" y1="54" x2="16" y2="64"/><line x1="54" y1="54" x2="18" y2="44"/><line x1="54" y1="54" x2="30" y2="24"/><line x1="54" y1="54" x2="67" y2="18"/><line x1="54" y1="54" x2="87" y2="54"/><line x1="54" y1="54" x2="67" y2="90"/><line x1="54" y1="54" x2="41" y2="90"/><line x1="54" y1="54" x2="21" y2="54"/><line x1="54" y1="54" x2="41" y2="18"/></g>
+      <line x1="36" y1="70" x2="32" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+      <line x1="46" y1="72" x2="46" y2="88" stroke="#3D2010" stroke-width="5.5" stroke-linecap="round"/>
+      <ellipse cx="40" cy="64" rx="13" ry="11" fill="#3D2010"/>
+      <path d="M40,56 Q50,46 62,42 Q68,42 68,50 Q64,60 48,68 Z" fill="#3D2010"/>
+      <ellipse cx="64" cy="48" rx="9" ry="11" fill="#3D2010"/>
+      <path d="M60,42 Q52,34 48,24" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <path d="M68,42 Q74,34 78,26" stroke="#3D2010" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <path d="M66,38 Q70,26 68,16" stroke="#3D2010" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <ellipse cx="66" cy="14" rx="9" ry="7" transform="rotate(-10 66 14)" fill="#3D2010"/>
+      <path d="M30,62 Q18,55 16,42" stroke="#3D2010" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <defs><path id="hl-top" d="M 10 54 A 44 44 0 0 1 98 54"/><path id="hl-bot" d="M 7 57 A 47 47 0 0 0 101 57"/></defs>
+      <text font-family="Georgia,serif" font-size="11" font-weight="bold" fill="#3D2010" letter-spacing="4"><textPath href="#hl-top" startOffset="16%">TABELA</textPath></text>
+      <text font-family="Georgia,serif" font-size="8.5" font-weight="bold" fill="#3D2010" letter-spacing="1.5"><textPath href="#hl-bot" startOffset="6%">SHEESH MAHAL</textPath></text>
+      <text x="54" y="98" font-family="Georgia,serif" font-size="7.5" font-style="italic" fill="#C8A96E" text-anchor="middle" letter-spacing="1">Est. 2018</text>
+    </svg>
+    <span class="hlr-name">Tabela</span>
+  </div>
+  <div class="hlr-div"></div>
+  <div class="hlr-item" onclick="goTo('ppc')">
+    <svg width="52" height="58" viewBox="0 0 200 220" fill="none">
+      <line x1="30" y1="200" x2="170" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+      <line x1="170" y1="200" x2="30" y2="30" stroke="#2B44DF" stroke-width="10" stroke-linecap="round"/>
+      <rect x="4" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(-45 19 195)"/>
+      <rect x="166" y="190" width="30" height="10" rx="4" fill="#2B44DF" transform="rotate(45 181 195)"/>
+      <ellipse cx="28" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+      <ellipse cx="172" cy="28" rx="10" ry="15" fill="none" stroke="#2B44DF" stroke-width="5"/>
+      <path d="M82,24 L88,8 L100,18 L112,8 L118,24 L126,14 L122,26 L78,26 L74,14 Z" fill="#2B44DF"/>
+      <circle cx="100" cy="4" r="5" fill="#2B44DF"/>
+      <g stroke="#2B44DF" stroke-width="2.5" fill="none"><ellipse cx="34" cy="72" rx="9" ry="5" transform="rotate(-50 34 72)"/><ellipse cx="26" cy="84" rx="9" ry="5" transform="rotate(-35 26 84)"/><ellipse cx="22" cy="98" rx="9" ry="5" transform="rotate(-15 22 98)"/><ellipse cx="23" cy="112" rx="9" ry="5" transform="rotate(10 23 112)"/><ellipse cx="30" cy="124" rx="9" ry="5" transform="rotate(28 30 124)"/><ellipse cx="42" cy="133" rx="9" ry="5" transform="rotate(45 42 133)"/></g>
+      <g stroke="#2B44DF" stroke-width="2.5" fill="none"><ellipse cx="166" cy="72" rx="9" ry="5" transform="rotate(50 166 72)"/><ellipse cx="174" cy="84" rx="9" ry="5" transform="rotate(35 174 84)"/><ellipse cx="178" cy="98" rx="9" ry="5" transform="rotate(15 178 98)"/><ellipse cx="177" cy="112" rx="9" ry="5" transform="rotate(-10 177 112)"/><ellipse cx="170" cy="124" rx="9" ry="5" transform="rotate(-28 170 124)"/><ellipse cx="158" cy="133" rx="9" ry="5" transform="rotate(-45 158 133)"/></g>
+      <path d="M62,32 L138,32 L138,110 Q100,138 62,110 Z" fill="none" stroke="#2B44DF" stroke-width="5"/>
+      <g fill="#2B44DF"><ellipse cx="80" cy="100" rx="10" ry="7" transform="rotate(-25 80 100)"/><ellipse cx="74" cy="94" rx="6" ry="8"/><path d="M82,88 Q84,78 82,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="80" cy="67" rx="6" ry="5" transform="rotate(10 80 67)"/><path d="M76,94 Q70,88 68,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M82,96 Q80,104 78,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M88,98 Q88,106 86,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+      <g fill="#2B44DF"><ellipse cx="120" cy="100" rx="10" ry="7" transform="rotate(25 120 100)"/><ellipse cx="126" cy="94" rx="6" ry="8"/><path d="M118,88 Q116,78 118,70" stroke="#2B44DF" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="120" cy="67" rx="6" ry="5" transform="rotate(-10 120 67)"/><path d="M124,94 Q130,88 132,80" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M118,96 Q120,104 122,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M112,98 Q112,106 114,112" stroke="#2B44DF" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+      <path d="M42,146 Q44,138 100,138 Q156,138 158,146 L152,162 Q100,157 48,162 Z" fill="#2B44DF"/>
+      <path d="M42,146 L38,162 L48,162 Z" fill="#1B2FA0"/>
+      <path d="M158,146 L162,162 L152,162 Z" fill="#1B2FA0"/>
+      <text x="100" y="155" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="2">PUNJAB</text>
+      <text x="100" y="176" font-family="Arial,sans-serif" font-size="11" font-weight="600" fill="#2B44DF" text-anchor="middle" letter-spacing="3">POLO CLUB</text>
+    </svg>
+    <span class="hlr-name">Punjab Polo Club</span>
+  </div>
 </div>
 <div class="scrollbody">
   <div class="home-greet">
