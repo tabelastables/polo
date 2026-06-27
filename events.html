@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Punjab Polo Club — Fixtures, tournaments, galas and events calendar 2026." />
+  <title>Events — Punjab Polo Club</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      min-height: 55vh; display: flex; align-items: flex-end; padding-bottom: 80px;
+      background: linear-gradient(to bottom, var(--navy) 0%, var(--navy-mid) 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .page-hero-title { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 400; color: var(--cream); line-height: 1.1; margin-bottom: 20px; }
+    .page-hero-title em { font-style: italic; color: var(--gold); }
+    .page-hero-desc { font-family: var(--font-serif); font-size: 1.1rem; color: var(--grey-light); max-width: 560px; line-height: 1.8; }
+
+    /* Filter tabs */
+    .filter-tabs { display: flex; gap: 4px; margin-bottom: 56px; flex-wrap: wrap; }
+    .filter-tab {
+      padding: 10px 24px;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--grey-light);
+      font-family: var(--font-sans);
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; transition: all var(--transition);
+    }
+    .filter-tab:hover, .filter-tab.active {
+      background: var(--gold); border-color: var(--gold); color: var(--navy);
+    }
+
+    /* Featured event */
+    .event-featured {
+      background: var(--navy-light);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 56px 56px;
+      margin-bottom: 4px;
+      display: grid; grid-template-columns: 140px 1fr auto;
+      gap: 48px; align-items: center;
+      position: relative;
+    }
+    .event-featured::before {
+      content: 'FEATURED';
+      position: absolute; top: 0; right: 48px;
+      background: var(--gold); color: var(--navy);
+      font-size: 0.55rem; font-weight: 700;
+      letter-spacing: 0.3em; padding: 6px 16px;
+    }
+    .corporate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 80px; }
+    .corporate-card {
+      padding: 48px 40px;
+      background: var(--navy-mid);
+      border-left: 2px solid rgba(201,168,76,0.3);
+      transition: border-color var(--transition);
+    }
+    .corporate-card:hover { border-left-color: var(--gold); }
+    .corporate-card h3 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--cream); margin-bottom: 12px; }
+    .corporate-card p { font-size: 0.83rem; color: var(--grey-light); line-height: 1.8; margin-bottom: 24px; }
+    .corporate-price { font-family: var(--font-serif); font-size: 1.5rem; color: var(--gold); }
+
+    @media(max-width:900px) {
+      .event-featured { grid-template-columns: 80px 1fr; gap: 24px; }
+      .event-featured > :last-child { grid-column: span 2; }
+      .corporate-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-emblem"><svg viewBox="0 0 48 48"><line x1="12" y1="36" x2="36" y2="12" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/><rect x="30" y="6" width="12" height="6" rx="1" transform="rotate(45 36 9)" fill="#c9a84c"/><circle cx="24" cy="32" r="3" fill="none" stroke="#c9a84c" stroke-width="1.5"/></svg></div>
+  <div class="loader-bar"></div>
+  <p class="loader-text">Punjab Polo Club</p>
+</div>
+
+<div class="mobile-menu">
+  <button class="mobile-close">&#x2715;</button>
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="events.html">Events</a>
+  <a href="membership.html">Membership</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 32 32"><line x1="6" y1="26" x2="24" y2="8" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/><rect x="20" y="4" width="9" height="5" rx="0.5" transform="rotate(45 24.5 6.5)" fill="#c9a84c"/><circle cx="10" cy="22" r="2.5" fill="none" stroke="#c9a84c" stroke-width="1.2"/></svg></div>
+    <div class="nav-logo-text"><span class="club">Punjab Polo Club</span><span class="est">Established 1898</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="events.html" class="active">Events</a></li><li><a href="membership.html">Membership</a></li>
+    <li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Join the Club</a></li>
+  </ul>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="container page-hero-content">
+    <div class="page-hero-eyebrow">The Calendar · Season 2026</div>
+    <h1 class="page-hero-title">Fixtures & <em>Events</em></h1>
+    <p class="page-hero-desc">Tournaments, galas, coaching clinics, and charitable occasions — a season of extraordinary moments on and off the maidan.</p>
+  </div>
+</section>
+
+<section style="padding:100px 0;background:var(--navy)">
+  <div class="container">
+
+    <div class="filter-tabs reveal">
+      <button class="filter-tab active">All Events</button>
+      <button class="filter-tab">Tournaments</button>
+      <button class="filter-tab">Social</button>
+      <button class="filter-tab">Coaching</button>
+      <button class="filter-tab">Charity</button>
+      <button class="filter-tab">Corporate</button>
+    </div>
+
+    <!-- Featured event -->
+    <div class="event-featured reveal">
+      <div class="event-date">
+        <div class="event-day" style="font-family:var(--font-serif);font-size:3rem;color:var(--gold);line-height:1">14</div>
+        <div class="event-month" style="font-size:0.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--grey)">Jul 2026</div>
+      </div>
+      <div class="event-sep" style="width:1px;height:80px;background:rgba(201,168,76,0.15)"></div>
+      <div>
+        <div class="event-category" style="font-size:0.58rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Flagship Tournament</div>
+        <div style="font-family:var(--font-serif);font-size:1.9rem;color:var(--cream);margin-bottom:12px">The Maharaja of Patiala Cup 2026</div>
+        <p style="font-size:0.83rem;color:var(--grey-light);line-height:1.8;max-width:560px;margin-bottom:16px">Our most prestigious tournament — a 12-goal high-goal event contested by teams from India, Argentina, England and the UAE. Spectator lawn, luxury marquees, and Sunday brunch included with tickets.</p>
+        <div class="event-meta" style="display:flex;gap:20px;font-size:0.75rem;color:var(--grey);flex-wrap:wrap">
+          <span>🕙 10:00 AM — 6:00 PM</span>
+          <span>📍 Championship Maidan A</span>
+          <span>🏆 12-Goal · 8 Teams</span>
+          <span>📅 3 Days · Jul 14–16</span>
+        </div>
+      </div>
+      <a href="contact.html" class="event-action" style="font-size:0.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:14px 28px;white-space:nowrap">Book VIP Seats</a>
+    </div>
+
+    <!-- Regular events -->
+    <div class="events-list reveal">
+      <div class="event-item">
+        <div class="event-date"><div class="event-day">22</div><div class="event-month">Jul 2026</div></div>
+        <div class="event-sep"></div>
+        <div class="event-info">
+          <div class="event-category">Social</div>
+          <div class="event-title">Monsoon Gala Evening</div>
+          <div class="event-meta"><span>🕖 7:00 PM</span><span>📍 The Grand Pavilion</span><span>🎭 Black Tie</span></div>
+        </div>
+        <a href="contact.html" class="event-action">Book Seats</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-day">03</div><div class="event-month">Aug 2026</div></div>
+        <div class="event-sep"></div>
+        <div class="event-info">
+          <div class="event-category">Coaching</div>
+          <div class="event-title">Junior Academy Trials — Season 2026</div>
+          <div class="event-meta"><span>🕗 7:30 AM</span><span>📍 Training Ground</span><span>🎓 Ages 12–18</span></div>
+        </div>
+        <a href="contact.html" class="event-action">Register</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-day">10</div><div class="event-month">Aug 2026</div></div>
+        <div class="event-sep"></div>
+        <div class="event-info">
+          <div class="event-category">Tournament</div>
+          <div class="event-title">The Golden Lances Invitational — 8 Goal</div>
+          <div class="event-meta"><span>🕙 9:00 AM</span><span>📍 Maidan B</span><span>🏆 8-Goal · Members Only</span></div>
+        </div>
+        <a href="contact.html" class="event-action">Enter Team</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-day">16</div><div class="event-month">Sep 2026</div></div>
+        <div class="event-sep"></div>
+        <div class="event-info">
+          <div class="event-category">Charity</div>
+          <div class="event-title">Punjab Heritage Foundation Polo Day</div>
+          <div class="event-meta"><span>🕙 11:00 AM</span><span>📍 Maidan A</span><span>🌿 All Welcome</span></div>
+        </div>
+        <a href="contact.html" class="event-action">Book Seats</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-day">04</div><div class="event-month">Oct 2026</div></div>
+        <div class="event-sep"></div>
+        <div class="event-info">
+          <div class="event-category">Corporate</div>
+          <div class="event-title">Business House Polo League — Opening Round</div>
+          <div class="event-meta"><span>🕙 10:00 AM</span><span>📍 Maidan A & B</span><span>💼 Corporate Teams</span></div>
+        </div>
+        <a href="contact.html" class="event-action">Enter Team</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-day">14</div><div class="event-month">Nov 2026</div></div>
+        <div class="event-sep"></div>
+        <div class="event-info">
+          <div class="event-category">Coaching</div>
+          <div class="event-title">Beginner Polo Clinic — Weekend Intensive</div>
+          <div class="event-meta"><span>🕗 8:00 AM</span><span>📍 Training Paddock</span><span>🐎 No experience needed</span></div>
+        </div>
+        <a href="contact.html" class="event-action">Register</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-day">12</div><div class="event-month">Dec 2026</div></div>
+        <div class="event-sep"></div>
+        <div class="event-info">
+          <div class="event-category">Social</div>
+          <div class="event-title">Winter Gala & Prize Giving Ceremony</div>
+          <div class="event-meta"><span>🕖 6:30 PM</span><span>📍 The Grand Pavilion</span><span>🎭 Black Tie Optional</span></div>
+        </div>
+        <a href="contact.html" class="event-action">Book Seats</a>
+      </div>
+    </div>
+
+    <!-- Corporate section -->
+    <div id="corporate" style="margin-top:100px">
+      <div class="section-header">
+        <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>Corporate Hospitality</span><div class="eyebrow-line"></div></div>
+        <h2 class="section-title reveal">Entertain in <em>Unrivalled Style</em></h2>
+        <p class="section-desc reveal">From exclusive box seats to bespoke hospitality packages — Punjab Polo Club offers corporate entertainment that leaves a lasting impression.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="corporate-grid">
+        <div class="corporate-card reveal">
+          <h3>Tournament Pavilion Box</h3>
+          <p>A private elevated box with panoramic maidan views, dedicated butler, four-course lunch, and afternoon tea service. Ideal for groups of 8–16 guests.</p>
+          <div class="corporate-price">From ₹2.8L per day</div>
+          <br><a href="contact.html" class="btn-outline" style="margin-top:16px;font-size:0.65rem;padding:12px 24px;display:inline-flex">Enquire</a>
+        </div>
+        <div class="corporate-card reveal">
+          <h3>Sponsored Tournament Day</h3>
+          <p>Title sponsor of a mid-week fixture or the Business House League. Includes logo prominence, trophy presentation, and a gala dinner for 60 in the Pavilion.</p>
+          <div class="corporate-price">From ₹12L per event</div>
+          <br><a href="contact.html" class="btn-outline" style="margin-top:16px;font-size:0.65rem;padding:12px 24px;display:inline-flex">Enquire</a>
+        </div>
+        <div class="corporate-card reveal">
+          <h3>Lawn Marquee Package</h3>
+          <p>A branded marquee on the polo lawn for up to 40 guests. Includes catering by our kitchen, live commentary, and a stick-and-ball demonstration by our coaches.</p>
+          <div class="corporate-price">From ₹95,000 per event</div>
+          <br><a href="contact.html" class="btn-outline" style="margin-top:16px;font-size:0.65rem;padding:12px 24px;display:inline-flex">Enquire</a>
+        </div>
+        <div class="corporate-card reveal">
+          <h3>Team Building Polo Day</h3>
+          <p>An introduction to polo for your team — coaching session, chukker match on club ponies, and a polo-themed dinner. No experience required. Minimum 8 guests.</p>
+          <div class="corporate-price">From ₹45,000 per person</div>
+          <br><a href="contact.html" class="btn-outline" style="margin-top:16px;font-size:0.65rem;padding:12px 24px;display:inline-flex">Enquire</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;justify-content:center;flex-direction:column;gap:12px;text-align:center">
+      <div class="footer-copy">© 2026 Punjab Polo Club · Est. 1898, Ludhiana, Punjab</div>
+      <div class="footer-legal">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="events.html">Events</a>
+        <a href="membership.html">Membership</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Filter tabs
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

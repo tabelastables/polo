@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact Punjab Polo Club — membership enquiries, events, and general information." />
+  <title>Contact — Punjab Polo Club</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      min-height: 55vh; display: flex; align-items: flex-end; padding-bottom: 80px;
+      background: linear-gradient(to bottom, var(--navy) 0%, var(--navy-mid) 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .page-hero-title { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 400; color: var(--cream); line-height: 1.1; margin-bottom: 20px; }
+    .page-hero-title em { font-style: italic; color: var(--gold); }
+    .page-hero-desc { font-family: var(--font-serif); font-size: 1.1rem; color: var(--grey-light); max-width: 560px; line-height: 1.8; }
+
+    .map-placeholder {
+      width: 100%; height: 360px;
+      background: var(--navy-light);
+      border: 1px solid rgba(201,168,76,0.15);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      margin-top: 80px;
+    }
+    .map-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .map-marker {
+      position: relative; z-index: 1;
+      text-align: center;
+    }
+    .map-marker svg { width: 48px; height: 48px; fill: var(--gold); margin: 0 auto 12px; }
+    .map-marker p { font-family: var(--font-serif); font-size: 1rem; color: var(--cream); }
+    .map-marker span { font-size: 0.7rem; color: var(--grey); letter-spacing: 0.1em; }
+    .map-directions {
+      position: absolute; bottom: 24px; right: 24px;
+      background: var(--gold); color: var(--navy);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 20px; cursor: pointer;
+      transition: background var(--transition);
+    }
+    .map-directions:hover { background: var(--gold-light); }
+
+    .faq { padding: 120px 0; background: var(--navy-mid); }
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .faq-question {
+      width: 100%; background: none; border: none;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0;
+      font-family: var(--font-serif); font-size: 1.05rem;
+      color: var(--cream); text-align: left; cursor: pointer;
+      transition: color var(--transition);
+    }
+    .faq-question:hover { color: var(--gold); }
+    .faq-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1rem;
+      transition: transform var(--transition), background var(--transition);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--gold); color: var(--navy); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-answer p {
+      font-family: var(--font-serif); font-size: 0.95rem;
+      color: var(--grey-light); line-height: 1.9;
+      padding-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-emblem"><svg viewBox="0 0 48 48"><line x1="12" y1="36" x2="36" y2="12" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/><rect x="30" y="6" width="12" height="6" rx="1" transform="rotate(45 36 9)" fill="#c9a84c"/><circle cx="24" cy="32" r="3" fill="none" stroke="#c9a84c" stroke-width="1.5"/></svg></div>
+  <div class="loader-bar"></div>
+  <p class="loader-text">Punjab Polo Club</p>
+</div>
+
+<div class="mobile-menu">
+  <button class="mobile-close">&#x2715;</button>
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="events.html">Events</a>
+  <a href="membership.html">Membership</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 32 32"><line x1="6" y1="26" x2="24" y2="8" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/><rect x="20" y="4" width="9" height="5" rx="0.5" transform="rotate(45 24.5 6.5)" fill="#c9a84c"/><circle cx="10" cy="22" r="2.5" fill="none" stroke="#c9a84c" stroke-width="1.2"/></svg></div>
+    <div class="nav-logo-text"><span class="club">Punjab Polo Club</span><span class="est">Established 1898</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="events.html">Events</a></li><li><a href="membership.html">Membership</a></li>
+    <li><a href="gallery.html">Gallery</a></li><li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Join the Club</a></li>
+  </ul>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="container page-hero-content">
+    <div class="page-hero-eyebrow">Get In Touch</div>
+    <h1 class="page-hero-title">We'd Love to<br><em>Hear From You</em></h1>
+    <p class="page-hero-desc">Whether you are enquiring about membership, a private event, or simply wish to visit — our team is at your service.</p>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>Find Us</span></div>
+        <h2 class="section-title reveal" style="font-size:2rem">Visit the <em>Club</em></h2>
+        <p class="reveal">Our estate is located 12 km south of Ludhiana city centre, via Ferozepur Road. Chauffeur transfer from the city can be arranged through our concierge.</p>
+        <div class="contact-details reveal">
+          <div class="contact-detail">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="detail-label">Address</div>
+              <div class="detail-value">Punjab Polo Club Estate<br>Ferozepur Road, Ludhiana<br>Punjab 141 001, India</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.4 2 2 0 0 1 3.61 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="detail-label">Telephone</div>
+              <div class="detail-value">+91 161 234 5678</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="detail-label">Email</div>
+              <div class="detail-value">info@punjabpololclub.in<br>membership@punjabpoloclub.in</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            </div>
+            <div>
+              <div class="detail-label">Office Hours</div>
+              <div class="detail-value">Monday – Friday: 9:00 AM – 6:00 PM<br>Saturday: 9:00 AM – 4:00 PM<br>Sunday: By appointment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>Send an Enquiry</span></div>
+        <h2 class="section-title reveal" style="font-size:2rem">Write to <em>Us</em></h2>
+        <form id="contactForm" class="reveal">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder="Your first name" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="Your last name" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="">Select a subject</option>
+              <option value="membership">Membership Enquiry</option>
+              <option value="events">Events & Tickets</option>
+              <option value="corporate">Corporate Hospitality</option>
+              <option value="weddings">Weddings & Private Events</option>
+              <option value="coaching">Coaching & Academy</option>
+              <option value="general">General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Please describe your enquiry in as much detail as you like. Our team responds within one working day." required></textarea>
+          </div>
+          <div class="form-group" style="display:flex;align-items:center;gap:12px">
+            <input type="checkbox" id="consent" name="consent" style="width:auto;flex-shrink:0" required />
+            <label for="consent" style="font-size:0.72rem;color:var(--grey);letter-spacing:0.05em;text-transform:none">I consent to Punjab Polo Club storing and processing my data in order to respond to my enquiry.</label>
+          </div>
+          <button type="submit" class="form-submit">Send Enquiry</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Map placeholder -->
+    <div class="map-placeholder reveal">
+      <div class="map-marker">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p>Punjab Polo Club Estate</p>
+        <span>Ferozepur Road, Ludhiana, Punjab</span>
+      </div>
+      <a href="https://maps.google.com/?q=Ludhiana+Punjab" target="_blank" rel="noopener" class="map-directions">Open in Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>Questions</span><div class="eyebrow-line"></div></div>
+      <h2 class="section-title reveal">Frequently <em>Asked</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question">
+          Do I need to play polo to be a member?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Not at all. Our Social Membership is designed for those who enjoy the clubhouse, dining, social events, and watching polo — without ever mounting a horse. Many of our most valued members are purely social members who attend every match and gala on the calendar.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          How long does the membership application take?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>The committee meets quarterly (January, April, July, October) to review applications. From the time you submit a complete application — with proposer, seconder, and references — the process typically takes 8–12 weeks. We encourage you to begin your application at least four months before your intended start date.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Can I bring guests to the club?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. Social members may bring up to 4 guests per month; Playing members up to 8; Patron Royale members enjoy unlimited guest privileges. Guests must be signed in at the front desk and are the responsibility of the inviting member at all times.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you host private events and weddings?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>The Grand Pavilion is available for private events — weddings, anniversaries, corporate gala dinners, and product launches — for both members and non-members. Capacity ranges from 80 (seated, intimate) to 600 (standing cocktail). All event catering is handled exclusively by our in-house kitchen. We are typically booked 10–14 months in advance for premium dates.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          I have never ridden a horse. Can I learn polo here?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely. Our beginner coaching programme — open to Playing and Patron Royale members — starts with horsemanship fundamentals before introducing mallet and ball. Our coaches have taught complete beginners who have gone on to earn international handicaps. Weekend intensive clinics are available for prospective members who wish to try before applying.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Are there reciprocal arrangements with other polo clubs?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Patron Royale members enjoy reciprocal playing and social privileges at 12 partner clubs worldwide, including the Hurlingham Club (London), Palermo Polo Club (Buenos Aires), and the Dubai Polo & Equestrian Club. A full list of reciprocal clubs is available from the Membership Office.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;justify-content:center;flex-direction:column;gap:12px;text-align:center">
+      <div class="footer-copy">© 2026 Punjab Polo Club · Est. 1898, Ludhiana, Punjab</div>
+      <div class="footer-legal">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="events.html">Events</a>
+        <a href="membership.html">Membership</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+</body>
+</html>

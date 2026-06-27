@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The history and heritage of Punjab Polo Club — founded in 1898 under royal patronage." />
+  <title>About — Punjab Polo Club</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      min-height: 55vh;
+      display: flex; align-items: flex-end;
+      padding-bottom: 80px;
+      background: linear-gradient(to bottom, var(--navy) 0%, var(--navy-mid) 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at 50% 80%, black 30%, transparent 70%);
+    }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero-eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .page-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400; color: var(--cream); line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .page-hero-title em { font-style: italic; color: var(--gold); }
+    .page-hero-desc {
+      font-family: var(--font-serif); font-size: 1.1rem;
+      color: var(--grey-light); max-width: 560px; line-height: 1.8;
+    }
+    .timeline { padding: 120px 0; background: var(--navy-mid); }
+    .timeline-list { max-width: 800px; margin: 0 auto; position: relative; }
+    .timeline-list::before {
+      content: ''; position: absolute; left: 80px; top: 0; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    }
+    .timeline-item {
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: 48px; margin-bottom: 60px; position: relative;
+    }
+    .timeline-year {
+      font-family: var(--font-serif); font-size: 1.4rem;
+      color: var(--gold); font-weight: 600; text-align: right;
+      padding-top: 4px; position: relative;
+    }
+    .timeline-year::after {
+      content: ''; position: absolute; right: -56px; top: 12px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--navy); border: 2px solid var(--gold);
+    }
+    .timeline-body { padding-left: 24px; }
+    .timeline-body h3 {
+      font-family: var(--font-serif); font-size: 1.25rem;
+      color: var(--cream); margin-bottom: 8px;
+    }
+    .timeline-body p {
+      font-size: 0.88rem; color: var(--grey-light); line-height: 1.8;
+    }
+    .facilities-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      padding: 120px 0;
+    }
+    .facility-card {
+      padding: 48px 36px;
+      background: var(--navy-mid);
+      border-top: 2px solid rgba(201,168,76,0.2);
+      transition: border-color var(--transition);
+    }
+    .facility-card:hover { border-top-color: var(--gold); }
+    .facility-icon {
+      width: 52px; height: 52px;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .facility-icon svg { width: 26px; height: 26px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .facility-card h3 {
+      font-family: var(--font-serif); font-size: 1.2rem;
+      color: var(--cream); margin-bottom: 12px;
+    }
+    .facility-card p { font-size: 0.83rem; color: var(--grey-light); line-height: 1.8; }
+    .committee { padding: 120px 0; background: var(--navy-mid); }
+    .committee-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .committee-member { text-align: center; }
+    .member-avatar {
+      width: 120px; height: 120px; margin: 0 auto 20px;
+      border-radius: 50%; border: 1px solid rgba(201,168,76,0.3);
+      background: var(--navy-light);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 2rem; color: var(--gold);
+    }
+    .member-name { font-family: var(--font-serif); font-size: 1.05rem; color: var(--cream); }
+    .member-role { font-size: 0.68rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-top: 6px; }
+    .member-hcap { font-size: 0.75rem; color: var(--grey); margin-top: 4px; }
+    @media(max-width:900px) {
+      .facilities-grid { grid-template-columns: 1fr 1fr; }
+      .committee-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:600px) {
+      .facilities-grid { grid-template-columns: 1fr; }
+      .committee-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-emblem">
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <line x1="12" y1="36" x2="36" y2="12" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+      <rect x="30" y="6" width="12" height="6" rx="1" transform="rotate(45 36 9)" fill="#c9a84c"/>
+      <circle cx="24" cy="32" r="3" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="loader-bar"></div>
+  <p class="loader-text">Punjab Polo Club</p>
+</div>
+
+<div class="mobile-menu">
+  <button class="mobile-close">&#x2715;</button>
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="events.html">Events</a>
+  <a href="membership.html">Membership</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 32"><line x1="6" y1="26" x2="24" y2="8" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/><rect x="20" y="4" width="9" height="5" rx="0.5" transform="rotate(45 24.5 6.5)" fill="#c9a84c"/><circle cx="10" cy="22" r="2.5" fill="none" stroke="#c9a84c" stroke-width="1.2"/></svg>
+    </div>
+    <div class="nav-logo-text">
+      <span class="club">Punjab Polo Club</span>
+      <span class="est">Established 1898</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Join the Club</a></li>
+  </ul>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="container page-hero-content">
+    <div class="page-hero-eyebrow">About the Club</div>
+    <h1 class="page-hero-title">126 Years of <em>Polo</em><br>in the Punjab</h1>
+    <p class="page-hero-desc">From royal patronage to international recognition — the story of North India's most distinguished polo institution.</p>
+  </div>
+</section>
+
+<!-- HISTORY NARRATIVE -->
+<section style="padding:120px 0;background:var(--navy)">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-frame">
+          <div class="about-img-placeholder">
+            <svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="260" height="340" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+              <path d="M60 160 Q150 60 240 160" fill="none" stroke="#c9a84c" stroke-width="1"/>
+              <circle cx="150" cy="190" r="50" fill="none" stroke="#c9a84c" stroke-width="0.8"/>
+              <text x="150" y="196" text-anchor="middle" font-family="serif" font-size="16" fill="#c9a84c" letter-spacing="3">PPC</text>
+              <text x="150" y="216" text-anchor="middle" font-family="serif" font-size="8" fill="#c9a84c" letter-spacing="4" opacity="0.7">PUNJAB POLO CLUB</text>
+              <line x1="60" y1="240" x2="240" y2="240" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+              <text x="150" y="270" text-anchor="middle" font-family="serif" font-size="10" fill="#c9a84c" opacity="0.5">EST. MDCCCXCVIII</text>
+            </svg>
+          </div>
+          <div class="about-badge"><div class="year">1898</div><div class="since">Est.</div></div>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>Our Heritage</span></div>
+        <h2 class="section-title reveal">Born of <em>Royal Patronage</em></h2>
+        <p class="reveal">The Punjab Polo Club was founded in October 1898 at the personal behest of His Highness Maharaja Rajinder Singh of Patiala, himself a nine-goal player who had competed at the highest levels in England. He donated 200 acres of land outside Ludhiana, commissioning the Scottish architect James Strachan to design the original pavilion — its teak beams and arched verandahs still standing today.</p>
+        <p class="reveal">Through the decades of colonial India, independence, partition, and modernity, the club has endured as a beacon of sporting excellence and social distinction. Our grounds have hosted the Viceroy's Cup, the British Army championships, and in recent decades, the Indian Open — one of the world's premier high-goal tournaments.</p>
+        <p class="reveal">Today the club counts among its members industrialists, royalty, diplomats, and athletes from across the globe — all united by the thundering hooves and green turf of the maidan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline" id="history">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>Through the Decades</span><div class="eyebrow-line"></div></div>
+      <h2 class="section-title reveal">A <em>Timeline</em> of Distinction</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline-list">
+      <div class="timeline-item reveal">
+        <div class="timeline-year">1898</div>
+        <div class="timeline-body">
+          <h3>Foundation</h3>
+          <p>Maharaja Rajinder Singh of Patiala establishes the Punjab Polo Club. The original pavilion — designed by James Strachan — is completed within twelve months. The first fixture is played on 4th November 1898.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">1912</div>
+        <div class="timeline-body">
+          <h3>The Viceroy's Cup</h3>
+          <p>The club hosts the inaugural Viceroy's Cup, attracting teams from across British India and the British Army. PPC's own team, the Golden Lances, claim the trophy — beginning a dynasty that will last six consecutive years.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">1947</div>
+        <div class="timeline-body">
+          <h3>Independence & Resilience</h3>
+          <p>Through the turbulence of Partition, the club continues to operate — one of the few institutions to emerge from 1947 largely intact. Membership transitions from colonial to Indian ownership. The club formally incorporates as a trust.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">1968</div>
+        <div class="timeline-body">
+          <h3>The Grand Pavilion</h3>
+          <p>A major renovation programme replaces the ageing colonial structure with the iconic Grand Pavilion — a blend of Mughal and modernist architecture that still serves as the club's social heart today.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">1993</div>
+        <div class="timeline-body">
+          <h3>Championship Maidan B</h3>
+          <p>The club expands with a second international-standard maidan, allowing simultaneous tournaments. Argentine polo pony breeding is introduced to the club's stables — transforming the quality of play.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">2009</div>
+        <div class="timeline-body">
+          <h3>The Indian Open</h3>
+          <p>Punjab Polo Club is selected as the permanent home of the Indian Open Polo Championship — a 22-goal tournament that now attracts the world's finest players each February.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-body">
+          <h3>Centennial Renovations</h3>
+          <p>Ahead of the 2028 centenary, a ₹45-crore renovation programme is launched — restoring the original pavilion, modernising stable facilities, and establishing the PPC Junior Academy for the next generation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section id="facilities" style="padding:120px 0;background:var(--navy)">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>The Grounds</span><div class="eyebrow-line"></div></div>
+      <h2 class="section-title reveal">World-Class <em>Facilities</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="facilities-grid">
+      <div class="facility-card reveal reveal-delay-1">
+        <div class="facility-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        </div>
+        <h3>Championship Maidan A</h3>
+        <p>Our flagship 300-yard turf ground — maintained to HURLINGHAM POLO ASSOCIATION specifications. Hosts all major tournaments and the Indian Open. Capacity: 8,000 spectators.</p>
+      </div>
+      <div class="facility-card reveal reveal-delay-2">
+        <div class="facility-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="8" y1="3" x2="8" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        </div>
+        <h3>Championship Maidan B</h3>
+        <p>The second full-size ground, ideal for mid-week fixtures, coaching clinics, and practice matches. Features a dedicated stick-and-ball warmup area.</p>
+      </div>
+      <div class="facility-card reveal reveal-delay-3" id="stables">
+        <div class="facility-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+        </div>
+        <h3>The Royal Stables</h3>
+        <p>80 purpose-built loose-boxes with automated watering, climate control, and individual tack rooms. Home to our 48 club ponies of Argentine and Marwari lineage, cared for by 22 full-time grooms.</p>
+      </div>
+      <div class="facility-card reveal reveal-delay-1" id="dining">
+        <div class="facility-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <h3>The Maharaja Dining Room</h3>
+        <p>An award-winning restaurant with panoramic maidan views. Our Chef de Cuisine trained at the Ritz Paris. Serves contemporary Punjabi cuisine alongside a curated international wine list.</p>
+      </div>
+      <div class="facility-card reveal reveal-delay-2">
+        <div class="facility-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3>The Grand Pavilion</h3>
+        <p>Our signature event space — 1,200 sq m of heritage architecture accommodating up to 600 guests for weddings, galas, and corporate events. Booked one year in advance on average.</p>
+      </div>
+      <div class="facility-card reveal reveal-delay-3">
+        <div class="facility-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Members' Lounge & Spa</h3>
+        <p>A private sanctuary for members — billiards room, cigar lounge, whisky library, and an Ayurvedic spa offering treatments to riders and their guests alike.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMITTEE -->
+<section class="committee" id="committee">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span>Leadership</span><div class="eyebrow-line"></div></div>
+      <h2 class="section-title reveal">The <em>Committee</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="committee-grid">
+      <div class="committee-member reveal reveal-delay-1">
+        <div class="member-avatar">H</div>
+        <div class="member-name">H.H. Harpreet Singh Sial</div>
+        <div class="member-role">President</div>
+        <div class="member-hcap">Handicap: +8 Goals</div>
+      </div>
+      <div class="committee-member reveal reveal-delay-2">
+        <div class="member-avatar">K</div>
+        <div class="member-name">Kiran Malhotra</div>
+        <div class="member-role">Vice-President</div>
+        <div class="member-hcap">Patron Royale Member</div>
+      </div>
+      <div class="committee-member reveal reveal-delay-3">
+        <div class="member-avatar">J</div>
+        <div class="member-name">Col. Jasbir Singh Gill</div>
+        <div class="member-role">Honorary Secretary</div>
+        <div class="member-hcap">Handicap: +4 Goals</div>
+      </div>
+      <div class="committee-member reveal reveal-delay-4">
+        <div class="member-avatar">N</div>
+        <div class="member-name">Neha Oberoi</div>
+        <div class="member-role">Treasurer</div>
+        <div class="member-hcap">Social Member since 2015</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;justify-content:center;flex-direction:column;gap:12px;text-align:center">
+      <div class="footer-copy">© 2026 Punjab Polo Club · Est. 1898, Ludhiana, Punjab</div>
+      <div class="footer-legal">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="events.html">Events</a>
+        <a href="membership.html">Membership</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
