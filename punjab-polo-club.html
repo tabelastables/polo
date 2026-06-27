@@ -362,10 +362,10 @@ nav.scrolled { background: rgba(255,255,255,0.88); height: 64px; }
 
 /* SERVICES */
 .services { padding: 120px 0; background: rgba(242,243,255,0.4); }
-.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; align-items: stretch; }
 .service-card {
   border-radius: 24px; padding: 44px 36px;
-  position: relative;
+  position: relative; display: flex; flex-direction: column;
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .service-card:hover { transform: translateY(-8px); }
@@ -423,6 +423,7 @@ nav.scrolled { background: rgba(255,255,255,0.88); height: 64px; }
 }
 .check::after { content: '✓'; font-size: .55rem; color: var(--primary); font-weight: 700; }
 .card-note { font-size: .68rem; color: var(--on-surface-variant); opacity: .6; margin-bottom: 24px; font-style: italic; }
+.card-btn-solid, .card-btn-outline { margin-top: auto; }
 .card-btn-solid {
   display: block; text-align: center;
   padding: 14px 24px; border-radius: 12px;
@@ -917,8 +918,7 @@ footer {
       </div>
 
       <!-- POLO TRAINING -->
-      <div class="service-card featured fade-up" style="transition-delay:.1s">
-        <div class="featured-pill">Elite Sport</div>
+      <div class="service-card glass fade-up" style="transition-delay:.1s">
         <div class="card-tag">Polo Training &amp; Practice</div>
         <div class="card-title">Play the Sport of Kings. Train Like One.</div>
         <div class="card-sub">Elite training for an elite sport</div>
@@ -931,7 +931,7 @@ footer {
           <li class="card-feature"><span class="check"></span><span><strong>12 Months</strong> — ₹1,30,000</span></li>
         </ul>
         <div class="card-note">* 6M: 15 days freeze &nbsp;·&nbsp; 12M: 45 days freeze</div>
-        <a href="#contact" class="card-btn-solid shimmer">Enquire Now</a>
+        <a href="#contact" class="card-btn-outline">Enquire Now</a>
       </div>
 
       <!-- HORSE RENTAL -->
