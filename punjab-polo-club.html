@@ -12,20 +12,25 @@
 :root{
   --blue:      #2845CE;
   --blue-dark: #1a2e9e;
-  --blue-deep: #0f1c6b;
+  --blue-deep: #0a1550;
   --blue-mid:  #3558e8;
   --blue-light:#e8eeff;
-  --blue-pale: #f2f5ff;
+  --blue-pale: #f0f4ff;
   --white:     #ffffff;
-  --cream:     #fafaf8;
+  --cream:     #fdf9f2;
+  --gold:      #c9a227;
+  --gold-light:#f0d060;
+  --gold-pale: #fdf6e3;
   --grey:      #6b7280;
   --grey-light:#d1d5db;
-  --text:      #1a1a2e;
+  --text:      #0e1628;
 
   --font-display: 'Cinzel', serif;
   --font-serif:   'Cormorant Garamond', Georgia, serif;
   --font-sans:    'Montserrat', sans-serif;
-  --transition: 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+  --transition: 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  --shadow-gold: 0 8px 40px rgba(201,162,39,.25);
+  --shadow-blue: 0 12px 48px rgba(10,21,80,.3);
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -77,19 +82,21 @@ nav.scrolled{
 }
 .nav-links a::after{
   content:'';position:absolute;bottom:-4px;left:0;right:0;
-  height:2px;background:var(--blue);
+  height:1px;background:linear-gradient(90deg,#c9a227,#f0d060);
   transform:scaleX(0);transform-origin:left;transition:transform var(--transition);
 }
 .nav-links a:hover,.nav-links a.active{color:var(--blue)}
 .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
 .nav-cta{
   font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  background:var(--blue);color:var(--white)!important;
+  background:linear-gradient(135deg,#c9a227,#f0d060,#c9a227);background-size:200% auto;
+  color:#0a1550!important;
   padding:10px 22px;border-radius:0;
-  transition:background var(--transition)!important;
+  transition:all var(--transition)!important;
+  box-shadow:0 4px 16px rgba(201,162,39,.3);
 }
 .nav-cta::after{display:none!important}
-.nav-cta:hover{background:var(--blue-dark)!important}
+.nav-cta:hover{background-position:right center!important;box-shadow:0 6px 24px rgba(201,162,39,.5)!important}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
 .nav-hamburger span{display:block;width:24px;height:2px;background:var(--blue-deep);border-radius:1px;transition:var(--transition)}
 .mobile-menu{
@@ -107,15 +114,17 @@ nav.scrolled{
 .hero{
   min-height:100vh;
   display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(160deg, var(--blue-deep) 0%, var(--blue) 60%, var(--blue-mid) 100%);
+  background:linear-gradient(160deg, #050d2e 0%, #0a1550 30%, #1a2e9e 70%, #2845CE 100%);
   position:relative;overflow:hidden;
 }
 .hero-pattern{
   position:absolute;inset:0;
   background-image:
-    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:60px 60px;
+    linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px),
+    radial-gradient(circle at 20% 50%, rgba(212,175,55,.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(40,69,206,.15) 0%, transparent 40%);
+  background-size:80px 80px,80px 80px,100% 100%,100% 100%;
 }
 .hero-diamonds{
   position:absolute;inset:0;pointer-events:none;overflow:hidden;
@@ -124,14 +133,14 @@ nav.scrolled{
   content:'';
   position:absolute;top:-200px;right:-200px;
   width:600px;height:600px;
-  border:1px solid rgba(255,255,255,.06);
+  border:1px solid rgba(212,175,55,.08);
   border-radius:50%;
 }
 .hero-diamonds::after{
   content:'';
   position:absolute;bottom:-300px;left:-200px;
   width:700px;height:700px;
-  border:1px solid rgba(255,255,255,.04);
+  border:1px solid rgba(212,175,55,.05);
   border-radius:50%;
 }
 .hero-content{
@@ -150,8 +159,8 @@ nav.scrolled{
   display:flex;align-items:center;gap:16px;
   justify-content:center;margin-bottom:24px;
 }
-.hero-rule-line{width:60px;height:1px;background:rgba(255,255,255,.4)}
-.hero-rule span{font-family:var(--font-display);font-size:.6rem;letter-spacing:.4em;color:rgba(255,255,255,.7);text-transform:uppercase}
+.hero-rule-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,#d4af37,transparent)}
+.hero-rule span{font-family:var(--font-display);font-size:.6rem;letter-spacing:.4em;color:#d4af37;text-transform:uppercase}
 .hero h1{
   font-family:var(--font-display);
   font-size:clamp(2.4rem,7vw,5.5rem);
@@ -160,38 +169,41 @@ nav.scrolled{
   line-height:1.1;
   letter-spacing:.04em;
   margin-bottom:20px;
-  text-shadow:0 2px 20px rgba(0,0,0,.2);
+  text-shadow:0 2px 40px rgba(0,0,0,.4),0 0 80px rgba(212,175,55,.15);
 }
-.hero h1 span{display:block;font-size:.55em;font-weight:400;letter-spacing:.15em;color:rgba(255,255,255,.7);margin-bottom:8px}
+.hero h1 span{display:block;font-size:.55em;font-weight:400;letter-spacing:.15em;color:#d4af37;margin-bottom:8px;text-shadow:0 0 20px rgba(212,175,55,.5)}
 .hero-sub{
   font-family:var(--font-serif);
   font-size:clamp(1rem,2.5vw,1.3rem);
   font-style:italic;
-  color:rgba(255,255,255,.8);
+  color:rgba(255,255,255,.92);
   margin-bottom:52px;
   max-width:520px;margin-left:auto;margin-right:auto;
   letter-spacing:.03em;
 }
 .hero-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
 .btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--white);color:var(--blue-deep);
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#c9a227 0%,#f0d060 50%,#c9a227 100%);
+  background-size:200% auto;
+  color:#0a1550;
   font-family:var(--font-display);font-size:.62rem;font-weight:700;
   letter-spacing:.2em;text-transform:uppercase;
-  padding:14px 32px;
+  padding:16px 36px;
   transition:all var(--transition);
-  box-shadow:0 4px 20px rgba(0,0,0,.15);
+  box-shadow:0 6px 28px rgba(201,162,39,.4);
 }
-.btn-primary:hover{background:var(--blue-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.btn-primary:hover{background-position:right center;transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,162,39,.55)}
 .btn-outline{
-  display:inline-flex;align-items:center;gap:8px;
-  border:1px solid rgba(255,255,255,.5);color:var(--white);
+  display:inline-flex;align-items:center;gap:10px;
+  border:1.5px solid rgba(212,175,55,.6);color:var(--white);
   font-family:var(--font-display);font-size:.62rem;font-weight:600;
   letter-spacing:.2em;text-transform:uppercase;
-  padding:14px 32px;
+  padding:16px 36px;
   transition:all var(--transition);
+  backdrop-filter:blur(4px);
 }
-.btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.1);transform:translateY(-2px)}
+.btn-outline:hover{border-color:#d4af37;background:rgba(212,175,55,.1);transform:translateY(-3px);box-shadow:0 8px 24px rgba(212,175,55,.2)}
 .hero-stats{
   position:absolute;bottom:0;left:0;right:0;
   background:linear-gradient(90deg,rgba(10,20,100,.85) 0%,rgba(40,69,206,.9) 50%,rgba(10,20,100,.85) 100%);
@@ -217,8 +229,8 @@ nav.scrolled{
 .section-eyebrow{
   display:inline-flex;align-items:center;gap:14px;margin-bottom:16px;
 }
-.section-eyebrow span{font-family:var(--font-display);font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--blue)}
-.eyebrow-line{width:28px;height:2px;background:var(--blue)}
+.section-eyebrow span{font-family:var(--font-display);font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:#c9a227}
+.eyebrow-line{width:32px;height:1px;background:linear-gradient(90deg,#c9a227,transparent)}
 .section-title{
   font-family:var(--font-display);
   font-size:clamp(1.8rem,4vw,2.8rem);
@@ -226,21 +238,22 @@ nav.scrolled{
   line-height:1.2;letter-spacing:.04em;
   margin-bottom:16px;
 }
-.section-title em{font-style:italic;color:var(--blue)}
+.section-title em{font-style:italic;color:#c9a227}
 .section-desc{font-family:var(--font-serif);font-size:1.1rem;color:var(--grey);max-width:560px;margin:0 auto;line-height:1.9}
 .section-header{text-align:center;margin-bottom:64px}
-.divider{width:60px;height:2px;background:var(--blue);margin:24px auto 0;opacity:.3}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,#c9a227,transparent);margin:28px auto 0}
 
 /* ── ABOUT STRIP ── */
-.about-strip{background:var(--blue-pale);padding:100px 0}
+.about-strip{background:linear-gradient(180deg,#f8f6f0 0%,var(--cream) 100%);padding:120px 0}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .about-visual{position:relative}
 .about-frame{
-  border:2px solid var(--blue);
+  border:1px solid rgba(201,162,39,.4);
   padding:20px;position:relative;
+  box-shadow:0 20px 60px rgba(10,21,80,.12);
 }
-.about-frame::before{content:'';position:absolute;top:-8px;left:-8px;width:50px;height:50px;border-top:3px solid var(--blue-dark);border-left:3px solid var(--blue-dark)}
-.about-frame::after{content:'';position:absolute;bottom:-8px;right:-8px;width:50px;height:50px;border-bottom:3px solid var(--blue-dark);border-right:3px solid var(--blue-dark)}
+.about-frame::before{content:'';position:absolute;top:-8px;left:-8px;width:50px;height:50px;border-top:2px solid #c9a227;border-left:2px solid #c9a227}
+.about-frame::after{content:'';position:absolute;bottom:-8px;right:-8px;width:50px;height:50px;border-bottom:2px solid #c9a227;border-right:2px solid #c9a227}
 .about-img{
   width:100%;aspect-ratio:4/5;
   background:linear-gradient(135deg,var(--blue-deep),var(--blue));
@@ -248,19 +261,20 @@ nav.scrolled{
 }
 .about-badge{
   position:absolute;bottom:32px;right:-24px;
-  background:var(--blue-deep);color:var(--white);
+  background:linear-gradient(135deg,#c9a227,#f0d060);color:#0a1550;
   padding:20px 24px;text-align:center;
+  box-shadow:0 8px 32px rgba(201,162,39,.4);
 }
-.about-badge .year{font-family:var(--font-display);font-size:2rem;font-weight:700;line-height:1}
-.about-badge .since{font-size:.52rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;margin-top:4px;color:rgba(255,255,255,.7)}
+.about-badge .year{font-family:var(--font-display);font-size:1.4rem;font-weight:700;line-height:1}
+.about-badge .since{font-size:.48rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-top:4px;color:rgba(10,21,80,.7)}
 .about-content p{font-family:var(--font-sans);font-size:1rem;color:#1a1a2e;line-height:1.85;margin-bottom:20px;font-weight:400}
 .about-pillars{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
-.pillar{border-left:3px solid var(--blue);padding-left:16px}
+.pillar{border-left:2px solid #c9a227;padding-left:18px;padding-top:4px;padding-bottom:4px}
 .pillar .p-title{font-family:var(--font-display);font-size:.85rem;color:var(--blue-deep);margin-bottom:4px;letter-spacing:.05em}
 .pillar .p-desc{font-size:.75rem;color:var(--grey);line-height:1.6}
 
 /* ── MEMBERSHIP ── */
-.membership{background:var(--white);padding:100px 0}
+.membership{background:linear-gradient(180deg,#fdf9f2 0%,#ffffff 100%);padding:120px 0}
 .membership-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--blue-light)}
 .membership-card{
   background:linear-gradient(160deg,#ffffff 0%,#f0f4ff 100%);
@@ -679,10 +693,10 @@ footer{background:#080f3a;padding:64px 0 32px;border-top:3px solid var(--blue)}
     </div>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="num" data-target="200" data-suffix="">0</div><div class="label">Acres of Grounds</div></div>
-    <div class="hero-stat"><div class="num" data-target="340" data-suffix="+">0</div><div class="label">Distinguished Members</div></div>
-    <div class="hero-stat"><div class="num" data-target="48" data-suffix="+">0</div><div class="label">Championship Ponies</div></div>
-    <div class="hero-stat"><div class="num" data-target="18" data-suffix="">0</div><div class="label">Annual Tournaments</div></div>
+    <div class="hero-stat"><div class="num" data-target="20" data-suffix="">0</div><div class="label">Acres of Grounds</div></div>
+    <div class="hero-stat"><div class="num" data-target="100" data-suffix="+">0</div><div class="label">Distinguished Members</div></div>
+    <div class="hero-stat"><div class="num" data-target="10" data-suffix="+">0</div><div class="label">Polo Horses</div></div>
+    <div class="hero-stat"><div class="num" data-target="12" data-suffix="">0</div><div class="label">Annual Tournaments</div></div>
   </div>
 </section>
 
@@ -746,8 +760,8 @@ footer{background:#080f3a;padding:64px 0 32px;border-top:3px solid var(--blue)}
         <p class="reveal">Nestled in the lush foothills of Siswan, New Chandigarh, the Punjab Polo Club is a bold new chapter in North India's polo legacy. Our world-class grounds span 200 acres of pristine manicured turf — purpose-built for those who live the sport of kings at the highest level.</p>
         <p class="reveal">Designed for modern royalty and seasoned equestrians alike, the club brings together the finest facilities, elite coaching, and a community united by a shared passion for horsemanship, camaraderie, and the timeless allure of polo.</p>
         <div class="about-pillars reveal">
-          <div class="pillar"><div class="p-title">World-Class Grounds</div><div class="p-desc">200 acres of manicured turf, two championship maidans.</div></div>
-          <div class="pillar"><div class="p-title">World-Class Stables</div><div class="p-desc">80+ ponies of Argentine and Marwari lineage.</div></div>
+          <div class="pillar"><div class="p-title">World-Class Grounds</div><div class="p-desc">20 acres of pristine manicured turf and polo grounds.</div></div>
+          <div class="pillar"><div class="p-title">World-Class Stables</div><div class="p-desc">10+ elite polo horses of the finest lineage.</div></div>
           <div class="pillar"><div class="p-title">Expert Coaching</div><div class="p-desc">International coaches with 30-goal combined handicap.</div></div>
           <div class="pillar"><div class="p-title">Luxury Clubhouse</div><div class="p-desc">Award-winning dining and event facilities.</div></div>
         </div>
